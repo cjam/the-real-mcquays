@@ -1,12 +1,12 @@
 import Typography from "typography"
-import theme from "typography-theme-bootstrap"
+import theme from "typography-theme-ocean-beach"
 
 theme.overrideThemeStyles = ({ rhythm, scale }, options) => {
   return {
     "h1, h2, h3": {
-      ...scale(1 / 6),
-      fontWeight: `normal`,
-      color: `#999`,
+      ...scale(1),
+      fontWeight: `bold`,
+      color: `#444`,
       lineHeight: `1.2`,
     },
     "code, kbd, pre, samp": {
@@ -28,7 +28,7 @@ theme.overrideThemeStyles = ({ rhythm, scale }, options) => {
       color: `inherit`,
       textDecoration: `none`,
       transition: `background 0.2s ease-out`,
-      boxShadow: `inset 0 -2px 0px 0px #cdecf9`,
+      boxShadow: `inset 0 -2px 0px 0px green`,
       textShadow: `0.03em 0 #fff, -0.03em 0 #fff, 0 0.03em #fff, 0 -0.03em #fff, 0.06em 0 #fff, -0.06em 0 #fff, 0.09em 0 #fff, -0.09em 0 #fff, 0.12em 0 #fff, -0.12em 0 #fff, 0.15em 0 #fff, -0.15em 0 #fff`,
     },
     "a:hover": {
