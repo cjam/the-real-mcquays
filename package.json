@@ -32,7 +32,6 @@
     "gatsby-remark-images-contentful": "^2.1.0",
     "gatsby-source-contentful": "^2.0.75",
     "gatsby-transformer-remark": "^2.4.0",
-    "gatsby-transformer-typescript-css-modules": "^1.0.14",
     "lodash": "^4.17.11",
     "luxon": "^1.16.0",
     "node-sass": "^4.12.0",

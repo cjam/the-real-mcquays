@@ -37,7 +37,6 @@ module.exports = {
   plugins: [
     `gatsby-plugin-typescript`,
     `gatsby-plugin-react-helmet`,
-    `gatsby-transformer-typescript-css-modules`,
     `gatsby-plugin-sass`,
     {
       resolve: `gatsby-transformer-remark`,
