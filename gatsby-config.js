@@ -57,10 +57,18 @@ module.exports = {
       options: contentfulConfig
     },
     {
-      resolve: 'gatsby-plugin-gtag',
+      resolve: 'gatsby-plugin-google-gtag',
       options:{
-        trackingId: "UA-142542893-1",
-        head:true
+        trackingIds:[
+          "UA-142542893-1"
+        ],
+        pluginConfig:{
+          head:false,
+          respectDNT:true,
+          exclude:[
+            "/blog/preview**"
+          ]
+        }
       }
     },
     {
