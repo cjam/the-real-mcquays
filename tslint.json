@@ -1,0 +1,16 @@
+{
+  "defaultSeverity": "warning",
+  "extends": ["tslint:latest", "tslint-react", "tslint-config-prettier"],
+  "jsRules": {},
+  "rules": {
+    "interface-name": false,
+    "semicolon": [true, "never"],
+    "member-access": [false],
+    "ordered-imports": [false],
+    "no-console": [false],
+    "no-var-requires": true,
+    "quotemark": [true, "double", "jsx-double"],
+    "object-literal-sort-keys":false     
+  },
+  "rulesDirectory": []
+}

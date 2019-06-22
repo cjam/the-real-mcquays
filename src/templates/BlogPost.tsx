@@ -1,18 +1,20 @@
-import React from 'react'
-import Helmet from 'react-helmet'
-import get from 'lodash/get'
-import Img from 'gatsby-image'
+import React from "react"
+import {graphql} from "gatsby"
+import {get} from "lodash"
+import Img from "gatsby-image"
+import heroStyles from "../components/Hero.module.css"
+import Layout from "../layouts"
 
-import heroStyles from '../components/hero.module.css'
-
-class BlogPostTemplate extends React.Component {
+class BlogPostTemplate extends React.Component<any> {
   render() {
-    const post = get(this.props, 'data.contentfulBlogPost')
-    const siteTitle = get(this.props, 'data.site.siteMetadata.title')
+    const post = get(this.props, "data.contentfulBlogPost")
+    const siteTitle = get(this.props, "data.site.siteMetadata.title")
+    console.log("POST",post)
 
     return (
-      <div style={{ background: '#fff' }}>
-        <Helmet title={`${post.title} | ${siteTitle}`} />
+      <Layout>
+      <div style={{ background: "#fff" }}>
+        {/* <Helmet title={`${post.title} | ${siteTitle}`} /> */}
         <div className={heroStyles.hero}>
           <Img className={heroStyles.heroImage} alt={post.title} sizes={post.heroImage.sizes} />
         </div>
@@ -20,7 +22,7 @@ class BlogPostTemplate extends React.Component {
           <h1 className="section-headline">{post.title}</h1>
           <p
             style={{
-              display: 'block',
+              display: "block",
             }}
           >
             {post.publishDate}
@@ -32,6 +34,7 @@ class BlogPostTemplate extends React.Component {
           />
         </div>
       </div>
+      </Layout>
     )
   }
 }
@@ -39,12 +42,12 @@ class BlogPostTemplate extends React.Component {
 export default BlogPostTemplate
 
 export const pageQuery = graphql`
-  query BlogPostBySlug($slug: String!) {
+  query BlogPostBySlug($slug: String) {
     contentfulBlogPost(slug: { eq: $slug }) {
       title
       publishDate(formatString: "MMMM Do, YYYY")
       heroImage {
-        sizes(maxWidth: 1180, background: "rgb:000000") {
+        sizes(maxWidth: 1180) {
           ...GatsbyContentfulSizes_withWebp
         }
       }
