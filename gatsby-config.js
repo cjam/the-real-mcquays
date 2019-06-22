@@ -57,6 +57,13 @@ module.exports = {
       options: contentfulConfig
     },
     {
+      resolve: 'gatsby-plugin-gtag',
+      options:{
+        trackingId: "UA-142542893-1",
+        head:true
+      }
+    },
+    {
       resolve: `gatsby-plugin-typography`,
       options: {
         pathToConfigModule: `src/utils/typography.js`,
