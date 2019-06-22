@@ -5,11 +5,11 @@ import Img from "gatsby-image"
 import heroStyles from "../components/Hero.module.css"
 import Layout from "../layouts"
 
-class BlogPostTemplate extends React.Component {
+class BlogPostTemplate extends React.Component<any> {
   render() {
     const post = get(this.props, "data.contentfulBlogPost")
     const siteTitle = get(this.props, "data.site.siteMetadata.title")
-    // console.log("POST",post)
+    console.log("POST",post)
 
     return (
       <Layout>

@@ -1,6 +1,6 @@
 import * as React from "react"
 import ArticlePreview, { ArticlePreviewProps } from "./ArticlePreview"
-import styles from "./ArticlePreviewList.module.css"
+import styles from "./ArticlePreviewList.module.scss"
 
 export interface ArticlePreviewListProps {
     articles: ArticlePreviewProps[]
@@ -8,14 +8,17 @@ export interface ArticlePreviewListProps {
 
 export default function ArticlePreviewList({articles=[]}: ArticlePreviewListProps) {
     return (
-        <ul className={styles.articleList}>
-            {articles.map((article) => {
-                return (
-                    <li key={article.slug}>
-                        <ArticlePreview {...article} />
-                    </li>
-                )
-            })}
-        </ul>
+        <div className={styles.articleList}>
+            <ul>
+                {articles.map((article) => {
+                    return (
+                        <li key={article.slug}>
+                            <ArticlePreview {...article} />
+                        </li>
+                    )
+                })}
+            </ul>
+        </div>
+
     )
 }

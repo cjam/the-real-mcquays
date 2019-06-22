@@ -1,74 +1,101 @@
 import React from "react"
 import Link from "gatsby-link"
-// import get from "lodash/get"
-// import Helmet from "react-helmet"
+import { get } from "lodash"
 import styles from "./blog.module.css"
-// import contentful from "contentful/dist/contentful.browser"
-// import remark from "remark";
+import * as contentful from "contentful"
+import * as contentfulImages from "../../utils/contentful-images"
+// tslint:disable-next-line:no-submodule-imports
+import Remark from "remark"
+import remarkHtml from "remark-html"
 import BlogPostTemplate from "../../templates/BlogPost"
 import Layout from "../../layouts"
 
-class BlogPreview extends React.Component {
-  state = {}
+class BlogPreview extends React.Component<any, any> {
+  state: any = {}
   componentDidMount() {
-    // const params = window.location.search.substr(1).split("&")
-    // .reduce((map,paramStr)=>{
-    //   const parts = paramStr.split("=")
-    //   map[parts[0]]=parts[1];
-    //   return map
-    // },{})
+    // Get the query parameters from window location
+    const params = window.location.search.substr(1).split("&")
+      .reduce((map, paramStr) => {
+        const parts = paramStr.split("=")
+        map[parts[0]] = parts[1]
+        return map
+      }, {} as any)
+    const { id: postId, ...restParams } = params
 
-    // const {id:postId,...restParams} = params;
-    // const contentfulConfig = {
-    //   host:"preview.contentful.com",
-    //   accessToken:restParams.access_token,
-    //   space:restParams.space_id,
-    //   environment:restParams.environment
-    // }
-    // const client = contentful.createClient(contentfulConfig)
-    // client.getEntry(postId).then((post)=>{
-    //   const {fields = {}} = post;
-    //   const {
-    //     title,
-    //     body,
-    //     slug,
-    //     heroImage
-    //   } = fields;
-    //   const data = {
-    //     contentfulBlogPost:{
-    //       title,
-    //       heroImage,
-    //       body,
-    //       slug
-    //     }
-    //   }
-    //   console.log("Fields",fields)
-    //   this.setState({data});
+    // Create contentful config & request
+    const contentfulConfig = {
+      host: "preview.contentful.com",
+      accessToken: restParams.access_token,
+      space: restParams.space_id,
+      environment: restParams.environment
+    }
+    const client = contentful.createClient(contentfulConfig)
+    client.getEntry(postId).then((post: any) => {
+      const { fields = {} } = post
 
-    // },(err)=>{
-    //   console.log(err)
-    // });
+      const {
+        title,
+        body,
+        slug,
+        publishDate,
+        heroImage
+      } = fields
+
+      const remarkInstance = new Remark().data("settings",{
+        commonmark:true,
+        footnotes:true,
+        pedantic:true,
+        gfm:true,
+      }).use(remarkHtml);
+
+      const bodyHtml = remarkInstance.processSync(body).toString()
+      console.log("BODYHTML",bodyHtml)
+
+      const imageSizes = contentfulImages.resolveResize(heroImage.fields, { maxWidth: 350, maxHeight: 196, resizingBehavior: 'scale' })
+      const data = {
+        contentfulBlogPost: {
+          title,
+          heroImage: {
+            sizes: {
+              ...imageSizes
+            }
+          },
+          body: {
+            childMarkdownRemark: {
+              html: bodyHtml
+            }
+          },
+          publishDate,
+          slug
+        }
+      }
+
+
+      this.setState({ data });
+
+    }, (err) => {
+      console.log(err)
+    });
   }
 
   render() {
-    // if(this.state.data == undefined){
-    //   return (
-    //     <div>Loading</div>
-    //   )
-    // }
-    // const data = {
-    //   ...this.props.data,
-    //   ...this.state.data
-    // }
-    // console.log(data)
+    if (this.state.data == undefined) {
+      return (
+        <Layout>
+          <div>Loading Preview...</div>
+        </Layout>
+      )
+    }
 
+    const data = {
+      ...this.props.data,
+      ...this.state.data
+    }
+    console.log(data)
     return (
-      <Layout>
-        <div>
-          Will Be Post Preview
-        </div>
-      </Layout>
+      <BlogPostTemplate data={data} />
     )
+
   }
 }
 

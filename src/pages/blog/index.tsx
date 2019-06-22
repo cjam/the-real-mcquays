@@ -1,7 +1,7 @@
 import React from "react"
 import Layout from "../../layouts"
 import {get} from "lodash"
-// import Helmet from 'react-helmet'
+import Img from "gatsby-image"
 import {graphql} from "gatsby"
 import styles from "./blog.module.css"
 import ArticlePreview, { ArticlePreviewProps } from "../../components/ArticlePreview"
@@ -11,15 +11,19 @@ class BlogIndex extends React.Component {
   render() {
     const siteTitle = get(this, "props.data.site.siteMetadata.title")
     const posts = get(this, "props.data.allContentfulBlogPost.edges") || []
-    const articles = posts.map(({node}:{node:ArticlePreviewProps})=>node)
+    const articlePreviews = posts.map(({node:{heroImage,description,...restProps}}:any)=>({
+      ...restProps,
+      image:<Img sizes={heroImage.images}/>,
+      descriptionHtml:description.childMarkdownRemark.html
+    }))
     return (
       <Layout>
-        <div className={styles.hero}>
+        {/* <div className={styles.hero}>
           Blog
-        </div>
+        </div> */}
         <div className="wrapper">
           <h2 className="section-headline">Recent articles</h2>
-          <ArticlePreviewList articles={articles} />
+          <ArticlePreviewList articles={articlePreviews} />
         </div>
       </Layout>
     )
@@ -35,12 +39,15 @@ export const pageQuery = graphql`
         node {
           title
           slug
-          publishDate(formatString: "MMMM Do, YYYY")
-          tags
+          publishDate
+          category
           heroImage {
-            sizes(maxWidth: 350, maxHeight: 196, resizingBehavior: SCALE){
-              ...GatsbyContentfulSizes_withWebp
+            images:sizes(maxWidth: 350, maxHeight: 250, resizingBehavior: SCALE) {
+             ...GatsbyContentfulSizes_withWebp
             }
+            # images:fluid(maxWidth:400,maxHeight:250){
+            #   ...GatsbyContentfulFluid_withWebp
+            # }
           }
           description {
             childMarkdownRemark {

@@ -32,13 +32,26 @@ if (!spaceId || !accessToken) {
 module.exports = {
   pathPrefix: '/',
   siteMetadata: {
-    siteName: `The Real McQuays`,
+    siteTitle: `The Real McQuays`,
   },
   plugins: [
     `gatsby-plugin-typescript`,
-    `gatsby-transformer-remark`,
     `gatsby-plugin-react-helmet`,
     `gatsby-transformer-typescript-css-modules`,
+    `gatsby-plugin-sass`,
+    {
+      resolve: `gatsby-transformer-remark`,
+      options:{
+        plugins:[
+          {
+            resolve:'gatsby-remark-images-contentful',
+            options:{
+              maxWidth:700
+            }
+          }
+        ]
+      }
+    },
     {
       resolve: 'gatsby-source-contentful',
       options: contentfulConfig

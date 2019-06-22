@@ -2,9 +2,11 @@ import { graphql } from "gatsby"
 import * as React from "react"
 import Layout from "../layouts"
 import {get} from "lodash"
+import Img from "gatsby-image"
 import ArticlePreviewList from "../components/ArticlePreviewList"
 import { ArticlePreviewProps } from "../components/ArticlePreview"
 import Hero from "../components/Hero"
+import "./index.scss"
 
 // Please note that you can use https://github.com/dotansimha/graphql-code-generator
 // to generate all types from graphQL schema
@@ -35,13 +37,17 @@ export default class IndexPage extends React.Component<IndexPageProps, {}> {
     const posts = get(this, "props.data.allContentfulBlogPost.edges")
     const [authorNode] = get(this, "props.data.allContentfulPerson.edges")
     const {node:author} = authorNode;
-    console.log(author)
+    const articlePreviews = posts.map(({node:{heroImage,description,...restProps}}:any)=>({
+      ...restProps,
+      image:<Img sizes={heroImage.images}/>,
+      descriptionHtml:description.childMarkdownRemark.html
+    }))
     return (
       <Layout>
         <Hero name={author.name} title={author.name} heroImage={author.heroImage}/>
         <div className="wrapper">
           <h2 className="section-headline">Recent articles</h2>
-          <ArticlePreviewList articles={posts.map(({node}:{node:ArticlePreviewProps})=>node)}/>
+          <ArticlePreviewList articles={articlePreviews}/>
         </div>
       </Layout>
     )
@@ -52,7 +58,7 @@ export const pageQuery = graphql`
   query HomeQuery {
     site {
       siteMetadata {
-        siteName
+        siteTitle
       }
     },
     allContentfulBlogPost(sort: { fields: [publishDate], order: DESC }) {
@@ -60,12 +66,15 @@ export const pageQuery = graphql`
         node {
           title
           slug
-          publishDate(formatString: "MMMM Do, YYYY")
-          tags
+          publishDate
+          category
           heroImage {
-            sizes(maxWidth: 350, maxHeight: 196, resizingBehavior: SCALE) {
+            images:sizes(maxWidth: 350, maxHeight: 250, resizingBehavior: SCALE) {
              ...GatsbyContentfulSizes_withWebp
             }
+            # images:fluid(maxWidth:400,maxHeight:250){
+            #   ...GatsbyContentfulFluid_withWebp
+            # }
           }
           description {
             childMarkdownRemark {

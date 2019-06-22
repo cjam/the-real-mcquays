@@ -1,0 +1,185 @@
+@import "../vars";
+
+.postPreview {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    a {
+        position: relative;
+        text-align: left;
+        text-decoration: none;
+        text-shadow: none;
+        background-image: none;
+    }
+
+    header {
+        width: 100%;
+        display:block;
+        min-height: 23px;
+        margin-bottom: 0.1rem;
+
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        li {
+            display: inline-block;
+            color: $color-accent;
+            margin-bottom: 0;
+
+            &:not(:last-child):after {
+                margin-right: .2em;
+                content: ", ";
+            }
+        }
+    }
+
+    figure {
+        position: relative;
+        margin-bottom: 0;
+
+        &:before {
+            position: absolute;
+            top: 15px;
+            left: -20px;
+            z-index: 2;
+            content: '';
+            border-top: 3px solid $color-accent;
+            width: 30px;
+            margin-right: 0.5em;
+        }
+
+        .gatsby-image-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: none;
+        }
+
+
+
+        // .frame {
+        //     position: relative;
+        //     overflow: hidden;
+        //     transition: all 0.3s ease-in-out;
+        //     transition-property: opacity;
+
+        // .gatsby-image-wrapper{
+        //     position: absolute;
+        //     top:0;
+        //     left:0;
+        //     width:100%;
+        //     height:100%;
+        //     object-fit:cover;
+        //     transform: none;
+        // }
+        // }
+
+        figcaption {
+            position: absolute;
+            bottom: 0;
+            left: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: 0.05em;
+            color: #f5f6f1;
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+            cursor: pointer;
+            padding: 0.25em 0.75em 0.25em;
+            background-color: #2B3D39;
+            color: #FFF;
+            text-decoration: none;
+            text-transform: uppercase;
+            text-shadow: none;
+            transform: translate(0, 50%);
+        }
+    }
+
+    section {
+        margin-top: 18px;
+
+        h2 {
+            font-family: 'YoungSerif';
+            font-weight: normal;
+            font-size: 22px;
+            line-height: 1.3;
+            letter-spacing: 0em;
+            text-transform: none;
+            margin-top: 0;
+        }
+
+        p {
+            opacity: 0.9;
+        }
+
+        footer {
+            font-size: 16px;
+            line-height: 1.5;
+            color: $color-accent;
+            text-transform: none;
+
+            a{
+                display: flex;
+                align-items: center;
+                text-decoration: unset;
+        
+                &:before {
+                    display: block;
+                    content: '';
+                    border-top: 2px solid;
+                    width: 0;
+                    margin-right: 0.5em;
+                    margin-top: 4px;
+                    -webkit-transition: all 0.3s ease-in-out;
+                    transition: all 0.3s ease-in-out;
+                }
+            }
+        }
+
+        > :not(:last-child) {
+            margin-bottom: 0.5em;
+        }
+
+    }
+
+    a.link {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+    }
+
+    // Animations
+    figure:before,
+    header,
+    footer {
+        transition: all 0.3s ease-in-out;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    // On Hover
+    &:hover {
+        header,
+        figure:before,
+        footer {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        footer>a:before {
+            width: 29px;
+        }
+    }
+}

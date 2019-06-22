@@ -1,9 +1,16 @@
 {
   "include": ["./src/**/*"],
+  "exclude": ["node_modules","build","public","scripts"],
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es5",
     "module": "commonjs",
-    "lib": ["dom", "es2017"],
+    "lib": ["es5","es6","es7","es2017","dom"],
+    "rootDir": "src",
+    "baseUrl": "src",
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+
     // "allowJs": true,
     // "checkJs": true,
     "jsx": "react",
