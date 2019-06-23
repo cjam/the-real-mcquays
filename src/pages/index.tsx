@@ -1,7 +1,7 @@
 import { graphql } from "gatsby"
 import * as React from "react"
 import Layout from "../layouts"
-import {get} from "lodash"
+import { get } from "lodash"
 import Img from "gatsby-image"
 import ArticlePreviewList from "../components/ArticlePreviewList"
 import { ArticlePreviewProps } from "../components/ArticlePreview"
@@ -36,18 +36,26 @@ export default class IndexPage extends React.Component<IndexPageProps, {}> {
     const siteTitle = get(this, "props.data.site.siteMetadata.title")
     const posts = get(this, "props.data.allContentfulBlogPost.edges")
     const [authorNode] = get(this, "props.data.allContentfulPerson.edges")
-    const {node:author} = authorNode;
-    const articlePreviews = posts.map(({node:{heroImage,description,...restProps}}:any)=>({
+    const { node: author } = authorNode;
+    const articlePreviews = posts.map(({ node: { heroImage, description, ...restProps } }: any) => ({
       ...restProps,
-      image:<Img sizes={heroImage.images}/>,
-      descriptionHtml:description.childMarkdownRemark.html
+      image: <Img sizes={heroImage.images} />,
+      descriptionHtml: description.childMarkdownRemark.html
     }))
     return (
       <Layout>
-        <Hero name={author.name} title={author.name} heroImage={author.heroImage}/>
+        <Hero
+          caption={(
+            <div>
+              <h3 style={{margin:0}}>{author.name}</h3>
+            </div>
+          )}
+        >
+          <Img alt={author.name} sizes={author.heroImage.sizes} />
+        </Hero>
         <div className="wrapper">
           <h2 className="section-headline">Recent articles</h2>
-          <ArticlePreviewList articles={articlePreviews}/>
+          <ArticlePreviewList articles={articlePreviews} />
         </div>
       </Layout>
     )

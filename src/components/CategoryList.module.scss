@@ -1,0 +1,7 @@
+@import "../vars";
+
+.categoryList{
+    :not(:first-child){
+        margin-left:0.8rem;
+    }
+}

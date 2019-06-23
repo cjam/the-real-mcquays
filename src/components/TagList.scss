@@ -1,0 +1,22 @@
+$spacing: 0.3rem;
+
+.tagList{
+    display:flex;
+
+    .tagListTitle{
+        text-transform: uppercase;
+
+        &:after{
+            content:':';
+            margin-right:$spacing;
+        }
+    }
+
+    a{
+        margin:0 $spacing;
+        font-style: italic;
+        &:not(:last-child):after{
+            content:","
+        }
+    }
+}

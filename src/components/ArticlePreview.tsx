@@ -5,6 +5,7 @@ import styles from "./ArticlePreview.module.scss"
 import { MarkdownRemark } from "../declarations"
 import { HeroImage } from "../types"
 import {DateTime} from "luxon"
+import CaptionLabel from "./CaptionLabel";
 
 export interface ArticlePreviewProps {
   image?: React.ReactNode
@@ -37,11 +38,13 @@ export default (props: ArticlePreviewProps) => {
       <figure>
         {image}
         <figcaption>
-          <time dateTime={publishDate}>{DateTime.fromISO(publishDate).toLocaleString({
-            month:"long",
-            day:"numeric",
-            year:"numeric"
-          })}</time>
+          <CaptionLabel>
+            <time dateTime={publishDate}>{DateTime.fromISO(publishDate).toLocaleString({
+              month:"long",
+              day:"numeric",
+              year:"numeric"
+            })}</time>
+          </CaptionLabel>
         </figcaption>
       </figure>
       <section>

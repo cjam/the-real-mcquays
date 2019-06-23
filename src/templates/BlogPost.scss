@@ -1,0 +1,57 @@
+
+
+article.blogPost{
+
+  header{
+      text-align: center;
+
+      figure{
+        margin-bottom: 0.5rem;
+      }
+
+      h1{
+        font-size:2.8em;
+      }
+  }
+  
+  section{
+    margin-bottom: 1.5rem;
+
+    &.description{
+      font-size:1.2rem;
+      line-height: 1.5rem;
+      font-style: italic;
+    }
+
+    &.body{
+      font-size:1.2rem;
+      line-height: 1.6rem;
+    }
+  }
+
+  footer{
+    padding:1.2rem 0;
+    display:flex;
+    flex-direction: column;
+
+    >*{
+      margin:0.6rem 0;
+    }
+    // >:not(:last-child){
+    //   margin-bottom: 1rem;
+    // }
+
+  }
+  
+}
+
+// .hero {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+
+//   height: 12.5em;
+//   background: #e1e1e1;
+//   margin: -1em -2.5em 1em;
+//   font-size: 2em
+// }
