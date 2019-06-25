@@ -11,13 +11,7 @@ import "./index.scss"
 // Please note that you can use https://github.com/dotansimha/graphql-code-generator
 // to generate all types from graphQL schema
 interface IndexPageProps {
-  data: {
-    site: {
-      siteMetadata: {
-        siteName: string
-      }
-    }
-  }
+
 }
 
 // export const pageQuery = graphql`
@@ -33,7 +27,6 @@ interface IndexPageProps {
 export default class IndexPage extends React.Component<IndexPageProps, {}> {
   readonly hello = `Hello`
   public render() {
-    const siteTitle = get(this, "props.data.site.siteMetadata.title")
     const posts = get(this, "props.data.allContentfulBlogPost.edges")
     const [authorNode] = get(this, "props.data.allContentfulPerson.edges")
     const { node: author } = authorNode;
@@ -64,11 +57,6 @@ export default class IndexPage extends React.Component<IndexPageProps, {}> {
 
 export const pageQuery = graphql`
   query HomeQuery {
-    site {
-      siteMetadata {
-        siteTitle
-      }
-    },
     allContentfulBlogPost(sort: { fields: [publishDate], order: DESC }) {
       edges {
         node {

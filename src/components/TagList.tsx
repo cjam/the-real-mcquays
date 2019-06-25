@@ -14,7 +14,7 @@ const TagList: React.SFC<TagListProps> = ({ tags, ...restProps }) => {
                 <div className="tagListTitle">tags</div>
             )}
             {tags && tags.map(tag=>(
-                <a href={`/blog/tags/${tag}`} rel="tag" >{tag}</a>
+                <a key={tag} href={`/blog/tags/${tag}`} rel="tag" >{tag}</a>
             ))}
         </div>
     )

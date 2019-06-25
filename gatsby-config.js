@@ -1,38 +1,24 @@
-try {
-  // Load the Contentful config from the .contentful.json
-  loadedContentfulConfig = require('./.contentful')
-} catch (_) {}
+const website = require('./config/website')
+const contentfulConfig = require('./config/contentful')
 
-// Overwrite the Contentful config with environment variables if they exist
-const contentfulConfig = {
-  spaceId: process.env.CONTENTFUL_SPACE_ID || loadedContentfulConfig.spaceId,
-  accessToken: process.env.CONTENTFUL_DELIVERY_TOKEN || loadedContentfulConfig.accessToken,
-}
-
-let activeEnv = process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || "development";
-
-console.log("Active Environment",activeEnv)
-if(activeEnv === 'development'){
-  previewToken = loadedContentfulConfig.previewToken;
-  if(previewToken != undefined){
-    console.log(`Using Contentful Preview Api`)
-    contentfulConfig.host = 'preview.contentful.com'
-    contentfulConfig.accessToken = previewToken
-  }
-}
-
-const { spaceId, accessToken } = contentfulConfig
-
-if (!spaceId || !accessToken) {
-  throw new Error(
-    'Contentful spaceId and the delivery token need to be provided.'
-  )
-}
+const pathPrefix = website.pathPrefix === '/' ? '' : website.pathPrefix
 
 module.exports = {
-  pathPrefix: '/',
+  pathPrefix: website.pathPrefix,
   siteMetadata: {
-    siteTitle: `The Real McQuays`,
+    siteUrl: website.url + pathPrefix, // For gatsby-plugin-sitemap
+    pathPrefix,
+    title: website.title,
+    titleTemplate: website.titleTemplate,
+    titleAlt: website.titleAlt,
+    description: website.description,
+    image: website.image,
+    headline: website.headline,
+    siteLanguage: website.siteLanguage,
+    ogLanguage: website.ogLanguage,
+    author: website.author,
+    twitter: website.twitter,
+    facebookSite: website.facebookSite,
   },
   plugins: [
     `gatsby-plugin-typescript`,
@@ -59,7 +45,7 @@ module.exports = {
       resolve: 'gatsby-plugin-google-gtag',
       options:{
         trackingIds:[
-          "UA-142542893-1"
+          website.googleAnalyticsID
         ],
         pluginConfig:{
           head:false,
@@ -77,5 +63,22 @@ module.exports = {
         omitGoogleFont: true,
       },
     }
+    // ,    'gatsby-plugin-sitemap',
+    // {
+    //   resolve: 'gatsby-plugin-manifest',
+    //   options: {
+    //     name: website.title,
+    //     short_name: website.titleAlt,
+    //     description: website.description,
+    //     start_url: pathPrefix,
+    //     background_color: website.backgroundColor,
+    //     theme_color: website.themeColor,
+    //     display: 'standalone',
+    //     icon: website.favicon,
+    //   },
+    // },
+    // // Must be placed at the end
+    // 'gatsby-plugin-offline',
+    // 'gatsby-plugin-netlify',
   ],
 }

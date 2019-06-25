@@ -17,7 +17,7 @@ export interface ArticlePreviewProps {
 }
 
 
-export default (props: ArticlePreviewProps) => {
+const ArticlePreview :React.SFC<ArticlePreviewProps> = (props) => {
   const {
     slug,
     title,
@@ -31,7 +31,7 @@ export default (props: ArticlePreviewProps) => {
       <header>
         <ul>
           {category != undefined  && category.map(tag=>(
-            <li>{tag}</li>
+            <li key={tag}>{tag}</li>
           ))}
         </ul>
       </header>
@@ -64,3 +64,5 @@ export default (props: ArticlePreviewProps) => {
     </article>
   )
 }
+
+export default ArticlePreview

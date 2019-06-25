@@ -13,7 +13,7 @@ const CategoryList: React.SFC<CategoryListProps> = ({
     return (
         <div className={styles.categoryList} >
             {categories && categories.map(cat => (
-                <CaptionLabel>
+                <CaptionLabel key={cat}>
                     {cat}
                 </CaptionLabel>
             ))}

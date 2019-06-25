@@ -16,11 +16,19 @@ class BlogPostTemplate extends React.Component<any> {
     const post = get(this.props, "data.contentfulBlogPost")
     const siteTitle = get(this.props, "data.site.siteMetadata.title")
 
-    const description = post.description.childMarkdownRemark.html
-    const body = post.body.childMarkdownRemark.html
+    console.log(this.props)
+    const description = post.description.MD.html
+    const plainDescription = post.description.MD.plain
+    const body = post.body.MD.html
 
     return (
-      <Layout>
+      <Layout seo={{
+        article:true,
+        description: plainDescription,
+        image: post.heroImage.seo.src,
+        title: post.title,
+        pathname: "test"
+      }}>
         <article className="blogPost">
           <header>
             <Hero
@@ -50,7 +58,7 @@ class BlogPostTemplate extends React.Component<any> {
             }}
           />
           <footer>
-            <CategoryList categories={[...post.category,"Other","Another"]}/>
+            <CategoryList categories={post.category}/>
             <TagList tags={post.tags} />
             <Share/>
           </footer>
@@ -74,15 +82,19 @@ export const pageQuery = graphql`
         sizes(maxWidth: 1180) {
           ...GatsbyContentfulSizes_withWebp
         }
+        seo:fixed(quality: 50, toFormat: PNG, width: 400) {
+          src
+        }
       }
       body {
-        childMarkdownRemark {
+        MD:childMarkdownRemark {
           html
         }
       }
       description {
-        childMarkdownRemark {
+        MD:childMarkdownRemark {
           html
+          plain:excerpt(format: PLAIN)
         }
       }
     }
