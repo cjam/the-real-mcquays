@@ -48,7 +48,7 @@ export const StructuredOrgWebPage: React.SFC<StructuredDataOrgWebPageProps> = ({
             "@type": "Person",
             name: author,
         },
-        copyrightYear: "2019",
+        copyrightYear: new Date().getFullYear(),
         creator: {
             "@type": "Person",
             name: author,
@@ -103,7 +103,7 @@ export const StructuredArticlePage: React.SFC<StructuredArticlePageProps> = ({
             "@type": "Person",
             name: author,
         },
-        copyrightYear: "2019",
+        copyrightYear: new Date().getFullYear,
         creator: {
             "@type": "Person",
             name: author,

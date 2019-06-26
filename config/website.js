@@ -7,7 +7,7 @@ module.exports = {
     headline: 'The Real McQuays', // Headline for schema.org JSONLD
     url: 'https://therealmcquays.com', // Domain of your site. No trailing slash!
     siteLanguage: 'en', // Language Tag on <html> element
-    image: '/logos/logo-1024.png', // Used for SEO
+    image: '/logos/logo-1024.jpg', // Used for SEO
     ogLanguage: 'en_US', // Facebook Language
   
     // JSONLD / Manifest
