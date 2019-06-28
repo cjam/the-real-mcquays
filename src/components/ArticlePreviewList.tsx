@@ -8,7 +8,7 @@ export interface ArticlePreviewListProps {
 
 export default function ArticlePreviewList({articles=[]}: ArticlePreviewListProps) {
     return (
-        <div className={styles.articleList}>
+        <section className={styles.articleList}>
             <ul>
                 {articles.map((article) => {
                     return (
@@ -18,7 +18,7 @@ export default function ArticlePreviewList({articles=[]}: ArticlePreviewListProp
                     )
                 })}
             </ul>
-        </div>
+        </section>
 
     )
 }

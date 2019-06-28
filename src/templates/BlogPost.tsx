@@ -1,7 +1,7 @@
 import React from "react"
 import { graphql } from "gatsby"
 import { get } from "lodash"
-import Img from "gatsby-image"
+import Img, { FluidObject, FixedObject } from "gatsby-image"
 // import heroStyles from "../components/Hero.module.css"
 import Hero from "../components/Hero"
 import "./BlogPost.scss"
@@ -10,24 +10,72 @@ import CaptionLabel from "../components/CaptionLabel"
 import TagList from "../components/TagList"
 import CategoryList from "../components/CategoryList"
 import Share from "../components/Share"
+import {dateDisplay} from "../utils/datetime"
+import AuthorCard from "../components/AuthorCard";
 
-class BlogPostTemplate extends React.Component<any> {
+export interface BlogPostTemplateProps {
+  data: {
+    post: {
+      title: string
+      heroImage: {
+        sizes?: FluidObject;
+        seo: {
+          src: string;
+        }
+      }
+      description: {
+        MD: {
+          html: string
+          plain: string
+        }
+      }
+      body: {
+        MD: {
+          html: string
+          timeToRead:number
+        }
+      }
+      author:{
+        name:string;
+        shortBio:{
+          MD:{
+            html:string
+          }
+        };
+        image:{
+          fixed:FixedObject
+        };
+        instagram?:string;
+      }
+      category: string[];
+      tags: string[];
+      datePublished: string;
+      dateModified: string;
+      slug:string;
+    }
+  }
+}
+
+
+class BlogPostTemplate extends React.Component<BlogPostTemplateProps> {
   render() {
-    const post = get(this.props, "data.contentfulBlogPost")
-    const siteTitle = get(this.props, "data.site.siteMetadata.title")
-
-    console.log(this.props)
+    const post = this.props.data.post
     const description = post.description.MD.html
     const plainDescription = post.description.MD.plain
     const body = post.body.MD.html
-
+    const path = get(this.props, "pageResources.page.path", "")
+    const { dateModified, datePublished } = post
+    const dateModifiedDisplay = dateDisplay(dateModified)
+    const datePublishedDisplay = dateDisplay(datePublished)
     return (
       <Layout seo={{
-        article:true,
+        article: true,
         description: plainDescription,
         image: post.heroImage.seo.src,
         title: post.title,
-        pathname: "test"
+        path,
+        dateModified,
+        datePublished
       }}>
         <article className="blogPost">
           <header>
@@ -37,8 +85,8 @@ class BlogPostTemplate extends React.Component<any> {
                   transform: "translate(0, -50%)"
                 }}>
                   <div style={{ width: "100%", display: "flex", flexDirection: "column" }}>
-                    <span>Author Name</span>
-                    <span>February 10, 1990</span>
+                    <span>{post.author.name}</span>
+                    <span>{datePublishedDisplay}</span>
                   </div>
                 </CaptionLabel>
               )}
@@ -46,6 +94,8 @@ class BlogPostTemplate extends React.Component<any> {
               <Img alt={post.title} sizes={post.heroImage.sizes} />
             </Hero>
             <h1>{post.title}</h1>
+            <div>Time To Read: <b>{post.body.MD.timeToRead} min</b></div>
+            {datePublishedDisplay !== dateModifiedDisplay && <div>Updated: {dateModifiedDisplay}</div>}
           </header>
           <section className="description"
             dangerouslySetInnerHTML={{
@@ -58,9 +108,15 @@ class BlogPostTemplate extends React.Component<any> {
             }}
           />
           <footer>
-            <CategoryList categories={post.category}/>
+            <CategoryList categories={post.category} />
             <TagList tags={post.tags} />
-            <Share/>
+            <Share />
+            <AuthorCard
+              name={post.author.name}
+              instagram={post.author.instagram}
+              bioMarkdown={post.author.shortBio.MD.html}
+              image={post.author.image.fixed}
+            />
           </footer>
         </article>
 
@@ -73,9 +129,10 @@ export default BlogPostTemplate
 
 export const pageQuery = graphql`
   query BlogPostBySlug($slug: String) {
-    contentfulBlogPost(slug: { eq: $slug }) {
+    post:contentfulBlogPost(slug: { eq: $slug }) {
       title
-      publishDate(formatString: "MMMM Do, YYYY")
+      datePublished:publishDate
+      dateModified:updatedAt
       category
       tags
       heroImage {
@@ -89,6 +146,7 @@ export const pageQuery = graphql`
       body {
         MD:childMarkdownRemark {
           html
+          timeToRead
         }
       }
       description {
@@ -97,26 +155,20 @@ export const pageQuery = graphql`
           plain:excerpt(format: PLAIN)
         }
       }
+      author {
+        name
+        instagram
+        shortBio {
+          MD:childMarkdownRemark {
+            html
+          }
+        }
+        image{
+          fixed(width:100,height:100){
+            ...GatsbyContentfulFixed_withWebp
+          }
+        }
+      }
     }
   }
 `
-{/* <div style={{ background: "#fff" }}>
-<div className={heroStyles.hero}>
-  <Img className={heroStyles.heroImage} alt={post.title} sizes={post.heroImage.sizes} />
-</div>
-<div className="wrapper">
-  <h1 className="section-headline">{post.title}</h1>
-  <p
-    style={{
-      display: "block",
-    }}
-  >
-    {post.publishDate}
-  </p>
-  <div
-    dangerouslySetInnerHTML={{
-      __html: post.body.childMarkdownRemark.html,
-    }}
-  />
-</div>
-</div> */}

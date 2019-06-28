@@ -1,0 +1,75 @@
+@import "../vars.scss";
+
+/**
+ * article grid
+ */
+.author-card {
+    border-width: 1px 0px;
+    border-style: solid;
+    border-color: black;
+    padding: 1rem 0;
+    width: 100%;
+    display: grid;
+    display:flex;
+    flex-direction: row;
+
+
+    figure {
+      margin: 0 auto;
+      img {
+          border-radius: 8px;
+      }
+    }
+
+    .details {
+        flex-grow: 1;
+        text-align: left;
+        margin-left: 1.5rem;
+    }
+
+    .bio{
+      margin-bottom: 1rem;
+    }
+
+    .name {
+        margin: 0.1rem 0 0.5rem 0;
+    }
+
+    .links {
+        display: flex;
+        flex-direction: row;
+        margin:0;
+        list-style: none;
+
+        >li{
+          margin:0;
+        }
+
+        &>:not(:last-child) {
+            &::after {
+                content: "\2022";
+                padding:0 1rem;
+            }
+        }
+    }
+
+    @media screen and (max-width:$break-small){
+      flex-direction: column;
+      .details{
+        margin-left:0;
+      }
+
+      .links{
+        justify-content: center;
+      }
+
+      .name {
+        text-align:center;
+        margin: 0.3rem 0 0.5rem 0;
+    }
+    }
+
+
+
+
+}

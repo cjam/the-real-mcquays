@@ -1,0 +1,63 @@
+@import "../vars.scss";
+
+ul.pagination {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin-left:0;
+    margin-top:1rem;
+
+    a{
+      display:block;
+      background:#EEE;
+      padding:0.5rem;
+      text-shadow: unset;
+    }
+
+    li{
+      margin:0;
+      text-align: center;
+    }
+
+    li{
+      border-style:solid;
+      border-color:#DDD;
+      border-width: 1px 1px 1px 0px;
+
+      &:first-child{
+        border-left-width: 1px;
+      }
+
+      &:not(:first-child){
+        border-right-width: 1px;
+      }
+      
+      &:hover{
+        // border-color:#999;
+        box-shadow: 0px 0px 5px #DDD;
+      }
+    }
+
+    @media screen and (max-width:$break-small){
+      width:100%;
+
+      li.next, li.previous{
+        flex-basis: 0;
+        flex-grow: 1;
+      }
+
+      li.pages{
+        display:none;
+      }
+    }
+
+    // >li:not(:last-child){
+    //   border-right:1px solid #CCC;
+    //   &:hover{
+    //     border:1px solid #AAA;
+    //   }
+    // }
+}

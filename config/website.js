@@ -14,12 +14,11 @@ module.exports = {
     favicon: 'src/favicon.png', // Used for manifest favicon generation
     shortName: 'RealMcquays', // shortname for manifest. MUST be shorter than 12 characters
     author: 'The Real McQuays', // Author for schemaORGJSONLD
-    themeColor: '#3D63AE',
-    backgroundColor: '#EBEDF2',
   
     twitter: '', // Twitter Username
     facebookSite: '', // Facebook Site Name
     googleAnalyticsID: "UA-142542893-1",
   
     skipNavId: 'reach-skip-nav', // ID for the "Skip to content" a11y feature
+    postsPerPage:4,
   }

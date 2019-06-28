@@ -5,15 +5,13 @@ import FacebookSEO from "./Facebook"
 import TwitterSEO from "./Twitter"
 import { StructuredArticlePage, StructuredBreadcrumbs, StructuredOrgWebPage, Breadcrumb } from "./StructuredData"
 
-// const SEO = ({ title, description, image, pathname, article }) => ()
-
 export interface SEOProps {
     title?: string
     description?: string
-    pathname?: string
-    article: boolean
+    path?: string
+    article?: boolean
     image?: string
-    dateModifed?:string
+    dateModified?:string
     datePublished?:string
 }
 
@@ -41,10 +39,10 @@ const query = graphql`
 const SEO: React.SFC<SEOProps> = ({
     title,
     description,
-    pathname,
+    path,
     article = false,
     image,
-    dateModifed,
+    dateModified,
     datePublished
 }) => {
     const { site } = useStaticQuery(query)
@@ -77,12 +75,12 @@ const SEO: React.SFC<SEOProps> = ({
         title: title || defaultTitle,
         description: description || defaultDescription,
         image: `${siteUrl}${image || defaultImage}`,
-        url: `${siteUrl}${pathname || ""}`,
+        url: `${siteUrl}${path || ""}`,
     }
 
     // Just some defaults for seo dates
-    const publishDate = datePublished || Date.now().toString()
-    const modifiedDate = dateModifed || Date.now().toString()
+    const publishDate = datePublished || new Date().toISOString()
+    const modifiedDate = dateModified || new Date().toISOString()
 
     // If it's an article, push in a breadcrumb
     if (article) {

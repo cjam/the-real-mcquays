@@ -138,4 +138,17 @@
             width: 29px;
         }
     }
+
+    @media screen and (max-width:$break-small){
+        header,
+        figure:before,
+        footer{
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        footer>a:before{
+            width:29px;
+        }
+    }
 }

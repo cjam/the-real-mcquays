@@ -7,10 +7,14 @@ import * as contentfulImages from "../../utils/contentful-images"
 // tslint:disable-next-line:no-submodule-imports
 import Remark from "remark"
 import remarkHtml from "remark-html"
-import BlogPostTemplate from "../../templates/BlogPost"
+import BlogPostTemplate, { BlogPostTemplateProps } from "../../templates/BlogPost"
 import Layout from "../../layouts"
 
-class BlogPreview extends React.Component<any, any> {
+interface BlogPreviewState {
+  postData?: BlogPostTemplateProps
+}
+
+class BlogPreview extends React.Component<any, BlogPreviewState> {
   state: any = {}
   componentDidMount() {
     // Get the query parameters from window location
@@ -38,48 +42,91 @@ class BlogPreview extends React.Component<any, any> {
         body,
         slug,
         publishDate,
-        heroImage
+        heroImage,
+        description,
+        category=[],
+        tags=[],
+        author: {
+          fields: authorFields
+        }
       } = fields
 
-      const remarkInstance = new Remark().data("settings",{
-        commonmark:true,
-        footnotes:true,
-        pedantic:true,
-        gfm:true,
-      }).use(remarkHtml);
+      console.log(post);
+      const remarkInstance = new Remark().data("settings", {
+        commonmark: true,
+        footnotes: true,
+        pedantic: true,
+        gfm: true,
+      }).use(remarkHtml)
 
-      const bodyHtml = remarkInstance.processSync(body).toString()
-      console.log("BODYHTML",bodyHtml)
 
-      const imageSizes = contentfulImages.resolveResize(heroImage.fields, { maxWidth: 350, maxHeight: 196, resizingBehavior: 'scale' })
-      const data = {
-        contentfulBlogPost: {
-          title,
-          heroImage: {
-            sizes: {
-              ...imageSizes
-            }
+      // Build the author from author fields
+      const { image: authorImage, shortBio, ...authorProps } = authorFields;
+      const authorImageSizes = contentfulImages.resolveFixed(authorFields.image.fields, { width: 100, height: 100 });
+
+      const author = {
+        ...authorProps,
+        image: {
+          fixed: {
+            ...authorImageSizes
           },
-          body: {
-            childMarkdownRemark: {
-              html: bodyHtml
-            }
-          },
-          publishDate,
-          slug
+        },
+        shortBio: {
+          MD: {
+            html: remarkInstance.processSync(shortBio).toString()
+          }
         }
       }
 
+      const bodyHtml = remarkInstance.processSync(body).toString()
+      const descriptionHtml = remarkInstance.processSync(description).toString()
 
-      this.setState({ data });
+      const imageSizes = contentfulImages.resolveResize(heroImage.fields, { maxWidth: 1200, maxHeight: 200, resizingBehavior: "scale" })
+      const postData: BlogPostTemplateProps = {
+        data: {
+          post: {
+            title,
+            heroImage: {
+              sizes: {
+                ...imageSizes,
+                sizes: "(max-width: 1180px) 100vw, 1180px",
+              },
+              seo: {
+                src: imageSizes ? imageSizes.src : ""
+              }
+            },
+            description: {
+              MD: {
+                html: descriptionHtml,
+                plain: description
+              }
+            },
+            body: {
+              MD: {
+                html: bodyHtml,
+                timeToRead: -1
+              }
+            },
+            category,
+            tags,
+            datePublished: publishDate,
+            dateModified: publishDate,
+            slug,
+            author
+          }
+        }
+      }
+
+      this.setState({ postData });
+
 
     }, (err) => {
       console.log(err)
-    });
+    })
   }
 
   render() {
-    if (this.state.data == undefined) {
+    if (this.state.postData == undefined) {
       return (
         <Layout>
           <div>Loading Preview...</div>
@@ -87,41 +134,11 @@ class BlogPreview extends React.Component<any, any> {
       )
     }
 
-    const data = {
-      ...this.props.data,
-      ...this.state.data
-    }
-    console.log(data)
     return (
-      <BlogPostTemplate data={data} />
+      <BlogPostTemplate data={this.state.postData.data} />
     )
 
   }
 }
 
 export default BlogPreview
-
-// export const pageQuery = graphql`
-//   query BlogIndexQuery {
-//     allContentfulBlogPost(sort: { fields: [publishDate], order: DESC }) {
-//       edges {
-//         node {
-//           title
-//           slug
-//           publishDate(formatString: "MMMM Do, YYYY")
-//           tags
-//           heroImage {
-//             sizes(maxWidth: 350, maxHeight: 196, resizingBehavior: SCALE) {
-//               ...GatsbyContentfulSizes_withWebp
-//             }
-//           }
-//           description {
-//             childMarkdownRemark {
-//               html
-//             }
-//           }
-//         }
-//       }
-//     }
-//   }
-// `

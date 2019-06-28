@@ -1,14 +1,33 @@
+@import "../vars.scss";
+
 /**
  * article grid
  */
-.articleList{
-  padding:2rem;
+.articleList {
+    padding: 2rem;
+
+    >ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        grid-gap: 2rem;
+
+        >li{
+            max-width: 500px;
+        }
+    }
+
+    @media screen and (max-width:$break-small) {
+        padding: 0.3rem 0.2rem;
+
+        >ul {
+            grid-gap: 0.6rem;
+        }
+    }
 }
 
- .articleList > ul {
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  grid-gap: 2rem;
-}
+
+
+.articleList>ul>li {}
