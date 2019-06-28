@@ -39,6 +39,8 @@ const BlogPostListTemplate: React.SFC<BlogPostListTemplateProps> = (props) => {
   return (
     <Layout seo={{
       path,
+      description:"List of articles",
+      title:"The Real McQuays Blog"
     }}>
 
       <ArticlePreviewList articles={articles} />
