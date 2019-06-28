@@ -71,10 +71,12 @@ const SEO: React.SFC<SEOProps> = ({
         }
     ]
 
+    const defaultImagePath = `${siteUrl}${defaultImage}`
+
     const seo = {
         title: title || defaultTitle,
         description: description || defaultDescription,
-        image: `${siteUrl}${image || defaultImage}`,
+        image: `${image ? image : defaultImagePath}`,
         url: `${siteUrl}${path || ""}`,
     }
 
