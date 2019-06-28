@@ -19,6 +19,7 @@ module.exports = {
     author: website.author,
     twitter: website.twitter,
     facebookSite: website.facebookSite,
+    footer: website.footer
   },
   plugins: [
     `gatsby-plugin-typescript`,
@@ -26,12 +27,12 @@ module.exports = {
     `gatsby-plugin-sass`,
     {
       resolve: `gatsby-transformer-remark`,
-      options:{
-        plugins:[
+      options: {
+        plugins: [
           {
-            resolve:'gatsby-remark-images-contentful',
-            options:{
-              maxWidth:700
+            resolve: 'gatsby-remark-images-contentful',
+            options: {
+              maxWidth: 700
             }
           }
         ]
@@ -43,14 +44,14 @@ module.exports = {
     },
     {
       resolve: 'gatsby-plugin-google-gtag',
-      options:{
-        trackingIds:[
+      options: {
+        trackingIds: [
           website.googleAnalyticsID
         ],
-        pluginConfig:{
-          head:false,
-          respectDNT:true,
-          exclude:[
+        pluginConfig: {
+          head: false,
+          respectDNT: true,
+          exclude: [
             "/blog/preview**"
           ]
         }
@@ -65,7 +66,7 @@ module.exports = {
     },
     {
       resolve: `gatsby-plugin-favicon`,
-      options:{
+      options: {
         logo: "./src/favicon.png",
         icons: {
           android: true,

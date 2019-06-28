@@ -23,6 +23,14 @@ exports.createPages = async ({ graphql, actions }) => {
           sort: {fields: publishDate, order: DESC}
         ) {
           edges {
+            next{
+              slug
+              title
+            }
+            previous{
+              slug
+              title
+            }
             node {
               title
               slug
@@ -40,7 +48,9 @@ exports.createPages = async ({ graphql, actions }) => {
         path: `/blog/${post.node.slug}/`,
         component: slash(blogPostTemplate),
         context: {
-          slug: post.node.slug
+          slug: post.node.slug,
+          previousPost: post.previous,
+          nextPost: post.next
         },
       })
     });

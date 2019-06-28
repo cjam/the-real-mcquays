@@ -10,56 +10,71 @@ import CaptionLabel from "../components/CaptionLabel"
 import TagList from "../components/TagList"
 import CategoryList from "../components/CategoryList"
 import Share from "../components/Share"
-import {dateDisplay} from "../utils/datetime"
+import { dateDisplay } from "../utils/datetime"
 import AuthorCard from "../components/AuthorCard";
+import PostNavigation from "../components/PostNavigation";
+
+interface PostData {
+  title: string
+  heroImage: {
+    sizes?: FluidObject;
+    seo: {
+      src: string;
+    }
+  }
+  description: {
+    MD: {
+      html: string
+      plain: string
+    }
+  }
+  body: {
+    MD: {
+      html: string
+      timeToRead: number
+    }
+  }
+  author: {
+    name: string;
+    shortBio: {
+      MD: {
+        html: string
+      }
+    };
+    image: {
+      fixed: FixedObject
+    };
+    instagram?: string;
+  }
+  category: string[];
+  tags: string[];
+  datePublished: string;
+  dateModified: string;
+  slug: string;
+}
+
+interface RelatedArticle {
+  slug: string
+  title: string
+}
 
 export interface BlogPostTemplateProps {
   data: {
-    post: {
-      title: string
-      heroImage: {
-        sizes?: FluidObject;
-        seo: {
-          src: string;
-        }
-      }
-      description: {
-        MD: {
-          html: string
-          plain: string
-        }
-      }
-      body: {
-        MD: {
-          html: string
-          timeToRead:number
-        }
-      }
-      author:{
-        name:string;
-        shortBio:{
-          MD:{
-            html:string
-          }
-        };
-        image:{
-          fixed:FixedObject
-        };
-        instagram?:string;
-      }
-      category: string[];
-      tags: string[];
-      datePublished: string;
-      dateModified: string;
-      slug:string;
-    }
+    post: PostData
+  },
+  pageContext: {
+    nextPost: RelatedArticle;
+    previousPost: RelatedArticle;
+    slug: string;
   }
 }
 
 
 class BlogPostTemplate extends React.Component<BlogPostTemplateProps> {
   render() {
-    const post = this.props.data.post
+    console.log(this.props);
+    const { nextPost, previousPost } = this.props.pageContext;
+    const { post } = this.props.data
     const description = post.description.MD.html
     const plainDescription = post.description.MD.plain
     const body = post.body.MD.html
@@ -109,7 +124,7 @@ class BlogPostTemplate extends React.Component<BlogPostTemplateProps> {
           />
           <footer>
             <CategoryList categories={post.category} />
-            <TagList tags={post.tags} />
+            {post.tags && <TagList tags={post.tags} />}
             <Share />
             <AuthorCard
               name={post.author.name}
@@ -117,6 +132,7 @@ class BlogPostTemplate extends React.Component<BlogPostTemplateProps> {
               bioMarkdown={post.author.shortBio.MD.html}
               image={post.author.image.fixed}
             />
+            <PostNavigation previousPost={previousPost} nextPost={nextPost} />
           </footer>
         </article>
 
@@ -129,7 +145,7 @@ export default BlogPostTemplate
 
 export const pageQuery = graphql`
   query BlogPostBySlug($slug: String) {
-    post:contentfulBlogPost(slug: { eq: $slug }) {
+    post:contentfulBlogPost(slug: {eq: $slug}){
       title
       datePublished:publishDate
       dateModified:updatedAt
@@ -171,4 +187,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+  `

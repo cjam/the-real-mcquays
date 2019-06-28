@@ -3,6 +3,7 @@ import Navigation from "../components/Navigation"
 import { rhythm } from "../utils/typography"
 import { Helmet } from "react-helmet"
 import SEO, { SEOProps } from "../components/SEO"
+import Footer from "../components/Footer";
 
 
 export interface LayoutProps {
@@ -20,7 +21,7 @@ const Layout: React.SFC<LayoutProps> = ({
       style={{
         margin: `0 auto`,
         marginBottom: rhythm(1.5),
-        marginTop: rhythm(1.5),
+        marginTop: rhythm(1),
         maxWidth: 1180,
         paddingLeft: rhythm(3 / 4),
         paddingRight: rhythm(3 / 4),
@@ -36,9 +37,7 @@ const Layout: React.SFC<LayoutProps> = ({
       <main>
         {children}
       </main>
-      <footer>
-        
-      </footer>
+      <Footer />
     </div>
   )
 

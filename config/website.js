@@ -21,4 +21,19 @@ module.exports = {
   
     skipNavId: 'reach-skip-nav', // ID for the "Skip to content" a11y feature
     postsPerPage:4,
+
+    footer:{
+      links:[
+        { to: '/blog', label: "Blog"},
+        { to: '/tags', label: "Tags"},
+        { to: '#', label: "Contact"},
+      ],
+      social:{
+        twitter: '',
+        facebook: '',
+        instagram: '',
+        pintrest: '',
+        youtube: ''
+      }
+    }
   }

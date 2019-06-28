@@ -1,0 +1,35 @@
+footer.main {
+    width: 100%;
+    padding-top: 2rem;
+    text-align: center;
+
+    ul.links {
+        list-style: none;
+        display: flex;
+        margin: 0;
+        justify-content: center;
+
+
+        &>li:not(:last-child)::after {
+            content: "\2022";
+            padding: 0 1rem;
+        }
+    }
+
+    .copyright{
+      display:flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-top:0.5rem;
+      font-weight: bold;
+      >*{
+        margin:0 0.4rem;
+        padding:0;
+      }
+      
+      span.credits{
+        font-weight: normal;
+      }
+    }
+
+}
