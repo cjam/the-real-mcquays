@@ -20,12 +20,11 @@ module.exports = {
     googleAnalyticsID: "UA-142542893-1",
   
     skipNavId: 'reach-skip-nav', // ID for the "Skip to content" a11y feature
-    postsPerPage:4,
-
+    itemsPerPage:4,              // Use for pagination routines
     footer:{
       links:[
         { to: '/blog', label: "Blog"},
-        { to: '/tags', label: "Tags"},
+        { to: '/blog/tags', label: "Tags"},
         { to: '#', label: "Contact"},
       ],
       social:{

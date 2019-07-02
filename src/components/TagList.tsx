@@ -1,5 +1,5 @@
 import * as React from "react"
-import HorizontalList from "./HorizontalList"
+import {kebabCase} from "lodash"
 import "./TagList.scss"
 
 interface TagListProps {
@@ -14,7 +14,7 @@ const TagList: React.SFC<TagListProps> = ({ tags, ...restProps }) => {
                 <div className="tagListTitle">tags</div>
             )}
             {tags && tags.map(tag=>(
-                <a key={tag} href={`/blog/tags/${tag}`} rel="tag" >{tag}</a>
+                <a key={tag} href={`/blog/tags/${kebabCase(tag)}`} rel="tag" >{tag}</a>
             ))}
         </div>
     )

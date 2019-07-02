@@ -1,7 +1,7 @@
 const _ = require(`lodash`)
 const path = require(`path`)
 const slash = require(`slash`)
-const {postsPerPage} = require('./config/website')
+const { itemsPerPage } = require('./config/website')
 
 // Implement the Gatsby API “createPages”. This is
 // called after the Gatsby bootstrap is finished so you have
@@ -34,6 +34,8 @@ exports.createPages = async ({ graphql, actions }) => {
             node {
               title
               slug
+              tags
+              category
             }
           }
         }
@@ -41,9 +43,24 @@ exports.createPages = async ({ graphql, actions }) => {
       `
     );
 
+    const tags = {}
+    const categories = {}
+
     const posts = result.data.allContentfulBlogPost.edges
     const blogPostTemplate = path.resolve(`./src/templates/BlogPost.tsx`)
     posts.forEach((post) => {
+      const {
+        tags: postTags = [],
+        category: postCategory = []
+      } = post.node;
+
+      const addEntry = (item, dict) => {
+        dict[item] = dict[item] != undefined ? dict[item] + 1 : 1;
+      }
+      // Add the tags and categories to sets for unique
+      postTags && postTags.forEach(tag => addEntry(tag, tags));
+      postCategory && postCategory.forEach(cat => addEntry(cat, categories));
+
       createPage({
         path: `/blog/${post.node.slug}/`,
         component: slash(blogPostTemplate),
@@ -52,25 +69,71 @@ exports.createPages = async ({ graphql, actions }) => {
           previousPost: post.previous,
           nextPost: post.next
         },
-      })
+      });
     });
 
+    const createListingPage = (numItems, rootPath, templatePath, context = {}) => {
+      const numPages = Math.ceil(numItems / itemsPerPage)
+      Array.from({ length: numPages }).forEach((_, i) => {
+        createPage({
+          path: i === 0 ? `${rootPath}` : `${rootPath}/${i + 1}`,
+          component: slash(templatePath),
+          context: {
+            ...context,
+            limit: itemsPerPage,
+            skip: i * itemsPerPage,
+            numPages,
+            currentPage: i + 1,
+          },
+        })
+      });
+    }
+
+    createListingPage(posts.length, `/blog`, path.resolve("./src/templates/BlogPostList.tsx"))
+
+
+    // Create a tags page
+    createPage({
+      path: '/blog/tags',
+      component: slash(path.resolve("./src/templates/Tags.tsx")),
+      context: {
+        tags
+      }
+    });
+
+    // Make a listing page for each tag
+    Object.keys(tags).forEach(tag => {
+      const numItems = tags[tag];
+      createListingPage(
+        numItems,
+        `/blog/tags/${_.kebabCase(tag)}`,
+        path.resolve("./src/templates/BlogTag.tsx"),
+        {
+          tag
+        }
+      )
+    })
+
+    //    createListingPage(posts, `/blog/categories`, path.resolve("./src/templates/BlogPostList.tsx"))
 
     // Create blog-list pages
-    const numPages = Math.ceil(posts.length / postsPerPage)
-    const blogPostListTemplate = path.resolve("./src/templates/BlogPostList.tsx")
-    Array.from({ length: numPages }).forEach((_, i) => {
-      createPage({
-        path: i === 0 ? `/blog` : `/blog/${i + 1}`,
-        component: slash(blogPostListTemplate),
-        context: {
-          limit: postsPerPage,
-          skip: i * postsPerPage,
-          numPages,
-          currentPage: i + 1,
-        },
-      })
-    })
+    // const numPages = Math.ceil(posts.length / postsPerPage)
+    // const blogPostListTemplate = path.resolve("./src/templates/BlogPostList.tsx")
+    // Array.from({ length: numPages }).forEach((_, i) => {
+    //   createPage({
+    //     path: i === 0 ? `/blog` : `/blog/${i + 1}`,
+    //     component: slash(blogPostListTemplate),
+    //     context: {
+    //       limit: postsPerPage,
+    //       skip: i * postsPerPage,
+    //       numPages,
+    //       currentPage: i + 1,
+    //     },
+    //   })
+    // });
+
+
+
 
   } catch (error) {
     throw error
