@@ -30,7 +30,7 @@ export const queryFragment = graphql`
         }
     }
     image{
-        fixed(width:100,height:100){
+        fixed(width:120,height:120,quality:100){
         ...GatsbyContentfulFixed_withWebp
         }
     }
