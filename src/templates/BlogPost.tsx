@@ -11,7 +11,7 @@ import TagList from "../components/TagList"
 import CategoryList from "../components/CategoryList"
 import Share from "../components/Share"
 import { dateDisplay } from "../utils/datetime"
-import AuthorCard from "../components/AuthorCard";
+import AuthorCard, { AuthorCardProps } from "../components/AuthorCard";
 import PostNavigation from "../components/PostNavigation";
 
 interface PostData {
@@ -34,18 +34,7 @@ interface PostData {
       timeToRead: number
     }
   }
-  author: {
-    name: string;
-    shortBio: {
-      MD: {
-        html: string
-      }
-    };
-    image: {
-      fixed: FixedObject
-    };
-    instagram?: string;
-  }
+  author: AuthorCardProps;
   category: string[];
   tags: string[];
   datePublished: string;
@@ -125,12 +114,7 @@ class BlogPostTemplate extends React.Component<BlogPostTemplateProps> {
             <CategoryList categories={post.category} />
             {post.tags && <TagList tags={post.tags} />}
             <Share />
-            <AuthorCard
-              name={post.author.name}
-              instagram={post.author.instagram}
-              bioMarkdown={post.author.shortBio.MD.html}
-              image={post.author.image.fixed}
-            />
+            <AuthorCard {...post.author}  />
             <PostNavigation previousPost={previousPost} nextPost={nextPost} />
           </footer>
         </article>
@@ -171,18 +155,7 @@ export const pageQuery = graphql`
         }
       }
       author {
-        name
-        instagram
-        shortBio {
-          MD:childMarkdownRemark {
-            html
-          }
-        }
-        image{
-          fixed(width:100,height:100){
-            ...GatsbyContentfulFixed_withWebp
-          }
-        }
+        ...AuthorCard
       }
     }
   }
