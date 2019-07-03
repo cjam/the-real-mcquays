@@ -72,8 +72,7 @@ export interface BlogPostTemplateProps {
 
 class BlogPostTemplate extends React.Component<BlogPostTemplateProps> {
   render() {
-    console.log(this.props);
-    const { nextPost, previousPost } = this.props.pageContext;
+    const { nextPost, previousPost } = this.props.pageContext || {};
     const { post } = this.props.data
     const description = post.description.MD.html
     const plainDescription = post.description.MD.plain

@@ -51,7 +51,6 @@ class BlogPreview extends React.Component<any, BlogPreviewState> {
         }
       } = fields
 
-      console.log(post);
       const remarkInstance = new Remark().data("settings", {
         commonmark: true,
         footnotes: true,
