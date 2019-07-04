@@ -1,9 +1,26 @@
 @import "../vars";
 
-ul{
+ul {
     // list-style: none;
 }
 
-body{
-    background: $color-background;
+body {
+    background: $color-bg-light;
+    font-family: $font-body;
+    font-weight: 300;
+    font-size:18px;
+
+    h1,h2,h3,h4,h5{
+        font-family: $font-heading;
+        font-weight: 500;
+    }
+
+    a {
+        color: $color-links;
+        transition: all 0.2s ease-in-out;
+    }
+
+    a:hover{
+        color: $color-accent-dark;
+    }
 }

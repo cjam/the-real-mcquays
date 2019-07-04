@@ -12,9 +12,10 @@ ul.pagination {
 
     a{
       display:block;
-      background:#EEE;
+      // background:#EEE;
       padding:0.5rem;
       text-shadow: unset;
+      text-decoration: none;
     }
 
     li{
@@ -37,7 +38,7 @@ ul.pagination {
       
       &:hover{
         // border-color:#999;
-        box-shadow: 0px 0px 5px #DDD;
+        box-shadow: 0px 0px 5px #ddd;
       }
     }
 

@@ -4,6 +4,10 @@ nav.post-navigation  {
     justify-content: space-between;
     padding:1rem 0;
 
+    >:last-child{
+      text-align: right;
+    }
+
     .post-nav-link{
       display:flex;
       flex-direction: column;

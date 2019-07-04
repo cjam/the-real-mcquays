@@ -1,0 +1,95 @@
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+main,
+menu,
+nav,
+section,
+summary {
+    display: block
+}
+
+audio,
+canvas,
+progress,
+video {
+    display: inline-block
+}
+
+audio:not([controls]) {
+    display: none;
+    height: 0
+}
+
+progress {
+    vertical-align: baseline
+}
+
+
+img {
+    border-style: none
+}
+
+svg:not(:root) {
+    overflow: hidden
+}
+
+figure {
+    margin: 1em 40px
+}
+
+hr {
+    box-sizing: content-box;
+    height: 0;
+    overflow: visible
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    font: inherit;
+    margin: 0
+}
+
+optgroup {
+    font-weight: 700
+}
+
+button,
+input {
+    overflow: visible
+}
+
+button,
+select {
+    text-transform: none
+}
+
+[type=reset],
+[type=submit],
+button,
+html [type=button] {
+    -webkit-appearance: button
+}
+
+fieldset {
+    border: 1px solid silver;
+    margin: 0 2px;
+    padding: .35em .625em .75em
+}
+
+textarea {
+    overflow: auto
+}
+
+[type=checkbox],
+[type=radio] {
+    box-sizing: border-box;
+    padding: 0
+}

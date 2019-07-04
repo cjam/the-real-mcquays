@@ -56,8 +56,8 @@ const Footer: React.SFC<FooterProps> = (props) => {
                 ))}
             </ul>
             <section className="copyright">
-                <span className="credits">Made by us, with ❤.</span>
-                © {new Date().getFullYear()} {author}.
+                <span className="credits">Made by us, with ❤</span>
+                © {new Date().getFullYear()} {author}
             </section>
         </footer>
     )

@@ -4,6 +4,10 @@ import { rhythm } from "../utils/typography"
 import { Helmet } from "react-helmet"
 import SEO, { SEOProps } from "../components/SEO"
 import Footer from "../components/Footer";
+import "typeface-libre-franklin"
+import "typeface-libre-baskerville"
+import "typeface-montserrat"
+import "./index.scss"
 
 
 export interface LayoutProps {
@@ -18,14 +22,7 @@ const Layout: React.SFC<LayoutProps> = ({
   children
 }) => (
     <div
-      style={{
-        margin: `0 auto`,
-        marginBottom: rhythm(1.5),
-        marginTop: rhythm(1),
-        maxWidth: 1180,
-        paddingLeft: rhythm(3 / 4),
-        paddingRight: rhythm(3 / 4),
-      }}
+      className="layout"
     >
       <Helmet>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />

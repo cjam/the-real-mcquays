@@ -113,8 +113,13 @@ class BlogPostTemplate extends React.Component<BlogPostTemplateProps> {
           <footer>
             <CategoryList categories={post.category} />
             {post.tags && <TagList tags={post.tags} />}
-            <Share />
-            <AuthorCard {...post.author}  />
+            <Share
+              title={post.title}
+              path={path}
+              description={post.description.MD.plain}
+              image={post.heroImage.seo.src}
+            />
+            <AuthorCard {...post.author} />
             <PostNavigation previousPost={previousPost} nextPost={nextPost} />
           </footer>
         </article>

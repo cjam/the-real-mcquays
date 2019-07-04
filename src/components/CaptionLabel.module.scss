@@ -2,10 +2,12 @@
 
 .captionLabel {
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 400;
     line-height: 1.2;
-    letter-spacing: 0.05em;
+    // letter-spacing: 0.05em;
     color: $color-caption-fg;
+    font-family: "montserrat";
+    // font-family: "poppins";
     display: inline-block;
     vertical-align: middle;
     text-align: center;

@@ -3,9 +3,26 @@ $break-medium: 800px;
 $break-large: 1024px;
 
 
-$color-background: #f5f6f1;
-$color-accent:#F59828;
-$color-gray: #2B3D39;
+$color-bg-light: #f5f6f1;
+$color-bg-dark:#00374b;
 
-$color-caption-bg:$color-gray;
-$color-caption-fg:$color-background
+$color-fg-light: $color-bg-light;
+$color-fg-dark: $color-bg-dark;
+
+$color-accent-light:#1286B2;
+$color-accent-dark: darken(#FFB322,10%);
+$color-highlight:yellow;
+$color-subtle:#bbb;
+$color-links:$color-bg-dark;
+
+
+$color-gray: desaturate($color-bg-dark,50%);
+
+$color-caption-bg:$color-bg-dark;
+$color-caption-fg:$color-fg-light;
+
+$rythm: 1rem;
+
+
+$font-heading:"libre baskerville";
+$font-body: "libre franklin";

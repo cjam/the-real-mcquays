@@ -10,8 +10,6 @@
         position: relative;
         text-align: left;
         text-decoration: none;
-        text-shadow: none;
-        background-image: none;
     }
 
     header {
@@ -28,7 +26,7 @@
 
         li {
             display: inline-block;
-            color: $color-accent;
+            color: $color-accent-dark;
             margin-bottom: 0;
 
             &:not(:last-child):after {
@@ -48,7 +46,7 @@
             left: -20px;
             z-index: 2;
             content: '';
-            border-top: 3px solid $color-accent;
+            border-top: 3px solid $color-accent-dark;
             width: 30px;
             margin-right: 0.5em;
         }
@@ -65,7 +63,7 @@
         margin-top: 18px;
 
         h2 {
-            font-family: 'YoungSerif';
+            // font-family: 'YoungSerif';
             font-weight: normal;
             font-size: 22px;
             line-height: 1.3;
@@ -81,13 +79,14 @@
         footer {
             font-size: 16px;
             line-height: 1.5;
-            color: $color-accent;
+            color: $color-accent-dark;
             text-transform: none;
 
             a{
                 display: flex;
                 align-items: center;
                 text-decoration: unset;
+                color:currentColor;
         
                 &:before {
                     display: block;

@@ -1915,6 +1915,13 @@
     "@types/node" "*"
     "@types/react" "*"
 
+"@types/react-share@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@types/react-share/-/react-share-2.1.1.tgz#0b6b6c73440f6100745db832d69bb0d639f8ccf4"
+  integrity sha512-xIWTe2lveY2wPJgbxw/DAJgroNLEvXFr9doahGjWIdQdIacB2wBXa4Yiwi6EJI2YWuJi6tN/z43q1rzq+7pdpg==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@^16.8.12", "@types/react@^16.8.6":
   version "16.8.20"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.8.20.tgz#4f633ecbd0a4d56d0ccc50fff6f9321bbcd7d583"
@@ -4967,7 +4974,7 @@ date-now@^0.1.4:
   resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
   integrity sha1-6vQ5/U1ISK105cx9vvIAZyueNFs=
 
-debug@2, debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.0, debug@^2.6.3, debug@^2.6.6, debug@^2.6.8, debug@^2.6.9:
+debug@2, debug@2.6.9, debug@^2.1.3, debug@^2.2.0, debug@^2.3.3, debug@^2.6.0, debug@^2.6.3, debug@^2.6.6, debug@^2.6.8, debug@^2.6.9:
   version "2.6.9"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
   integrity sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==
@@ -6260,9 +6267,9 @@ fault@^1.0.2:
   dependencies:
     format "^0.2.2"
 
-"favicons-webpack-plugin@git+https://github.com/Creatiwity/favicons-webpack-plugin.git#0872de414061baaad0a2853c77ae75bc38b8bbbf":
+"favicons-webpack-plugin@https://github.com/Creatiwity/favicons-webpack-plugin.git#0872de414061baaad0a2853c77ae75bc38b8bbbf":
   version "0.0.9"
-  resolved "git+https://github.com/Creatiwity/favicons-webpack-plugin.git#0872de414061baaad0a2853c77ae75bc38b8bbbf"
+  resolved "https://github.com/Creatiwity/favicons-webpack-plugin.git#0872de414061baaad0a2853c77ae75bc38b8bbbf"
   dependencies:
     core-js "^2.5.7"
     favicons "^5.1.1"
@@ -9210,6 +9217,13 @@ jsonify@~0.0.0:
   resolved "https://registry.yarnpkg.com/jsonify/-/jsonify-0.0.0.tgz#2c74b6ee41d93ca51b7b5aaee8f503631d252a73"
   integrity sha1-LHS27kHZPKUbe1qu6PUDYx0lKnM=
 
+jsonp@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/jsonp/-/jsonp-0.2.1.tgz#a65b4fa0f10bda719a05441ea7b94c55f3e15bae"
+  integrity sha1-pltPoPEL2nGaBUQep7lMVfPhW64=
+  dependencies:
+    debug "^2.1.3"
+
 jsontoxml@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/jsontoxml/-/jsontoxml-1.0.1.tgz#07fff7f6bfbfa1097d779aec7f041b5046075e70"
@@ -11947,7 +11961,7 @@ prompts@^2.1.0:
     kleur "^3.0.2"
     sisteransi "^1.0.0"
 
-prop-types@15.7.2, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@15.7.2, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -12405,6 +12419,16 @@ react-resize-detector@^4.0.5:
     prop-types "^15.7.2"
     raf-schd "^4.0.0"
     resize-observer-polyfill "^1.5.1"
+
+react-share@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-share/-/react-share-3.0.0.tgz#4855cfccfadbb3c6ef490047ccd144dc38ff7421"
+  integrity sha512-7UZ+QWGGZ1P4g9/5oVSIWTEXXFgQ6KgA+H6GW84iioOjM93EoaVMM/LZNiHk0hgYJLsSIGcePTKemIv1yWhYiQ==
+  dependencies:
+    babel-runtime "^6.26.0"
+    classnames "^2.2.5"
+    jsonp "^0.2.1"
+    prop-types "^15.5.8"
 
 react-side-effect@^1.1.0:
   version "1.1.5"
@@ -14663,6 +14687,26 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
+
+typeface-libre-baskerville@^0.0.72:
+  version "0.0.72"
+  resolved "https://registry.yarnpkg.com/typeface-libre-baskerville/-/typeface-libre-baskerville-0.0.72.tgz#c5d6d82a9b316f01a1714088f8ca36fe7c3f418b"
+  integrity sha512-8eY5Tee80wNMfKCPYQguj2dODct+sQo3Et7meKOYklvaBRA1PK/DQnaNlYT+I85s1Z7PGUwBtZuG0yOIz4R9vg==
+
+typeface-libre-franklin@^0.0.54:
+  version "0.0.54"
+  resolved "https://registry.yarnpkg.com/typeface-libre-franklin/-/typeface-libre-franklin-0.0.54.tgz#bde5607b324ef0eb9ad3d6b1bb9405e4dd74094a"
+  integrity sha512-W4D5WaGdAoF0TIomyO8ZOTh11+5uN8eU3zbyaBKPEom7rfHNnqgMY6QHFgz2wZGRV9iSs3m9lv7ofIeVjIzeew==
+
+typeface-montserrat@^0.0.54:
+  version "0.0.54"
+  resolved "https://registry.yarnpkg.com/typeface-montserrat/-/typeface-montserrat-0.0.54.tgz#3fc338db6428d73485b75aa7bd2af8c9a55b9ab3"
+  integrity sha512-Typhap0PWT299+Va0G/8ZtycHMXrH4gBWKfiW977KEBx5rXUUCa70gvqLx1fdA0WAo6bhSAQmo8uc+QFAmjPww==
+
+typeface-special-elite@^0.0.72:
+  version "0.0.72"
+  resolved "https://registry.yarnpkg.com/typeface-special-elite/-/typeface-special-elite-0.0.72.tgz#4a6f250d67f7bd80d307bcd756a729af0c48710e"
+  integrity sha512-xRtWPqpbFQvxT2Y+1ypYYPJ+FoQqyaWlGtu4U7MGNIQx50sNK2nwbWaR2Y+KVe13vzdcJd4ZbzvX5cLJ8y7toA==
 
 typescript@^2.9.1:
   version "2.9.2"

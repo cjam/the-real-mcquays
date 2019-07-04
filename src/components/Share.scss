@@ -1,0 +1,47 @@
+@import "../vars.scss";
+
+.social-sharing {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+
+    .SocialMediaShareButton {
+        transition: all 0.2s ease-in-out;
+        display: flex;
+        align-items: center;
+        line-height: unset;
+        margin: 5px;
+
+        >.SocialMediaShareCount {
+            font-size: 0.8rem;
+            height: 100%;
+            padding: 0.55rem 0.4rem 0 0.4rem;
+            box-sizing: border-box;
+            margin: 1px 0;
+            border-width: 1px 1px 1px 0px;
+            border-style: solid;
+            border-color: #ddd;
+            font-weight: 100;
+        }
+
+        &:hover {
+            box-shadow: 0px 0px 5px #ddd;
+            opacity: 0.6;
+            cursor: pointer;
+        }
+    }
+
+    @media screen and (max-width:$break-small) {
+        justify-content: space-around;
+
+        .SocialMediaShareCount {
+            display: none;
+        }
+    }
+
+    // .SocialMediaShareButton--facebook{
+    //     background-color: #3b5998;
+    //     color:white;
+    // }
+}

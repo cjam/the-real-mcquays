@@ -1,0 +1,33 @@
+@import "../vars.scss";
+
+.layout {
+    box-sizing: border-box;
+    overflow: hidden;
+    margin: 0 auto;
+    margin-bottom: 1*$rythm;
+    margin-top: 1.5*$rythm;
+    min-width: 300px;
+    max-width: 1180px;
+    width:100%;
+    padding: 0 3/4*$rythm;
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: 80px auto 100px;
+    grid-template-columns: 100%;
+    grid-template-areas:
+        "navigation"
+        "main"
+        "footer";
+
+    nav {
+        grid-area: "navigation"
+    }
+
+    main {
+        grid-area: "main";
+    }
+
+    footer{
+        grid-area: "footer"
+    }
+}

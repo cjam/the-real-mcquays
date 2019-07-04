@@ -25,7 +25,7 @@ module.exports = {
       links:[
         { to: '/blog', label: "Blog"},
         { to: '/blog/tags', label: "Tags"},
-        { to: '#', label: "Contact"},
+        // { to: '#', label: "Contact"},
       ],
       social:{
         twitter: '',
