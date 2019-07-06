@@ -3,16 +3,15 @@ import Img, { FluidObject } from "gatsby-image"
 import { HeroImage } from "../types";
 import "./Hero.scss"
 
-export interface HeroProps {
-  caption?:React.ReactNode
+export interface HeroProps extends React.HTMLAttributes<HTMLElement> {
+  caption?: React.ReactNode
 }
 
-const App:React.SFC<HeroProps> = ({caption,children}) => {
-  
+const Hero: React.SFC<HeroProps> = ({ caption, children, className = "", ...restProps }) => {
+
   return (
-    <figure className="hero">
+    <figure className={`hero ${className}`} {...restProps}>
       {children}
-      {/* <Img className={styles.heroImage} alt={props.name} sizes={props.heroImage.sizes} /> */}
       <figcaption>
         {caption}
       </figcaption>
@@ -20,4 +19,4 @@ const App:React.SFC<HeroProps> = ({caption,children}) => {
   )
 }
 
-export default App;
+export default Hero;

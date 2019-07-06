@@ -1,7 +1,7 @@
 import React from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import Link from "gatsby-link"
-import "./Footer.scss"
+import "./PageFooter.scss"
 
 export interface FooterProps {
 
@@ -47,7 +47,7 @@ const Footer: React.SFC<FooterProps> = (props) => {
     } = site;
 
     return (
-        <footer className="main">
+        <div className="page-footer">
             <ul className="links">
                 {links.map(({ to, label }, i) => (
                     <li key={to}>
@@ -59,7 +59,7 @@ const Footer: React.SFC<FooterProps> = (props) => {
                 <span className="credits">Made by us, with ❤</span>
                 © {new Date().getFullYear()} {author}
             </section>
-        </footer>
+        </div>
     )
 }
 

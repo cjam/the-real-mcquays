@@ -1,9 +1,9 @@
 import * as React from "react"
-import Navigation from "../components/Navigation"
+import Navigation from "../components/NavigationBar"
 import { rhythm } from "../utils/typography"
 import { Helmet } from "react-helmet"
 import SEO, { SEOProps } from "../components/SEO"
-import Footer from "../components/Footer";
+import Footer from "../components/PageFooter";
 import "typeface-libre-franklin"
 import "typeface-libre-baskerville"
 import "typeface-montserrat"
@@ -11,13 +11,13 @@ import "./index.scss"
 
 
 export interface LayoutProps {
-  seo?:SEOProps
+  seo?: SEOProps
 }
 
 
 const Layout: React.SFC<LayoutProps> = ({
-  seo={
-    article:false,
+  seo = {
+    article: false,
   },
   children
 }) => (
@@ -29,12 +29,14 @@ const Layout: React.SFC<LayoutProps> = ({
       </Helmet>
       <SEO {...seo} />
       <nav>
-        <Navigation />
+        <Navigation currentPath={seo ? seo.path : undefined} />
       </nav>
       <main>
         {children}
       </main>
-      <Footer />
+      <footer>
+        <Footer />
+      </footer>
     </div>
   )
 

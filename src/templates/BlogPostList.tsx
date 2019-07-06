@@ -39,19 +39,20 @@ const BlogPostListTemplate: React.SFC<BlogPostListTemplateProps> = (props) => {
   return (
     <Layout seo={{
       path,
-      description:"List of articles",
-      title:"The Real McQuays Blog"
+      description: "List of articles",
+      title: "The Real McQuays Blog"
     }}>
+      <section className="container">
+        <ArticlePreviewList articles={articles} />
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center"
 
-      <ArticlePreviewList articles={articles} />
-      <div style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent:"center"
-        
-      }}>
-        <Pagination rootPath="/blog" currentPage={currentPage} numPages={numPages} />
-      </div>
+        }}>
+          <Pagination rootPath="/blog" currentPage={currentPage} numPages={numPages} />
+        </div>
+      </section>
     </Layout>
   )
 

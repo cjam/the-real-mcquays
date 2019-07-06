@@ -1,0 +1,53 @@
+@import "../vars.scss";
+
+.page-footer {
+    // padding-top: 2*$rythm;
+    // padding-bottom: 1*$rythm;
+    background-color: $color-shade-dark;
+    color: $color-shade-light;
+    height:100%;
+
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    ul.links {
+        // list-style: none;
+        display: flex;
+        margin: 0;
+        justify-content: center;
+        padding: 0;
+
+        a {
+            text-decoration: none;
+            color:$color-shade-light;
+        }
+
+        &>li:not(:last-child) {
+            &::after {
+                content: "\2022";
+                padding: 0 1rem;
+            }
+        }
+    }
+
+    .copyright {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        font-weight: 500;
+        color: $color-accent-dark;
+
+        >* {
+            margin: 0 0.4rem;
+            padding: 0;
+        }
+
+        span.credits {
+            font-weight: normal;
+        }
+    }
+
+}

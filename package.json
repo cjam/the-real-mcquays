@@ -14,6 +14,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "@types/classnames": "^2.2.9",
     "@types/lodash": "^4.14.134",
     "@types/node": "^10.3.1",
     "@types/qs": "^6.5.3",
@@ -21,6 +22,7 @@
     "@types/react-dom": "16.0.6",
     "@types/react-share": "^2.1.1",
     "@types/typography": "^0.16.2",
+    "classnames": "^2.2.6",
     "contentful": "^7.8.0",
     "gatsby": "^2.0.0",
     "gatsby-image": "^2.1.4",

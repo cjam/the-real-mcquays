@@ -19,7 +19,8 @@ module.exports = {
     author: website.author,
     twitter: website.twitter,
     facebookSite: website.facebookSite,
-    footer: website.footer
+    footer: website.footer,
+    navigation: website.navigation
   },
   plugins: [
     `gatsby-plugin-typescript`,
