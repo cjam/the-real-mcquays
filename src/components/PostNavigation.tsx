@@ -14,16 +14,22 @@ interface PostNavigationProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const PostNavLink: React.SFC<{ label: string, post?: PostLink }> = ({ label, post }) => {
-    if(post == undefined){
-        return null;
+    let content: React.ReactNode = null;
+
+    if (post != undefined) {
+        content = (
+            <>
+                <span>{label}</span>
+                <span>
+                    <Link to={`blog/${post.slug}`}>{post.title}</Link>
+                </span>
+            </>
+        )
     }
-    
-    return(
+
+    return (
         <div className="post-nav-link">
-            <span>{label}</span>
-            <span>
-                <Link to={`blog/${post.slug}`}>{post.title}</Link>
-            </span>
+            {content}
         </div>
     )
 }
@@ -35,8 +41,8 @@ const PostNavigation: React.SFC<PostNavigationProps> = ({
 }) => {
     return (
         <nav className="post-navigation" {...restProps}>
-            <PostNavLink label="Previous Article" post={previousPost}/>
-            <PostNavLink label="Next Article" post={nextPost}/>
+            <PostNavLink label="Previous Article" post={previousPost} />
+            <PostNavLink label="Next Article" post={nextPost} />
         </nav>
     )
 }
