@@ -8,6 +8,7 @@ import { ArticlePreviewProps } from "../components/ArticlePreview"
 import Hero from "../components/Hero"
 import "./index.scss"
 import AuthorCard from "../components/AuthorCard";
+import Container from "../components/Container";
 
 // Please note that you can use https://github.com/dotansimha/graphql-code-generator
 // to generate all types from graphQL schema
@@ -37,8 +38,8 @@ export default class IndexPage extends React.Component<IndexPageProps, {}> {
     } } = this.props;
     return (
       <Layout>
-        <section className="container">
-          <AuthorCard {...author} />
+        <Container>
+          {/* <AuthorCard {...author} /> */}
         {/* <Hero
           className="index-hero"
           // caption={(
@@ -52,7 +53,7 @@ export default class IndexPage extends React.Component<IndexPageProps, {}> {
         
           <h2>Recent Posts</h2>
           <ArticlePreviewList articles={posts.map(({ post }) => post)} />
-        </section>
+        </Container>
       </Layout>
     )
   }

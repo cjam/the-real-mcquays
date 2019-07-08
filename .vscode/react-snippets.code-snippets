@@ -15,21 +15,29 @@
 	// 	],
 	// 	"description": "Log output to console"
 	// }
-	"React Component":{
-		"scope": "typescript,tsx",
+	"React_Component":{
+		// "scope": "typescript,tsx",
 		"prefix":"trc",
-		"body":[
-			"import * as React from 'react'",
-			"",
-			"export interface $1Props {",
-			"",
-			"}",
-			"",
-			"const $1: React.SFC<$1Props> = (props)=>{",
-			"$0);",
-			"}",
-			"export default $1"
+		"body": [
+			"console.log('$1');",
+			"$2"
 		],
+		// "body":"
+		// 	import * as React from 'react';
+
+		// ",
+		// "body":[
+		// 	"import * as React from 'react'",
+		// 	"",
+		// 	"export interface $1Props {",
+		// 	"",
+		// 	"}",
+		// 	"",
+		// 	"const $1: React.SFC<$1Props> = (props)=>{",
+		// 	"$0);",
+		// 	"}",
+		// 	"export default $1"
+		// ],
 		"description": "Builds a functional react component"
 	}
 }

@@ -1,0 +1,46 @@
+@import "../vars.scss";
+
+.author-page {
+  >header{
+    padding-bottom: 0.5em;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+
+    >h1{
+      line-height: 30px;
+      text-align: center;
+    }
+
+    >.picture-and-bio{
+      display:flex;
+      flex-direction: row;
+      max-width:75%;
+      border-bottom: 2px solid $color-accent-light;
+      padding:0.5em;
+
+      figure{
+        .gatsby-image-wrapper{
+          border-radius:10px;
+        } 
+        margin-left:0;
+      }
+
+      .bio{
+        margin:0px;
+      }
+
+      @media screen and (max-width:$break-medium) {
+        flex-direction: column;
+        align-items: center;
+        max-width: unset;
+        >figure{
+          margin:0;
+        }
+      }
+    }
+  }
+  >h2{
+    text-align: center;
+  }
+}

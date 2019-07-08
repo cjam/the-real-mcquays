@@ -1,9 +1,11 @@
 import * as React from "react"
 import Layout from "../layouts"
+import Container from "../components/Container"
 
 export default () => (
   <Layout>
-    <h1>You are here!</h1>
-    <h2>But nothing found for you #404</h2>
+    <Container>
+      <h1>¯\_(ツ)_/¯</h1>
+    </Container>
   </Layout>
 )

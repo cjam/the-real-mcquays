@@ -1,10 +1,5 @@
 @import "../vars.scss";
 
-ul {
-    // list-style: none;
-}
-
-
 
 body {
     font-family: $font-body;
@@ -12,12 +7,11 @@ body {
     min-width: 320px;
     font-size: 18px;
     line-height: 1.58em;
+    height: 100vh;
 
-    @media screen and (max-width:$break-small) {
-        
-    }
+    @media screen and (max-width: $break-small) {}
 
-    strong{
+    strong {
         font-weight: 600;
     }
 
@@ -26,13 +20,15 @@ body {
     h2,
     h3,
     h4,
-    h5 {
+    h5,
+    h6 {
         font-family: $font-heading;
         font-weight: 500;
     }
 
     a {
         color: $color-links;
+        background-color: transparent;
         transition: all 0.2s ease-in-out;
     }
 
@@ -41,15 +37,18 @@ body {
     }
 }
 
-article{
-    max-width: 780px;
+// Prevent highlight on mobile
+* {
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+
+    &:focus {
+        outline: 0;
+    }
 }
 
-.container{
-    max-width:1180px;
-    flex-grow: 1,1;
-    margin:0 auto;
-    padding:1rem;
-    background-color: $color-bg-light;
-    box-shadow: $shadow;
+
+article {
+    max-width: 780px;
 }
