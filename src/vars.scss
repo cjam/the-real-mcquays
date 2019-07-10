@@ -1,28 +1,75 @@
 $break-small: 475px;
+$break-medium-small: 535px;
 $break-medium: 800px;
 $break-large: 1024px;
 
+$color-shade-light:#f8f7f8;
+$color-shade-dark:#262f26;
+$color-accent-light:#655e65;
+$color-accent-dark:#69655f;
+$color-brand:#757d83;
 
-$color-bg-light: #f5f6f1;
-$color-bg-dark:#00374b;
+
+$color-main-bg:scale-color($color-brand,$lightness:90%);
+
+$color-header-bg:$color-shade-light;
+$color-header-fg:$color-brand;
+
+$color-nav-active:$color-accent-light;
+
+$color-links:$color-accent-dark;
+
+$color-caption-bg:$color-accent-light;
+$color-caption-fg:$color-shade-light;
+
+$color-bg-light: #ffffff;
+$color-bg-dark:#262f26;
+$color-border-light:#bbb;
+$color-border-dark:$color-brand;
 
 $color-fg-light: $color-bg-light;
 $color-fg-dark: $color-bg-dark;
 
-$color-accent-light:#1286B2;
-$color-accent-dark: darken(#FFB322,10%);
-$color-highlight:yellow;
-$color-subtle:#bbb;
-$color-links:$color-bg-dark;
+$color-subtle:$color-brand;
+
+
 
 
 $color-gray: desaturate($color-bg-dark,50%);
 
-$color-caption-bg:$color-bg-dark;
-$color-caption-fg:$color-fg-light;
+
 
 $rythm: 1rem;
 
 
 $font-heading:"libre baskerville";
 $font-body: "libre franklin";
+
+$shadow: 0 0 10px scale-color($color-shade-dark,$alpha:-80%);
+
+@mixin reset-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@mixin horizontal-list {
+  @include reset-list;
+
+  li {
+    display: inline-block;
+    margin: {
+      left: -2px;
+      right: 2em;
+    }
+  }
+}
+
+a.phantom-full::after{
+    content:"";
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+}

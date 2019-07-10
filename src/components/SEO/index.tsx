@@ -29,8 +29,10 @@ const query = graphql`
         siteLanguage
         ogLanguage
         author
-        twitter
-        facebookSite
+        social{
+            twitter
+            facebook
+        }
       }
     }
   }
@@ -59,8 +61,10 @@ const SEO: React.SFC<SEOProps> = ({
             siteLanguage,
             ogLanguage,
             author,
-            twitter,
-            facebookSite,
+            social:{
+                twitter,
+                facebook
+            }
         },
     } = site
 
@@ -127,7 +131,7 @@ const SEO: React.SFC<SEOProps> = ({
                 description={seo.description}
                 image={seo.image}
                 locale={ogLanguage}
-                siteName={facebookSite}
+                siteName={facebook}
             />
             <TwitterSEO
                 username={twitter}

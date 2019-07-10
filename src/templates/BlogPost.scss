@@ -6,17 +6,13 @@ article.blogPost {
         text-align: center;
 
         figure {
-            margin-bottom: 0.5rem;
+            margin: 0 0 0.5rem 0;
             
             @media screen and (max-width:$break-small){
               margin-left:-1rem;
               margin-right:-1rem;
+              margin-top:0;
             }
-
-        }
-
-        h1 {
-            font-size: 2.8em;
         }
     }
 
@@ -24,15 +20,15 @@ article.blogPost {
         margin-bottom: 1.5rem;
 
         &.description {
-            font-size: 1.3em;
+            font-size: 1.1em;
             line-height: 1.3em;
             font-style: italic;
         }
 
         &.body {
             p {
-                font-size: 1.3em;
-                line-height: 1.3em;
+                // font-size: 1.3em;
+                // line-height: 1.3em;
             }
         }
     }
@@ -44,6 +40,14 @@ article.blogPost {
 
         >* {
             margin: 0.6rem 0;
+        }
+
+        .author{
+            border-width: 1px 0 2px 0px;
+            border-style: solid;
+            border-color: $color-shade-dark;
+            padding: 1rem 0;
+            width: 100%;
         }
 
         // >:not(:last-child){

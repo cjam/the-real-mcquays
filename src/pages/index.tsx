@@ -2,26 +2,27 @@ import { graphql } from "gatsby"
 import * as React from "react"
 import Layout from "../layouts"
 import { get } from "lodash"
-import Img from "gatsby-image"
+import Img, { FluidObject } from "gatsby-image"
 import ArticlePreviewList from "../components/ArticlePreviewList"
 import { ArticlePreviewProps } from "../components/ArticlePreview"
 import Hero from "../components/Hero"
 import "./index.scss"
+import AuthorCard from "../components/AuthorCard";
+import Container from "../components/Container";
 
 // Please note that you can use https://github.com/dotansimha/graphql-code-generator
 // to generate all types from graphQL schema
 interface IndexPageProps {
   data: {
     sortedPosts: {
-      edges: {
-
-      }
-      pageInfo: {
-        currentPage: number;
-        pageCount: number;
-        itemCount: number;
-        hasNextPage: boolean;
-        hasPreviousPage: boolean;
+      edges: Array<{
+        post: ArticlePreviewProps
+      }>
+    }
+    siteAuthor: {
+      name: string;
+      heroImage: {
+        fluid: FluidObject
       }
     }
   }
@@ -29,41 +30,48 @@ interface IndexPageProps {
 
 export default class IndexPage extends React.Component<IndexPageProps, {}> {
   public render() {
-    // const posts = get(this, "props.data.allContentfulBlogPost.edges")
-    // const [authorNode] = get(this, "props.data.allContentfulPerson.edges")
-    // const { node: author } = authorNode;
-
-    // const articlePreviews = posts.map(({ node: { heroImage, description, ...restProps } }: any) => ({
-    //   ...restProps,
-    //   image: <Img sizes={heroImage.images} />,
-    //   descriptionHtml: description.childMarkdownRemark.html
-    // }))
+    const { data: {
+      sortedPosts: {
+        edges: posts = []
+      },
+      siteAuthor: author
+    } } = this.props;
     return (
       <Layout>
-        {/* <Hero
-          caption={(
-            <div>
-              <h3 style={{margin:0}}>{author.name}</h3>
-            </div>
-          )}
-        > */}
-        {/* <Img alt={author.name} sizes={author.heroImage.sizes} />
-        </Hero> */}
-        {/* <div className="wrapper">
-          <h2 className="section-headline">Recent articles</h2>
-          <ArticlePreviewList articles={articlePreviews} />
-        </div> */}
-        <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
-          <h3>Welcome to the future home of the Real McQuays Blog.</h3>
-          
-          <span style={{ fontSize: 120,margin:0,padding:0 }}>👷‍♀️ 👷‍♂️</span>
-          <h4 style={{marginTop:5}}>Currently under construction</h4>
-        </div>
-
+        <Container>
+          {/* <iframe
+            src="https://www.google.com/maps/d/embed?mid=1HFfcjZfpjFxjGKBBA8OCaxkJUuCoKcwW"
+            width="100%"
+            height="480"
+          /> */}
+          <h2>Recent Posts</h2>
+          <ArticlePreviewList articles={posts.map(({ post }) => post)} />
+        </Container>
       </Layout>
     )
   }
 }
+
+export const query = graphql`
+  query{
+    sortedPosts:allContentfulBlogPost(sort: {fields: publishDate, order: DESC}, limit: 3) {
+      edges {
+        post:node {
+          ...ArticlePreviewInfo
+        }
+      }
+    }
+    siteAuthor:contentfulPerson(email: {eq: "the.real.mcquays@gmail.com"}) {
+      ...AuthorCard
+      name
+      heroImage {
+        fluid(maxWidth:2000,quality:70){
+          ...GatsbyContentfulFluid_withWebp
+        }
+      }
+    }
+  }
+`;
 
 // export const pageQuery = graphql`
 //   query HomeQuery {

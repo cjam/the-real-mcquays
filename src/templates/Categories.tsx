@@ -3,14 +3,17 @@ import { graphql, Link } from "gatsby"
 import { get, kebabCase } from "lodash"
 import Layout from "../layouts"
 import "./Categories.scss"
+import CaptionLabel from "../components/CaptionLabel"
+import Container from "../components/Container";
 
-export interface BlogTagsPageProps {
+
+export interface BlogCategoriesPageProps {
     pageContext: {
         categories: { [key: string]: number }
     }
 }
 
-const BlogTagsPage: React.SFC<BlogTagsPageProps> = (props) => {
+const BlogCategoriesPage: React.SFC<BlogCategoriesPageProps> = (props) => {
     const {
         pageContext: {
             categories = {}
@@ -25,13 +28,20 @@ const BlogTagsPage: React.SFC<BlogTagsPageProps> = (props) => {
             description: `List of article categories`,
             title: "The Real McQuays Blog"
         }}>
-            <section className="categories">
-                {categoryCount.map(({ category, count }) => (
-                    <Link key={category} to={`/blog/categories/${kebabCase(category)}`} >{category}<span>({count})</span></Link>
-                ))}
-            </section>
+            <Container>
+                <h2>List of Article Categories</h2>
+                <section className="categories">
+                    {categoryCount.map(({ category, count }) => (
+                        <Link key={category} to={`/blog/categories/${kebabCase(category)}`} >
+                            <CaptionLabel>
+                                {category}<span>({count})</span>
+                            </CaptionLabel>
+                        </Link>
+                    ))}
+                </section>
+            </Container>
         </Layout>
     )
 }
 
-export default BlogTagsPage
+export default BlogCategoriesPage

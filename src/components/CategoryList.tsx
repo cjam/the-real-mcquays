@@ -1,6 +1,8 @@
 import * as React from "react"
 import CaptionLabel from "./CaptionLabel"
+import {kebabCase} from "lodash"
 import styles from "./CategoryList.module.scss"
+import { Link } from "gatsby";
 
 interface CategoryListProps extends React.HTMLAttributes<HTMLDivElement> {
     categories?: string[]
@@ -13,9 +15,11 @@ const CategoryList: React.SFC<CategoryListProps> = ({
     return (
         <div className={styles.categoryList} >
             {categories && categories.map(cat => (
-                <CaptionLabel key={cat}>
-                    {cat}
-                </CaptionLabel>
+                <Link to={`/blog/categories/${kebabCase(cat)}`}>
+                    <CaptionLabel key={cat}>
+                        {cat}
+                    </CaptionLabel>
+                </Link>
             ))}
         </div>
     )

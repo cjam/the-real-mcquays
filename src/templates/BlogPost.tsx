@@ -80,7 +80,7 @@ class BlogPostTemplate extends React.Component<BlogPostTemplateProps> {
         dateModified,
         datePublished
       }}>
-        <article className="blogPost">
+        <article className="blogPost container">
           <header>
             <Hero
               caption={(
@@ -96,7 +96,7 @@ class BlogPostTemplate extends React.Component<BlogPostTemplateProps> {
             >
               <Img alt={post.title} sizes={post.heroImage.sizes} />
             </Hero>
-            <h1>{post.title}</h1>
+            <h1 className="post-title">{post.title}</h1>
             <div>Time To Read: <b>{post.body.MD.timeToRead} min</b></div>
             {datePublishedDisplay !== dateModifiedDisplay && <div>Updated: {dateModifiedDisplay}</div>}
           </header>
@@ -119,7 +119,9 @@ class BlogPostTemplate extends React.Component<BlogPostTemplateProps> {
               description={post.description.MD.plain}
               image={post.heroImage.seo.src}
             />
-            <AuthorCard {...post.author} />
+            <div className="author">
+              <AuthorCard {...post.author} />
+            </div>
             <PostNavigation previousPost={previousPost} nextPost={nextPost} />
           </footer>
         </article>

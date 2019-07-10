@@ -17,9 +17,9 @@ module.exports = {
     siteLanguage: website.siteLanguage,
     ogLanguage: website.ogLanguage,
     author: website.author,
-    twitter: website.twitter,
-    facebookSite: website.facebookSite,
-    footer: website.footer
+    social: website.social,
+    footer: website.footer,
+    navigation: website.navigation
   },
   plugins: [
     `gatsby-plugin-typescript`,

@@ -1,33 +1,40 @@
 @import "../vars.scss";
+@import "../styles/main.scss";
 
 .layout {
     box-sizing: border-box;
     overflow: hidden;
     margin: 0 auto;
-    margin-bottom: 1*$rythm;
-    margin-top: 1.5*$rythm;
-    min-width: 300px;
-    max-width: 1180px;
-    width:100%;
-    padding: 0 3/4*$rythm;
+    width: 100%;
     min-height: 100vh;
     display: grid;
-    grid-template-rows: 80px auto 100px;
-    grid-template-columns: 100%;
+    grid-template-rows: 60px auto 140px;
+    grid-template-columns: auto;
     grid-template-areas:
         "navigation"
         "main"
         "footer";
 
-    nav {
-        grid-area: "navigation"
+    >nav {
+        grid-area: navigation;
+        background-color: $color-header-bg;
+        color: $color-header-fg;
+        z-index: 100;
+        box-shadow: $shadow;
+        border-bottom: 2px solid $color-border-dark;
     }
 
-    main {
-        grid-area: "main";
+    >main {
+        grid-area: main;
+        flex-direction: column;
+        background-color: $color-main-bg;
+        z-index: 90;
     }
 
-    footer{
-        grid-area: "footer"
+    >footer {
+        grid-area: footer;
+        z-index: 100;
+        box-shadow: $shadow;
     }
 }
+

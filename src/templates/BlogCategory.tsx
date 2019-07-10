@@ -6,6 +6,7 @@ import Layout from "../layouts"
 import ArticlePreviewList from "../components/ArticlePreviewList";
 import { ArticlePreviewProps } from "../components/ArticlePreview";
 import Pagination from "../components/Pagination";
+import Container from "../components/Container";
 
 
 export interface BlogPostCategoryTemplateProps {
@@ -15,7 +16,7 @@ export interface BlogPostCategoryTemplateProps {
     }
   };
   pageContext: {
-    tag:string,
+    tag: string,
     currentPage: number;
     numPages: number
   }
@@ -35,7 +36,7 @@ const BlogPostCategoryTemplate: React.SFC<BlogPostCategoryTemplateProps> = (prop
   } = props;
 
   const path = get(props, "pageResources.page.path", "")
-  const category = get(props,"pageContext.category","")
+  const category = get(props, "pageContext.category", "")
   const articles = posts.map(({ post }) => (post))
 
   return (
@@ -44,17 +45,19 @@ const BlogPostCategoryTemplate: React.SFC<BlogPostCategoryTemplateProps> = (prop
       description: `List of articles within the category '${category}'`,
       title: "The Real McQuays Blog"
     }}>
-      <h2>Articles within the <span style={{fontStyle:"italic",fontWeight:"lighter"}}>{category}</span> Category</h2>
-      <Link to="/blog/categories">All Categories</Link>
-      <ArticlePreviewList articles={articles} />
-      <div style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center"
+      <Container>
+        <h2>Articles within the <span style={{ fontStyle: "italic", fontWeight: "lighter" }}>{category}</span> Category</h2>
+        <Link to="/blog/categories">All Categories</Link>
+        <ArticlePreviewList articles={articles} />
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center"
 
-      }}>
-        <Pagination rootPath={`/blog/categories/${category}`} currentPage={currentPage} numPages={numPages} />
-      </div>
+        }}>
+          <Pagination rootPath={`/blog/categories/${category}`} currentPage={currentPage} numPages={numPages} />
+        </div>
+      </Container>
     </Layout>
   )
 

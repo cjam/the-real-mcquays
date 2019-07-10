@@ -1,0 +1,21 @@
+@import "../vars.scss";
+
+.container {
+  max-width: 1180px;
+  flex-grow: 1, 1;
+  margin: 0 auto;
+  padding: 1rem;
+  background-color: $color-bg-light;
+  box-shadow: $shadow;
+  min-height:100%;
+  
+  >h1:first-of-type, h2:first-of-type, h3:first-of-type,h4:first-of-type{
+    margin-top:0;
+    padding-top:0.5*$rythm
+  }
+  
+  @media screen and (max-width:$break-small) {
+    padding:0.5rem;
+    padding-top: 0;  
+  }
+}

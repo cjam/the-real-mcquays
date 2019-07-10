@@ -4,4 +4,7 @@
     :not(:first-child){
         margin-left:0.8rem;
     }
+    :hover{
+        opacity:0.8;
+    }
 }
