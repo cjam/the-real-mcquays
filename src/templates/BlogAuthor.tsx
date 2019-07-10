@@ -57,7 +57,7 @@ const BlogPostAuthorTemplate: React.SFC<BlogPostAuthorTemplateProps> = (props) =
               <figure>
                 <Image {...author.image} />
               </figure>
-              {bioHtml && <p className="bio" dangerouslySetInnerHTML={{ __html: bioHtml }} />}
+              {bioHtml && <div className="bio" dangerouslySetInnerHTML={{ __html: bioHtml }} />}
             </div>
           </header>
           <h2>Articles</h2>
