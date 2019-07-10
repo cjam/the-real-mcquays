@@ -14,7 +14,7 @@
     justify-content: space-evenly;
 
     ul.links {
-        // list-style: none;
+        list-style: none;
         display: flex;
         margin: 0;
         justify-content: center;
@@ -23,6 +23,10 @@
         a {
             text-decoration: none;
             color:$color-shade-light;
+        }
+
+        li:hover a{
+            color:scale-color($color-shade-light,$alpha:-40%)
         }
 
         &>li:not(:last-child) {

@@ -15,8 +15,6 @@ module.exports = {
   shortName: 'RealMcquays', // shortname for manifest. MUST be shorter than 12 characters
   author: 'The Real McQuays', // Author for schemaORGJSONLD
 
-  twitter: '', // Twitter Username
-  facebookSite: '', // Facebook Site Name
   googleAnalyticsID: "UA-142542893-1",
 
   skipNavId: 'reach-skip-nav', // ID for the "Skip to content" a11y feature
@@ -33,14 +31,15 @@ module.exports = {
     links: [
       { to: '/blog', label: "Blog" },
       { to: '/blog/tags', label: "Tags" },
+      { to: '/blog/categories', label: "Categories" },
       // { to: '#', label: "Contact"},
     ],
-    social: {
-      twitter: '',
-      facebook: '',
-      instagram: '',
-      pintrest: '',
-      youtube: ''
-    }
+  },
+  social: {
+    twitter: '',
+    facebook: '',
+    instagram: 'the.real.mcquays',
+    pintrest: '',
+    youtube: ''
   }
 }

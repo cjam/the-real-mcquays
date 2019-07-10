@@ -6,6 +6,7 @@ import Layout from "../layouts"
 import ArticlePreviewList from "../components/ArticlePreviewList";
 import { ArticlePreviewProps } from "../components/ArticlePreview";
 import Pagination from "../components/Pagination";
+import Container from "../components/Container";
 
 
 export interface BlogPostTagTemplateProps {
@@ -15,7 +16,7 @@ export interface BlogPostTagTemplateProps {
     }
   };
   pageContext: {
-    tag:string,
+    tag: string,
     currentPage: number;
     numPages: number
   }
@@ -35,7 +36,7 @@ const BlogPostTagTemplate: React.SFC<BlogPostTagTemplateProps> = (props) => {
   } = props;
 
   const path = get(props, "pageResources.page.path", "")
-  const tag = get(props,"pageContext.tag","")
+  const tag = get(props, "pageContext.tag", "")
   const articles = posts.map(({ post }) => (post))
 
   return (
@@ -44,17 +45,19 @@ const BlogPostTagTemplate: React.SFC<BlogPostTagTemplateProps> = (props) => {
       description: `List of articles tagged with '${tag}'`,
       title: "The Real McQuays Blog"
     }}>
-      <h2>Articles Tagged with <span style={{fontStyle:"italic",fontWeight:"lighter"}}>{tag}</span></h2>
-      <Link to="/blog/tags">All tags</Link>
-      <ArticlePreviewList articles={articles} />
-      <div style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center"
+      <Container>
+        <h2>Articles Tagged with <span style={{ fontStyle: "italic", fontWeight: "lighter" }}>{tag}</span></h2>
+        <Link to="/blog/tags">All tags</Link>
+        <ArticlePreviewList articles={articles} />
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center"
 
-      }}>
-        <Pagination rootPath={`/blog/tags/${tag}`} currentPage={currentPage} numPages={numPages} />
-      </div>
+        }}>
+          <Pagination rootPath={`/blog/tags/${tag}`} currentPage={currentPage} numPages={numPages} />
+        </div>
+      </Container>
     </Layout>
   )
 

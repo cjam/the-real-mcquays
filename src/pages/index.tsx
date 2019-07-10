@@ -34,23 +34,16 @@ export default class IndexPage extends React.Component<IndexPageProps, {}> {
       sortedPosts: {
         edges: posts = []
       },
-      siteAuthor:author
+      siteAuthor: author
     } } = this.props;
     return (
       <Layout>
         <Container>
-          {/* <AuthorCard {...author} /> */}
-        {/* <Hero
-          className="index-hero"
-          // caption={(
-          //   <div>
-          //     <h3 style={{ margin: 0 }}>{author.name}</h3>
-          //   </div>
-          // )}
-        >
-          <Img alt={author.name} {...author.heroImage} />
-        </Hero> */}
-        
+          {/* <iframe
+            src="https://www.google.com/maps/d/embed?mid=1HFfcjZfpjFxjGKBBA8OCaxkJUuCoKcwW"
+            width="100%"
+            height="480"
+          /> */}
           <h2>Recent Posts</h2>
           <ArticlePreviewList articles={posts.map(({ post }) => post)} />
         </Container>

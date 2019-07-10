@@ -2,6 +2,8 @@ import React from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import Link from "gatsby-link"
 import "./PageFooter.scss"
+import {faInstagram} from "@fortawesome/free-brands-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 export interface FooterProps {
 
@@ -13,7 +15,12 @@ interface QueryProps {
             footer: {
                 links: Array<{ to: string, label: string }>
             },
-            author: string
+            author: string,
+            social: {
+                instagram?: string
+                twitter?: string
+                facebook?: string
+            }
         }
     }
 }
@@ -29,6 +36,9 @@ export const query = graphql`
                     }
                 }
                 author
+                social{
+                    instagram
+                }
             }
         }
     }
@@ -42,7 +52,8 @@ const Footer: React.SFC<FooterProps> = (props) => {
             footer: {
                 links = []
             } = {},
-            author = ""
+            author = "",
+            social = {}
         } = {}
     } = site;
 
@@ -54,6 +65,13 @@ const Footer: React.SFC<FooterProps> = (props) => {
                         <Link to={to}>{label}</Link>
                     </li>
                 ))}
+                {social.instagram && (
+                    <li>
+                        <a href={`https://www.instagram.com/${social.instagram}`}>
+                            <FontAwesomeIcon icon={faInstagram}  />
+                        </a>
+                    </li>
+                )}
             </ul>
             <section className="copyright">
                 <span className="credits">Made by us, with ❤</span>

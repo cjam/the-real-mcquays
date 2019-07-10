@@ -4,39 +4,59 @@ $nav-color-bg : $color-bg-dark;
 $nav-color-fg : $color-bg-light;
 
 .navigation-content{
+    position:relative;
     margin:0 auto;
-    max-width: 600px;
-}
+    max-width: 1180px;
+    padding:0 $rythm;
+    flex-grow: 1;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
 
-ul.navigation {
-    @include reset-list;
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-    height: 100%;
-    max-height: 100px;
-    font-size: 1.0em;
+    >span.brand{
+        position:absolute;
+        margin-left:$rythm;
+        font-family: "great vibes";
+        font-size: 20px;
+        font-weight: 200;
+        color:black;
+        justify-self: flex-end;
+        white-space: nowrap; 
+
+        transition: all 0.3s ease-in-out;
+
+        @media screen and (max-width:$break-medium-small) {
+            opacity: 0;  
+        }
+    }
+
+    .nav-buttons{
+        display:flex;
+        flex-direction:row;
+        flex:1 1;
+    }
+
+    ul.navigation{
+        @include reset-list;
+        justify-self: center;
+        display: flex;
+        flex:1;
+        justify-content: center;
+        align-items: stretch;
+        justify-self: center;
+        // height: 100%;
+        // max-height: 100px;
+        font-size: 1.0em;
+    }
 
     .navigationItem {
         position: relative;
         display: inline-flex;
         align-items: center;
-        min-width: 75px;
         text-align: center;
 
         span {
-            width: 100%;
-            padding: 1rem;
-        }
-
-        a {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            padding: 0 0.5*$rythm;
-            color: currentColor;
+            padding: 1em;
         }
 
         &.active {
@@ -44,12 +64,7 @@ ul.navigation {
         }
 
         &:hover {
-            // background-color: scale-color($nav-color-bg, $lightness: 10%);
-            // ;
-            // text-shadow: 0 0 10px #ddd;
             opacity: 0.6;
         }
     }
-
-
 }
