@@ -70,7 +70,7 @@ const ArticlePreview: React.SFC<ArticlePreviewProps> = (props) => {
         </ul>
       </header>
       <figure>
-        <Img {...image}/>
+        {image && <Img {...image}/> }
         <figcaption>
           <CaptionLabel>
             <time dateTime={publishDate}>{DateTime.fromISO(publishDate).toLocaleString({

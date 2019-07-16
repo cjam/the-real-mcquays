@@ -29,7 +29,7 @@ interface IndexPageProps {
   }
 }
 
-export default class IndexPage extends React.Component<IndexPageProps, {}> {
+export default class MapPage extends React.Component<IndexPageProps, {}> {
   public render() {
     const { data: {
       sortedPosts: {
@@ -39,16 +39,9 @@ export default class IndexPage extends React.Component<IndexPageProps, {}> {
     } } = this.props;
     return (
       <Layout>
-        <Container>
-          {/* <iframe
-            src="https://www.google.com/maps/d/embed?mid=1HFfcjZfpjFxjGKBBA8OCaxkJUuCoKcwW"
-            width="100%"
-            height="480"
-          /> */}
+        {/* <Container> */}
           <TravelMap/>
-          <h2>Recent Posts</h2>
-          <ArticlePreviewList articles={posts.map(({ post }) => post)} />
-        </Container>
+        {/* </Container> */}
       </Layout>
     )
   }

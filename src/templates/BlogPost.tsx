@@ -63,9 +63,9 @@ class BlogPostTemplate extends React.Component<BlogPostTemplateProps> {
   render() {
     const { nextPost, previousPost } = this.props.pageContext || {};
     const { post } = this.props.data
-    const description = post.description.MD.html
-    const plainDescription = post.description.MD.plain
-    const body = post.body.MD.html
+    const description = post.description ? post.description.MD.html : ""
+    const plainDescription = post.description ? post.description.MD.plain : ""
+    const body = post.body ? post.body.MD.html : ""
     const path = get(this.props, "pageResources.page.path", "")
     const { dateModified, datePublished } = post
     const dateModifiedDisplay = dateDisplay(dateModified)
@@ -97,7 +97,7 @@ class BlogPostTemplate extends React.Component<BlogPostTemplateProps> {
               <Img alt={post.title} sizes={post.heroImage.sizes} />
             </Hero>
             <h1 className="post-title">{post.title}</h1>
-            <div>Time To Read: <b>{post.body.MD.timeToRead} min</b></div>
+            <div>Time To Read: <b>{post.body ? post.body.MD.timeToRead : "?"} min</b></div>
             {datePublishedDisplay !== dateModifiedDisplay && <div>Updated: {dateModifiedDisplay}</div>}
           </header>
           <section className="description"

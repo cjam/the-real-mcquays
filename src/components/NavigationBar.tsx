@@ -47,7 +47,6 @@ function isPathMatch(current: string, link: string, exact = false) {
   const currentPath = `${current}`.toLowerCase()
   const linkPath = `${link}`.toLowerCase()
 
-  console.log("toMatch", linkPath, "current", currentPath, exact);
   return exact ? currentPath === linkPath : currentPath.indexOf(linkPath) >= 0
 
 }

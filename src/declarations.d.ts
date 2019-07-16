@@ -12,3 +12,4 @@ declare module "*.scss"
 export interface MarkdownRemark{
     html:string
 }
+
