@@ -7,7 +7,6 @@ import { DestinationFeature, DestinationInfoWindow, DestinationMarker } from "./
 import { TravelFeature, TravelInfoWindow, TravelLine } from "./TravelFeature"
 import { FeatureCollection, Geometry, Feature, Point, LineString } from "geojson";
 import { useStaticQuery, graphql } from "gatsby";
-import { LatLng } from "./BezierPolyLine";
 import { PostFeature, PostMarker, PostInfoWindow } from "./PostFeature";
 import "./index.scss"
 
@@ -148,10 +147,6 @@ const Map = withScriptjs(withGoogleMap<TravelMapProps>((props) => {
           </PostMarker>
         )
       })}
-
-
-
-
     </GoogleMap>
   )
 }
