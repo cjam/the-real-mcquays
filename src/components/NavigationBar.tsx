@@ -47,10 +47,7 @@ function isPathMatch(current: string, link: string, exact = false) {
   const currentPath = `${current}`.toLowerCase()
   const linkPath = `${link}`.toLowerCase()
 
-  console.log("CURRENT",currentPath,"LINK",linkPath)
-  console.log(currentPath.indexOf(linkPath));
   return exact ? currentPath === linkPath : currentPath.indexOf(linkPath) >= 0
-
 }
 
 const NavigationBar: React.SFC<NavigationBarProps> = ({ currentPath = "/" }) => {
