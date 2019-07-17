@@ -57,13 +57,6 @@ module.exports = {
         }
       }
     },
-    // {
-    //   resolve: `gatsby-plugin-typography`,
-    //   options: {
-    //     pathToConfigModule: `src/utils/typography.js`,
-    //     omitGoogleFont: true,
-    //   },
-    // },
     {
       resolve: `gatsby-plugin-favicon`,
       options: {
@@ -79,8 +72,86 @@ module.exports = {
           windows: false
         }
       }
+    },
+    {
+      resolve: `gatsby-plugin-feed`,
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                title
+                description
+                siteUrl
+                site_url: siteUrl
+              }
+            }
+          }
+        `,
+        feeds: [
+          {
+            serialize: ({ query: { site, posts } }) => {
+              return posts.nodes.map(node => {
+                const postUrl = `${site.siteMetadata.siteUrl}/blog/${node.slug}`
+                const item = ({
+                  language: 'en',
+                  title: node.title,
+                  author: node.author.name,
+                  description: node.body.md.html,
+                  date: node.publishDate,
+                  url: postUrl,
+                  guid: postUrl,
+                  // custom_elements: [{ "content:encoded": node.body.md.html }],
+                  categories: node.category
+                })
+                if (node.location) {
+                  item.lat = node.location.lat
+                  item.long = node.location.lng
+                }
+                return item;
+              })
+            },
+            query: `
+              {
+                posts:allContentfulBlogPost(sort: {fields: publishDate, order: ASC}) {
+                  nodes {
+                    title
+                    author{
+                      name
+                    }
+                    location{
+                      lat
+                      lon
+                    }
+                    description {
+                      md:childMarkdownRemark {
+                        excerpt
+                      }
+                    }
+                    body {
+                      md:childMarkdownRemark {
+                        html
+                      }
+                    }
+                    publishDate
+                    slug
+                  }
+                }
+              }
+            `,
+            output: "/rss.xml",
+            title: "The Real McQuays RSS Feed",
+            // optional configuration to insert feed reference in pages:
+            // if `string` is used, it will be used to create RegExp and then test if pathname of
+            // current page satisfied this regular expression;
+            // if not provided or `undefined`, all pages will have feed reference inserted
+            match: "^/blog/",
+            copyright:`${new Date().getFullYear()} The Real McQuays`
+          },
+        ],
+      }
     }
-    ,'gatsby-plugin-sitemap'
+    , 'gatsby-plugin-sitemap'
     // {
     //   resolve: 'gatsby-plugin-manifest',
     //   options: {
