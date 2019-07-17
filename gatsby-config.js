@@ -110,7 +110,6 @@ module.exports = {
                   date: node.publishDate,
                   url: postUrl,
                   guid: postUrl,
-                  // custom_elements: [{ "content:encoded": node.body.md.html }],
                   categories: node.category
                 })
                 if (node.location) {
