@@ -1,7 +1,7 @@
 import React from "react"
 import { Marker, MarkerProps, InfoWindow, InfoWindowProps } from "react-google-maps"
 import { FeatureCollection, Geometry, Feature, Point, LineString } from "geojson"
-import pinSvg from "../../assets/poi-pin.svg"
+import pinSvg from "./poi-pin.svg"
 
 export interface DestinationProps {
     name: string;
