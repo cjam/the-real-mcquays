@@ -143,6 +143,9 @@
     }
 
     @media screen and (max-width:$break-small){
+        padding:1em;
+        box-shadow: $shadow;
+
         header,
         figure:before,
         footer{
