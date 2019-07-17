@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="160px" height="180px" viewBox="0 0 160 180" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>post-marker</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M21,11 L140,11 C144.418278,11 148,14.581722 148,19 L148,122.716007 C148,127.134285 144.418278,130.716007 140,130.716007 L111.166384,130.716007 L80.5,166 L50.7190158,130.716007 L21,130.716007 C16.581722,130.716007 13,127.134285 13,122.716007 L13,19 C13,14.581722 16.581722,11 21,11 Z" id="path-1"></path>
+        <filter x="-11.1%" y="-9.7%" width="122.2%" height="121.4%" filterUnits="objectBoundingBox" id="filter-2">
+            <feMorphology radius="6" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="0" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="post-marker" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Rectangle">
+            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+            <path stroke="#979797" stroke-width="6" d="M112.533725,133.716007 L80.4666251,170.611629 L49.3253671,133.716007 L21,133.716007 C14.9248678,133.716007 10,128.79114 10,122.716007 L10,19 C10,12.9248678 14.9248678,8 21,8 L140,8 C146.075132,8 151,12.9248678 151,19 L151,122.716007 C151,128.79114 146.075132,133.716007 140,133.716007 L112.533725,133.716007 Z" fill="#FFFFFF" fill-rule="evenodd"></path>
+        </g>
+        <g id="Notepad" transform="translate(45.000000, 28.000000)" stroke="#979797" stroke-width="5">
+            <rect id="Rectangle" fill="#FFFFFF" x="2.5" y="7.16666667" width="66" height="74.3333333" rx="8"></rect>
+            <path d="M10.8371878,28.42 L60.644465,28.42" id="Line" stroke-linecap="square"></path>
+            <path d="M10.8371878,38.6866667 L60.644465,38.6866667" id="Line-Copy-5" stroke-linecap="square"></path>
+            <path d="M10.8371878,48.02 L60.644465,48.02" id="Line-Copy-6" stroke-linecap="square"></path>
+            <path d="M10.8371878,58.2866667 L60.644465,58.2866667" id="Line-Copy-7" stroke-linecap="square"></path>
+            <path d="M10.8277339,67.62 L33.9565217,67.62" id="Line-Copy-8" stroke-linecap="square"></path>
+            <path d="M12.8623188,0.396666667 L12.8623188,15.4898582" id="Line" stroke-linecap="square"></path>
+            <path d="M58.1376812,0.396666667 L58.1376812,15.4898582" id="Line-Copy" stroke-linecap="square"></path>
+            <path d="M47.8478261,0.396666667 L47.8478261,15.4898582" id="Line-Copy-2" stroke-linecap="square"></path>
+            <path d="M35.5,0.396666667 L35.5,15.4898582" id="Line-Copy-3" stroke-linecap="square"></path>
+            <path d="M23.1521739,0.396666667 L23.1521739,15.4898582" id="Line-Copy-4" stroke-linecap="square"></path>
+        </g>
+    </g>
+</svg>

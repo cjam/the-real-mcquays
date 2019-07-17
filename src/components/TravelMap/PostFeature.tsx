@@ -1,41 +1,18 @@
 import React from "react"
 import { Marker, MarkerProps, InfoWindow, InfoWindowProps } from "react-google-maps"
-import pencilSvg from "../../assets/pencil.svg";
-import bookSvg from "../../assets/book-open.svg"
-import textPng from "../../assets/text-icon.png"
+import postMarkerSvg from "./post-marker.svg"
 import { Link, graphql } from "gatsby";
 import Image, { FluidObject, FixedObject } from "gatsby-image";
 import "./PostFeature.scss"
 import { dateDisplay } from "../../utils/datetime";
 
-const bookIcon = {
-    url: bookSvg,
-    anchor: { x: 25, y: 50 },
+const postIcon = {
+    url: postMarkerSvg,
+    anchor: { x: 16, y: 40 },
+    labelOrigin:{x:16,y:18},
     shape: {},
     scaledSize: {
-        width: 50,
-        height: 50
-    }
-}
-
-const pencilIcon = {
-    // path: window.google.maps.SymbolPath.BACKWARD_OPEN_ARROW,
-    url: pencilSvg,
-    anchor: { x: 0, y: 50 },
-    shape: {},
-    scaledSize: {
-        width: 50,
-        height: 50
-    }
-}
-
-const textIcon = {
-    // path: window.google.maps.SymbolPath.BACKWARD_OPEN_ARROW,
-    url: textPng,
-    anchor: { x: 20, y: 40 },
-    shape: {},
-    scaledSize: {
-        width: 40,
+        width: 32,
         height: 40
     }
 }
@@ -59,11 +36,6 @@ export const postFeatureFragment = graphql`
         }
       }
       publishDate
-    #   image:heroImage {
-    #     fixed(height: 75, quality: 70) {
-    #         ...GatsbyContentfulFixed_withWebp
-    #     }
-    #   }
     }
 `
 
@@ -105,7 +77,7 @@ export const PostMarker: React.SFC<PostMarkerProps & MarkerProps> = ({
         <Marker
             position={location}
             {...restProps}
-            icon={textIcon}
+            icon={postIcon}
         >
             {children}
         </Marker>
