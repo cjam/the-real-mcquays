@@ -46,6 +46,7 @@ $font-heading:"libre baskerville";
 $font-body: "libre franklin";
 
 $shadow: 0 0 10px scale-color($color-shade-dark,$alpha:-80%);
+$transition: all 0.3s ease-in-out;
 
 @mixin reset-list {
   margin: 0;
