@@ -33,6 +33,10 @@
             &::after {
                 content: "\2022";
                 padding: 0 1rem;
+                transition:padding 0.3s ease-in-out;
+                @media screen and (max-width:$break-small){
+                    padding:0 0.5rem;
+                }
             }
         }
     }

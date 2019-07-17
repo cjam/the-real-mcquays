@@ -13,6 +13,10 @@ $nav-color-fg : $color-bg-light;
     flex-direction: row;
     align-items: center;
 
+    @media screen and (max-width:$break-medium-small) {
+        padding:0;
+    }
+
     >span.brand{
         position:absolute;
         margin-left:$rythm;
@@ -22,11 +26,12 @@ $nav-color-fg : $color-bg-light;
         color:black;
         justify-self: flex-end;
         white-space: nowrap; 
-
         transition: all 0.3s ease-in-out;
-
+        visibility: visible;
+        
         @media screen and (max-width:$break-medium-small) {
-            opacity: 0;  
+            opacity: 0;
+            visibility: hidden;
         }
     }
 
@@ -44,8 +49,6 @@ $nav-color-fg : $color-bg-light;
         justify-content: center;
         align-items: stretch;
         justify-self: center;
-        // height: 100%;
-        // max-height: 100px;
         font-size: 1.0em;
     }
 
@@ -66,5 +69,10 @@ $nav-color-fg : $color-bg-light;
         &:hover {
             opacity: 0.6;
         }
+    }
+
+    .instagram{
+        padding:0 1em;
+        justify-self: flex-end;
     }
 }

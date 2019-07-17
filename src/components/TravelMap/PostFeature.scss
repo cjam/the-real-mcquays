@@ -1,0 +1,28 @@
+@import "../../vars.scss";
+
+.post-feature-info-content{
+    max-width: 300px;
+    .title{
+        margin-bottom: 0.2em;
+    }
+
+    .published{
+        color:$color-subtle;
+        font-style:italic;
+    }
+
+    .time-to-read{
+        color:$color-subtle;
+        font-style: italic;
+        >span{
+            font-weight: 400;
+        }
+    }
+
+    .excerpt{
+        margin:1em 0;
+        font-size: 1.1rem;
+    }
+
+
+}

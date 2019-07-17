@@ -15,8 +15,8 @@ const CategoryList: React.SFC<CategoryListProps> = ({
     return (
         <div className={styles.categoryList} >
             {categories && categories.map(cat => (
-                <Link to={`/blog/categories/${kebabCase(cat)}`}>
-                    <CaptionLabel key={cat}>
+                <Link key={cat} to={`/blog/categories/${kebabCase(cat)}`}>
+                    <CaptionLabel>
                         {cat}
                     </CaptionLabel>
                 </Link>
