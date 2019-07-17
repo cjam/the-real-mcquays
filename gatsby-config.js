@@ -88,13 +88,22 @@ module.exports = {
             }
           }
         `,
+        setup: () => ({
+          custom_namespaces:{
+            'geo':'http://www.georss.org/georss/georss.xsd'
+          },
+          copyright:`${new Date().getFullYear()} ${website.author}`,
+          title: `${website.title} RSS Feed`,
+          feed_url: `${website.url}/${website.rssXmlFile}`
+        }),
         feeds: [
           {
+
             serialize: ({ query: { site, posts } }) => {
               return posts.nodes.map(node => {
                 const postUrl = `${site.siteMetadata.siteUrl}/blog/${node.slug}`
                 const item = ({
-                  language: 'en',
+                  language: website.siteLanguage,
                   title: node.title,
                   author: node.author.name,
                   description: node.body.md.html,
@@ -139,14 +148,12 @@ module.exports = {
                 }
               }
             `,
-            output: "/rss.xml",
-            title: "The Real McQuays RSS Feed",
+            output: `/${website.rssXmlFile}`,
             // optional configuration to insert feed reference in pages:
             // if `string` is used, it will be used to create RegExp and then test if pathname of
             // current page satisfied this regular expression;
             // if not provided or `undefined`, all pages will have feed reference inserted
-            match: "^/blog/",
-            copyright:`${new Date().getFullYear()} The Real McQuays`
+            // match: "^/blog/",
           },
         ],
       }

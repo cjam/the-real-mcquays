@@ -15,6 +15,8 @@ module.exports = {
   shortName: 'RealMcquays', // shortname for manifest. MUST be shorter than 12 characters
   author: 'The Real McQuays', // Author for schemaORGJSONLD
 
+  rssXmlFile: 'rss.xml',
+
   googleAnalyticsID: "UA-142542893-1",
 
   skipNavId: 'reach-skip-nav', // ID for the "Skip to content" a11y feature

@@ -2,8 +2,9 @@ import React from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import Link from "gatsby-link"
 import "./PageFooter.scss"
+import {faRssSquare, faRss} from "@fortawesome/free-solid-svg-icons"
 import {faInstagram} from "@fortawesome/free-brands-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 export interface FooterProps {
 
@@ -72,6 +73,11 @@ const Footer: React.SFC<FooterProps> = (props) => {
                         </a>
                     </li>
                 )}
+                <li>
+                    <a href={`/rss.xml`}>
+                        <FontAwesomeIcon icon={faRss}  />
+                    </a>
+                </li>
             </ul>
             <section className="copyright">
                 <span className="credits">Made by us, with ❤</span>
