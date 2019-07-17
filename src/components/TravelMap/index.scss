@@ -1,0 +1,15 @@
+@import "../../vars.scss";
+
+.mapContainer{
+    height:100%;
+    width:100%;
+
+
+    @media screen and (max-width:$break-medium-small) {
+        height:100vh;
+    }
+    
+    >.mapElement{
+        height:100%;
+    }
+}

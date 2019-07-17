@@ -31,93 +31,16 @@ interface IndexPageProps {
 
 export default class MapPage extends React.Component<IndexPageProps, {}> {
   public render() {
-    const { data: {
-      sortedPosts: {
-        edges: posts = []
-      },
-      siteAuthor: author
-    } } = this.props;
     return (
-      <Layout>
-        {/* <Container> */}
+      <Layout seo={{
+          path:"/map",
+          description:"Travel Map / Itinerary",
+          title:"Travel Map",
+
+      }}>
           <TravelMap/>
-        {/* </Container> */}
       </Layout>
     )
   }
 }
-
-export const query = graphql`
-  query{
-    sortedPosts:allContentfulBlogPost(sort: {fields: publishDate, order: DESC}, limit: 3) {
-      edges {
-        post:node {
-          ...ArticlePreviewInfo
-        }
-      }
-    }
-    siteAuthor:contentfulPerson(email: {eq: "the.real.mcquays@gmail.com"}) {
-      ...AuthorCard
-      name
-      heroImage {
-        fluid(maxWidth:2000,quality:70){
-          ...GatsbyContentfulFluid_withWebp
-        }
-      }
-    }
-  }
-`;
-
-// export const pageQuery = graphql`
-//   query HomeQuery {
-//     sortedPosts: allContentfulBlogPost(sort: {fields: publishDate, order: DESC}, limit: 2) {
-//       pageInfo {
-//         currentPage
-//         hasNextPage
-//         hasPreviousPage
-//         itemCount
-//         pageCount
-//         perPage
-//       }
-//       edges {
-//         post: node {
-//           title
-//           slug
-//           publishDate
-//           category
-//           description {
-//             MD: childMarkdownRemark {
-//               html
-//             }
-//           }
-//           heroImage {
-//             sizes(maxWidth: 350, maxHeight: 250, resizingBehavior: SCALE) {
-//               ...GatsbyContentfulSizes_withWebp
-//             }
-//           }
-//         }
-//       }
-//     }
-//     # ,allContentfulPerson(filter:{ email: { eq: "the.real.mcquays@gmail.com" } }) {
-//     #   edges {
-//     #     node {
-//     #       name
-//     #       shortBio {
-//     #         shortBio
-//     #       }
-//     #       instagram
-//     #       heroImage: image {
-//     #         sizes(
-//     #           maxWidth: 1180
-//     #           maxHeight: 480
-//     #           resizingBehavior: PAD
-//     #           background: "rgb:000"
-//     #         ) {
-//     #           ...GatsbyContentfulSizes_withWebp
-//     #         }
-//     #       }
-//     #     }
-//     #   }
-//     # }
-//   }`
 

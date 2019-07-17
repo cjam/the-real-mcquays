@@ -9,9 +9,11 @@ import { FeatureCollection, Geometry, Feature, Point, LineString } from "geojson
 import { useStaticQuery, graphql } from "gatsby";
 import { LatLng } from "./BezierPolyLine";
 import { PostFeature, PostMarker, PostInfoWindow } from "./PostFeature";
+import "./index.scss"
+
 
 const GOOGLE_API_KEY = "AIzaSyB7gxiEw_zR2WH4QI5qjKwWxYgQzN6RZNY";
-const EpicAdventureKML = "http://www.google.com/maps/d/kml?forcekml=1&mid=1HFfcjZfpjFxjGKBBA8OCaxkJUuCoKcwW";
+const EpicAdventureKML = "https://www.google.com/maps/d/kml?forcekml=1&mid=1HFfcjZfpjFxjGKBBA8OCaxkJUuCoKcwW";
 
 
 export interface TravelMapProps {
@@ -161,9 +163,9 @@ const Map = withScriptjs(withGoogleMap<TravelMapProps>((props) => {
 const TravelMap: React.SFC<TravelMapProps> = (props) => (
   <Map
     googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&v=3.exp&libraries=geometry,drawing`}
-    loadingElement={<div style={{ height: `100%` }} />}
-    containerElement={<div style={{ height: `400px` }} />}
-    mapElement={<div style={{ height: `100%` }} />}
+    loadingElement={<div className="mapLoading" style={{ height: `100%` }} />}
+    containerElement={<div className="mapContainer" />}
+    mapElement={<div className="mapElement" />}
     {...props}
   />
 )

@@ -40,12 +40,8 @@ export default class IndexPage extends React.Component<IndexPageProps, {}> {
     return (
       <Layout>
         <Container>
-          {/* <iframe
-            src="https://www.google.com/maps/d/embed?mid=1HFfcjZfpjFxjGKBBA8OCaxkJUuCoKcwW"
-            width="100%"
-            height="480"
-          /> */}
-          <TravelMap/>
+
+          {/* <h3>Checkout our Travel Map!</h3> */}
           <h2>Recent Posts</h2>
           <ArticlePreviewList articles={posts.map(({ post }) => post)} />
         </Container>

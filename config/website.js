@@ -24,6 +24,7 @@ module.exports = {
     links: [
       { to: '/', label: "Home", exactMatch: true },
       { to: '/blog', label: "Blog" },
+      { to: '/map', label: "Map" }
       // { to: '#', label: "Contact"},
     ]
   },
@@ -32,6 +33,7 @@ module.exports = {
       { to: '/blog', label: "Blog" },
       { to: '/blog/tags', label: "Tags" },
       { to: '/blog/categories', label: "Categories" },
+      { to: '/map', label:"Map"}
       // { to: '#', label: "Contact"},
     ],
   },
