@@ -1,21 +1,13 @@
 import React from "react"
 import { Marker, MarkerProps, InfoWindow, InfoWindowProps } from "react-google-maps"
-import postMarkerSvg from "./post-marker.svg"
 import { Link, graphql } from "gatsby";
 import Image, { FluidObject, FixedObject } from "gatsby-image";
 import "./PostFeature.scss"
 import { dateDisplay } from "../../utils/datetime";
+import { FeatureLayerComponent } from "./Layer";
+import {postSymbol} from "./symbols"
 
-const postIcon = {
-    url: postMarkerSvg,
-    anchor: { x: 16, y: 40 },
-    labelOrigin:{x:16,y:18},
-    shape: {},
-    scaledSize: {
-        width: 32,
-        height: 40
-    }
-}
+
 
 export const postFeatureFragment = graphql`
     fragment PostFeatureFragment on ContentfulBlogPost{
@@ -77,7 +69,7 @@ export const PostMarker: React.SFC<PostMarkerProps & MarkerProps> = ({
         <Marker
             position={location}
             {...restProps}
-            icon={postIcon}
+            icon={postSymbol}
         >
             {children}
         </Marker>
@@ -106,3 +98,28 @@ export const PostInfoWindow: React.SFC<PostMarkerProps & InfoWindowProps> = (
             </div>
         </InfoWindow>
     )
+
+    export const PostsLayer: FeatureLayerComponent<PostFeature> = ({ features = [], selectedFeature, onClick, onClose, zIndexStart=0 }) => {
+        return (
+            <>
+                {features.map((feature, index) => {
+                    const isSelected = feature === selectedFeature;
+                    return (
+                        <PostMarker
+                            key={`post-${index}`}
+                            feature={feature}
+                            onClick={() => onClick && onClick(feature)}
+                            zIndex={zIndexStart+index}
+                        >
+                            {isSelected && (
+                                <PostInfoWindow
+                                    feature={feature}
+                                    onCloseClick={() => onClose && onClose(feature)}
+                                />
+                            )}
+                        </PostMarker>
+                    )
+                })}
+            </>
+        )
+    }

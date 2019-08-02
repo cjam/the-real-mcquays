@@ -2,6 +2,7 @@ import React from "react"
 import Link from "gatsby-link"
 import Img, { FluidObject } from "gatsby-image"
 import styles from "./ArticlePreview.module.scss"
+import get from "ts-get"
 import { graphql } from "gatsby"
 import { MarkdownRemark } from "../declarations"
 import { HeroImage } from "../types"
@@ -41,11 +42,11 @@ export const queryFragment = graphql`
     image:heroImage {
       sizes(maxWidth: 800, maxHeight:550, resizingBehavior: FILL) {
         ...GatsbyContentfulSizes_withWebp
-        # ...GatsbyContentfulFixed_withWebp
       }
     }
   }
 `
+
 
 const ArticlePreview: React.SFC<ArticlePreviewProps> = (props) => {
   const {
@@ -53,13 +54,10 @@ const ArticlePreview: React.SFC<ArticlePreviewProps> = (props) => {
     title,
     image,
     publishDate,
-    description: {
-      MD: {
-        html:descriptionHtml = ""
-      } = {}
-    } = {},
     category
   } = props;
+
+  const descriptionHtml = get(props, it => it.description.MD.html, "");
   return (
     <article id={slug} className={styles.postPreview}>
       <header>
@@ -70,7 +68,7 @@ const ArticlePreview: React.SFC<ArticlePreviewProps> = (props) => {
         </ul>
       </header>
       <figure>
-        {image && <Img {...image}/> }
+        {image ? <Img {...image} /> : <img src="https://via.placeholder.com/300x200.png?text=No+Image"/> }
         <figcaption>
           <CaptionLabel>
             <time dateTime={publishDate}>{DateTime.fromISO(publishDate).toLocaleString({

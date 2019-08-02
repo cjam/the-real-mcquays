@@ -8,6 +8,8 @@
 // declare module "*.png"
 declare module "*.css"
 declare module "*.scss"
+declare module "*.svg"
+declare module "*.png"
 
 export interface MarkdownRemark{
     html:string
