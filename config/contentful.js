@@ -7,6 +7,7 @@ try {
   const contentfulConfig = {
     spaceId: process.env.CONTENTFUL_SPACE_ID || loadedContentfulConfig.spaceId,
     accessToken: process.env.CONTENTFUL_DELIVERY_TOKEN || loadedContentfulConfig.accessToken,
+    // downloadLocal:false,
   }
   
   let activeEnv = process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || "development";

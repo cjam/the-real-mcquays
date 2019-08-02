@@ -55,6 +55,7 @@
     "react-typography": "^0.16.13",
     "remark": "^10.0.1",
     "remark-html": "^9.0.1",
+    "ts-get": "^1.0.5",
     "typeface-great-vibes": "^0.0.72",
     "typeface-libre-baskerville": "^0.0.72",
     "typeface-libre-franklin": "^0.0.54",

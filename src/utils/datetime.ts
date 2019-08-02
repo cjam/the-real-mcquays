@@ -8,3 +8,7 @@ export function dateDisplay(dateString:string){
         year:"numeric"
     })
 }
+
+export function fromTicksString(value:string){
+    return DateTime.fromMillis(parseInt(value)/1000);
+}
