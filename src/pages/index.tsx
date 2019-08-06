@@ -10,6 +10,7 @@ import "./index.scss"
 import AuthorCard from "../components/AuthorCard";
 import Container from "../components/Container";
 import TravelMap from "../components/TravelMap";
+import InstagramPosts from "../components/InstagramPosts";
 
 // Please note that you can use https://github.com/dotansimha/graphql-code-generator
 // to generate all types from graphQL schema
@@ -49,6 +50,7 @@ export default class IndexPage extends React.Component<IndexPageProps, {}> {
             </figcaption>
             <Link to={"/map"} className="phantom-full" />
           </figure>
+          <InstagramPosts/>
           <h2>Recent Posts</h2>
           <ArticlePreviewList articles={posts.map(({ post }) => post)} />
         </Container>
