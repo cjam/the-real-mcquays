@@ -14,7 +14,7 @@ import { LocationLayer } from "./LayerLocation";
 import luxon, {DateTime} from "luxon"
 
 
-const GOOGLE_API_KEY = "AIzaSyB7gxiEw_zR2WH4QI5qjKwWxYgQzN6RZNY";
+const GOOGLE_API_KEY = process.env.GATSBY_GOOGLE_MAPS_API_KEY;
 const EpicAdventureKML = "https://www.google.com/maps/d/kml?forcekml=1&mid=1HFfcjZfpjFxjGKBBA8OCaxkJUuCoKcwW";
 
 const DESTINATIONS_LAYER = `${EpicAdventureKML}&lid=3KEUBKwaoqc`
