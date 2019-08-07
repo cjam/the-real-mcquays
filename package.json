@@ -1,8 +1,8 @@
 {
-  "name": "using-typescript",
+  "name": "the-real-mcquays",
   "version": "1.0.0",
-  "description": "Gatsby example site demonstrating how to use TypeScript with Gatsby",
-  "author": "fabien0102 <fabien0102@gmail.com>",
+  "description": "The Real McQuays website and blog",
+  "author": "Colter McQuay <colter.mcquay@gmail.com>",
   "license": "MIT",
   "scripts": {
     "start": "gatsby develop",
@@ -29,6 +29,7 @@
     "@types/typography": "^0.16.2",
     "classnames": "^2.2.6",
     "contentful": "^7.8.0",
+    "disqus-react": "^1.0.6",
     "gatsby": "^2.0.0",
     "gatsby-image": "^2.1.4",
     "gatsby-link": "^2.1.1",
