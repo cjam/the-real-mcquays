@@ -13,6 +13,7 @@ import Share from "../components/Share"
 import { dateDisplay } from "../utils/datetime"
 import AuthorCard, { AuthorCardProps } from "../components/AuthorCard";
 import PostNavigation from "../components/PostNavigation";
+import Comments from "../components/Comments"
 
 interface PostData {
   title: string
@@ -123,6 +124,11 @@ class BlogPostTemplate extends React.Component<BlogPostTemplateProps> {
               <AuthorCard {...post.author} />
             </div>
             <PostNavigation previousPost={previousPost} nextPost={nextPost} />
+            <Comments
+              slug={post.slug}
+              title={post.title}
+              path={path}
+            />
           </footer>
         </article>
 
