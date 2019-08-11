@@ -20,8 +20,9 @@ interface GTravelProps {
 export interface TravelProps {
     name: string;
     description: string;
-    isActive: boolean;
-    isDone: boolean;
+    start: DateTime;
+    end: DateTime;
+    now: DateTime
 }
 
 type TravelFeature = Feature<LineString, TravelProps>;
@@ -31,9 +32,6 @@ export interface TravelMarkerProps {
 }
 
 
-
-
-
 export const TravelLine: React.SFC<TravelMarkerProps & MarkerProps> = ({
     feature,
     children,
@@ -41,8 +39,11 @@ export const TravelLine: React.SFC<TravelMarkerProps & MarkerProps> = ({
 }) => {
     const path = feature.geometry.coordinates.map(([lng, lat]) => ({ lat, lng }));
     const description = get(feature, it => feature.properties.description, "");
-    const isDone = get(feature, it => feature.properties.isDone, false)
-    const isActive = get(feature, it => feature.properties.isActive, false)
+    const start = get<TravelFeature, DateTime>(feature, it => it.properties.start as DateTime);
+    const end = get<TravelFeature, DateTime>(feature, it => it.properties.end as DateTime);
+    const now = get<TravelFeature, DateTime>(feature, it => it.properties.now as DateTime, DateTime.local());
+    const isActive = start && end && now >= start && now < end
+    const isDone = end && now >= end
 
     const donePathOptions = {
         strokeOpacity: 0.6,
@@ -74,6 +75,7 @@ export const TravelLine: React.SFC<TravelMarkerProps & MarkerProps> = ({
             ? ferryIcon
             : planeIcon;
 
+    const percentDone = Math.abs(now.diff(start).valueOf() / end.diff(start).valueOf()) * 100
     const activePathOptions = {
         strokeOpacity: 0.6,
         strokeWeight: 2,
@@ -82,7 +84,7 @@ export const TravelLine: React.SFC<TravelMarkerProps & MarkerProps> = ({
         icons: [
             {
                 icon,
-                offset: "50%",
+                offset: `${percentDone}%`,
                 fixedRotation: icon != planeIcon
             }
         ]
@@ -109,18 +111,18 @@ export const TravelInfoWindow: React.SFC<TravelMarkerProps & InfoWindowProps> = 
 )
 
 export const TravelLayer: KmlLayerComponent<TravelFeature> = ({ url, selectedFeature, onClick, onClose, zIndexStart = 0, zIndexActive }) => {
+    const now = DateTime.local()
     const features = useKmlLayer<GTravelProps, LineString, TravelProps>(url, ({ properties, ...restFeat }) => {
         const { done, start, end, ...restProps } = properties
         const startDate = fromTicksString(start)
         const endDate = fromTicksString(end)
-        const now = DateTime.local()
-
         return ({
             ...restFeat,
             properties: {
                 ...restProps,
-                isActive: now >= startDate && now < endDate,
-                isDone: now >= endDate
+                start: startDate,
+                end: endDate,
+                now
             }
         })
     })
@@ -128,13 +130,14 @@ export const TravelLayer: KmlLayerComponent<TravelFeature> = ({ url, selectedFea
         <>
             {features.map((feature, index) => {
                 const isSelected = feature === selectedFeature;
+                const isActive = now >= feature.properties.start && now < feature.properties.end
                 return (
                     <TravelLine
                         key={`travel-${index}`}
                         feature={feature}
                         clickable={true}
                         onClick={() => onClick && onClick(feature)}
-                        zIndex={zIndexActive && feature.properties.isActive ? zIndexActive : zIndexStart + index}
+                        zIndex={zIndexActive && isActive ? zIndexActive : zIndexStart + index}
                     >
                         {isSelected && (
                             <TravelInfoWindow
