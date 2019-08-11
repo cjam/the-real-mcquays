@@ -24,6 +24,7 @@ export interface DestinationProps {
     isActive: boolean;
     startDate: DateTime
     endDate: DateTime
+    now: DateTime
 }
 
 export type DestinationFeature = Feature<Point, DestinationProps>;
@@ -70,14 +71,30 @@ const dateFormat = {
     month: "long",
     day: "numeric",
 }
-export const DestinationInfoWindow: React.SFC<DestinationMarkerProps & InfoWindowProps> = ({ feature: { properties: { name, isDone,isActive, startDate, endDate } }, ...restProps }) => {
-    const daysUntil = Math.floor(startDate.diffNow('days').days)
+export const DestinationInfoWindow: React.SFC<DestinationMarkerProps & InfoWindowProps> = ({ feature: { properties: { name, isDone, isActive, startDate, endDate, now } }, ...restProps }) => {
+    const daysUntil = startDate.diff(now, 'days').days
+    const daysRemaining = endDate.diff(now, 'days').days
+
+    let message = "";
+
+    if (!isDone) {
+        message = daysUntil >= 1 ? `Arrive in ${Math.floor(daysUntil)} day${daysUntil < 2 ? "" : "s"}!` : "Arriving today!"
+    }
+
+    if (isActive) {
+        message = daysRemaining >= 2 ? `Here for ${Math.floor(daysRemaining)} more days.` :
+            daysRemaining >= 1 ? "Last day here." : "Leaving today."
+    }
+
+
+    console.log(daysUntil, daysRemaining);
     return (
         <InfoWindow  {...restProps}>
             <div>
                 <h4>{name}</h4>
-                {!isDone && daysUntil > 0 && (<h5>In {daysUntil} days!</h5>)}
-                {isActive && (<h5>Here for {Math.floor(endDate.diffNow('days').days)} more days</h5>)}
+                {/* {!isDone && daysUntil > 0 && (<h5>In {daysUntil} days!</h5>)}
+                {isActive && (<h5>Here for {daysRemaining} more days</h5>)} */}
+                <h5>{message}</h5>
                 {startDate.toLocaleString(dateFormat)} - {endDate.toLocaleString(dateFormat)} <i>({Math.ceil(endDate.diff(startDate, "days").days)} Days)</i>
             </div>
         </InfoWindow>
@@ -85,16 +102,17 @@ export const DestinationInfoWindow: React.SFC<DestinationMarkerProps & InfoWindo
 }
 
 export const DestinationLayer: KmlLayerComponent<DestinationFeature> = ({ url, selectedFeature, onClick, onClose, zIndexStart = 0, zIndexActive }) => {
+    const now = DateTime.local();
     const features = useKmlLayer<GDestinationProps, Point, DestinationProps>(url, ({ properties, ...restFeat }) => {
         const { done, start, end, ...restProps } = properties
         const startDate = fromTicksString(start)
         const endDate = fromTicksString(end)
-        const now = DateTime.local()
 
         return ({
             ...restFeat,
             properties: {
                 ...restProps,
+                now,
                 isActive: now >= startDate && now < endDate,
                 isDone: now >= endDate,
                 startDate,
