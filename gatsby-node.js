@@ -60,10 +60,10 @@ exports.createPages = async ({ graphql, actions }) => {
       const {
         tags: postTags = [],
         category: postCategory = [],
-        author: {
-          name: postAuthor
-        }
+        author
       } = post.node;
+
+      const postAuthor = author ? author.name : "The Real McQuays"
 
       const addEntry = (item, dict) => {
         dict[item] = dict[item] != undefined ? dict[item] + 1 : 1;
@@ -169,27 +169,6 @@ exports.createPages = async ({ graphql, actions }) => {
         }
       )
     })
-
-    //    createListingPage(posts, `/blog/categories`, path.resolve("./src/templates/BlogPostList.tsx"))
-
-    // Create blog-list pages
-    // const numPages = Math.ceil(posts.length / postsPerPage)
-    // const blogPostListTemplate = path.resolve("./src/templates/BlogPostList.tsx")
-    // Array.from({ length: numPages }).forEach((_, i) => {
-    //   createPage({
-    //     path: i === 0 ? `/blog` : `/blog/${i + 1}`,
-    //     component: slash(blogPostListTemplate),
-    //     context: {
-    //       limit: postsPerPage,
-    //       skip: i * postsPerPage,
-    //       numPages,
-    //       currentPage: i + 1,
-    //     },
-    //   })
-    // });
-
-
-
 
   } catch (error) {
     throw error
