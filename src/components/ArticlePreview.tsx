@@ -81,7 +81,7 @@ const ArticlePreview: React.SFC<ArticlePreviewProps> = (props) => {
       </figure>
       <section>
         <h2>{title}</h2>
-        <p
+        <div
           dangerouslySetInnerHTML={{
             __html: descriptionHtml,
           }}
