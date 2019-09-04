@@ -17,36 +17,18 @@ import luxon, {DateTime} from "luxon"
 const GOOGLE_API_KEY = process.env.GATSBY_GOOGLE_MAPS_API_KEY;
 const EpicAdventureKML = "https://www.google.com/maps/d/kml?forcekml=1&mid=1HFfcjZfpjFxjGKBBA8OCaxkJUuCoKcwW";
 
-const DESTINATIONS_LAYER = `${EpicAdventureKML}&lid=3KEUBKwaoqc`
-const TRAVELS_LAYER = `${EpicAdventureKML}&lid=84tdCZfqPe8`
-const CURRENT_LOCATION_LAYER = `${EpicAdventureKML}&lid=fu26VA5Vmds`
+const TREKING_TRAVELS_LAYER = `${EpicAdventureKML}&lid=HNvN3PIFtnM`
+const TREK_DESTINATIONS_LAYER = `${EpicAdventureKML}&lid=2dLX2tb3WVs`
 
 
-export interface TravelMapProps {
 
-}
 
-interface MapProps extends TravelMapProps {
+export interface HikingMapProps {
 
 }
 
-const postFeaturesQuery = graphql`
-  query{
-    postPositions:allContentfulBlogPost(filter: {location: { lat: {ne:null}, lon: {ne:null}}}) {
-    nodes {
-      ...PostFeatureFragment
-    }
-  }
-}
-`
-interface PostFeaturesData {
-  postPositions: {
-    nodes: PostFeature[];
-  }
-}
 
-const TravelMap : React.SFC<TravelMapProps> = (props)=>{
-  const { postPositions: { nodes: posts = [] } = {} } = useStaticQuery<PostFeaturesData>(postFeaturesQuery)
+const HikingMap : React.SFC<HikingMapProps> = (props)=>{
   const [selectedFeature, selectFeature] = useState()
   // const travels = useKmlLayer<TravelProps, LineString>(TRAVELS_LAYER)
   // const destinations = useKmlLayer<DestinationProps, Point>(DESTINATIONS_LAYER)
@@ -62,7 +44,7 @@ const TravelMap : React.SFC<TravelMapProps> = (props)=>{
     <Map>
       <TravelLayer
         selectedFeature={selectedFeature}
-        url={TRAVELS_LAYER}
+        url={TREKING_TRAVELS_LAYER}
         onClick={(f) => toggleFeature(f)}
         onClose={() => toggleFeature()}
         zIndexActive={zIndexActive}
@@ -70,19 +52,11 @@ const TravelMap : React.SFC<TravelMapProps> = (props)=>{
 
       <DestinationLayer
         selectedFeature={selectedFeature}
-        url={DESTINATIONS_LAYER}
+        url={TREK_DESTINATIONS_LAYER}
         onClick={(f) => toggleFeature(f)}
         onClose={() => toggleFeature()}
         zIndexStart={1000}
         zIndexActive={zIndexActive}
-      />
-
-      <PostsLayer
-        selectedFeature={selectedFeature}
-        features={posts}
-        onClick={(f) => toggleFeature(f)}
-        onClose={() => toggleFeature()}
-        zIndexStart={2000}
       />
     </Map>
   )

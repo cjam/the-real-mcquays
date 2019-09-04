@@ -2,11 +2,11 @@ import React from "react"
 import { Marker, MarkerProps, InfoWindow, InfoWindowProps } from "react-google-maps"
 import { KmlLayerComponent } from "./Layer"
 import { Feature, Point } from "geojson"
-import useKmlLayer from "./useKmlLayer";
+import useKmlLayer from "../useKmlLayer";
 import { DateTime } from "luxon";
-import { fromTicksString, dateDisplay } from "../../utils/datetime";
+import { fromTicksString, dateDisplay } from "../../../utils/datetime";
 import { get } from "ts-get";
-import { pinSymbol, checkmarkSymbol } from "./symbols";
+import { pinSymbol, checkmarkSymbol } from "../symbols";
 
 // The properties exposed by google maps
 interface GDestinationProps {
@@ -86,8 +86,6 @@ export const DestinationInfoWindow: React.SFC<DestinationMarkerProps & InfoWindo
             daysRemaining >= 1 ? "Last day here." : "Leaving today."
     }
 
-
-    console.log(daysUntil, daysRemaining);
     return (
         <InfoWindow  {...restProps}>
             <div>
@@ -101,8 +99,15 @@ export const DestinationInfoWindow: React.SFC<DestinationMarkerProps & InfoWindo
     )
 }
 
-export const DestinationLayer: KmlLayerComponent<DestinationFeature> = ({ url, selectedFeature, onClick, onClose, zIndexStart = 0, zIndexActive }) => {
-    const now = DateTime.local();
+export const DestinationLayer: KmlLayerComponent<DestinationFeature> = ({ 
+    url, 
+    selectedFeature, 
+    onClick, 
+    onClose, 
+    zIndexStart = 0, 
+    zIndexActive,
+    now = DateTime.local()
+}) => {
     const features = useKmlLayer<GDestinationProps, Point, DestinationProps>(url, ({ properties, ...restFeat }) => {
         const { done, start, end, ...restProps } = properties
         const startDate = fromTicksString(start)

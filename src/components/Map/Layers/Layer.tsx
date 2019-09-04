@@ -6,6 +6,7 @@ export interface LayerProps<T> {
     onClose?: (feature: T) => void
     zIndexStart?:number
     zIndexActive?:number
+    now?:DateTime
 }
 
 export type KmlLayerComponent<T> = React.FunctionComponent<LayerProps<T> & { url: string }>

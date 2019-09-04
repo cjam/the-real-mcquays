@@ -36,7 +36,6 @@ export default class MapPage extends React.Component<IndexPageProps, {}> {
           path:"/map",
           description:"Travel Map / Itinerary",
           title:"Travel Map",
-
       }}>
           <TravelMap/>
       </Layout>

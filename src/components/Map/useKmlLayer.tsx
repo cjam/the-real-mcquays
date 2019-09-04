@@ -19,7 +19,7 @@ export default function useKmlLayer<P extends GeoJsonProperties, G extends Geome
             } else {
                 setLayerData(features as unknown as Array<Feature<G, U>>);
             }
-            
+
         } catch (err) {
             console.error(err);
         }
@@ -27,7 +27,9 @@ export default function useKmlLayer<P extends GeoJsonProperties, G extends Geome
 
     // Load the map data on mount
     useEffect(() => {
-        loadLayerData()
+        if (layerData.length == 0) {
+            loadLayerData()
+        }
     }, [])
 
     return layerData;

@@ -26,7 +26,8 @@ module.exports = {
     links: [
       { to: '/', label: "Home", exactMatch: true },
       { to: '/blog', label: "Blog" },
-      { to: '/map', label: "Map" }
+      { to: '/map', label: "Map" },
+      {to: '/trek', label: "Trek"}
       // { to: '#', label: "Contact"},
     ]
   },
