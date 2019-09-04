@@ -3,9 +3,9 @@ import { Marker, MarkerProps, InfoWindow, InfoWindowProps } from "react-google-m
 import { Link, graphql } from "gatsby";
 import Image, { FluidObject, FixedObject } from "gatsby-image";
 import "./PostFeature.scss"
-import { dateDisplay } from "../../utils/datetime";
+import { dateDisplay } from "../../../utils/datetime";
 import { FeatureLayerComponent } from "./Layer";
-import {postSymbol} from "./symbols"
+import {postSymbol} from "../symbols"
 
 
 

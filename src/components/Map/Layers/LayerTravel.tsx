@@ -2,11 +2,11 @@ import React from "react"
 import { MarkerProps, InfoWindow, InfoWindowProps, Polyline } from "react-google-maps"
 import { Feature, LineString } from "geojson"
 import { KmlLayerComponent } from "./Layer";
-import useKmlLayer from "./useKmlLayer";
+import useKmlLayer from "../useKmlLayer";
 import { get } from "ts-get";
-import { trainIcon, planeIcon, ferryIcon } from "./symbols"
+import { trainIcon, planeIcon, ferryIcon } from "../symbols"
 import { DateTime, Duration } from "luxon";
-import { fromTicksString } from "../../utils/datetime";
+import { fromTicksString } from "../../../utils/datetime";
 
 // The properties exposed by google maps
 interface GTravelProps {
@@ -110,8 +110,15 @@ export const TravelInfoWindow: React.SFC<TravelMarkerProps & InfoWindowProps> = 
     </InfoWindow>
 )
 
-export const TravelLayer: KmlLayerComponent<TravelFeature> = ({ url, selectedFeature, onClick, onClose, zIndexStart = 0, zIndexActive }) => {
-    const now = DateTime.local()
+export const TravelLayer: KmlLayerComponent<TravelFeature> = ({
+    url,
+    selectedFeature,
+    onClick,
+    onClose,
+    zIndexStart = 0,
+    zIndexActive,
+    now = DateTime.local()
+}) => {
     const features = useKmlLayer<GTravelProps, LineString, TravelProps>(url, ({ properties, ...restFeat }) => {
         const { done, start, end, ...restProps } = properties
         const startDate = fromTicksString(start)
