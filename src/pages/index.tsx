@@ -43,13 +43,12 @@ export default class IndexPage extends React.Component<IndexPageProps, {}> {
     return (
       <Layout>
         <Container>
-          <ElevationGraph />
           <figure className="index-hero">
             <Img {...homePageHero} />
             <figcaption>
               {homePageHero.description}
             </figcaption>
-            <Link to={"/map"} className="phantom-full" />
+            <Link to={"/trek"} className="phantom-full" />
           </figure>
           <h2>Recent Posts</h2>
           <ArticlePreviewList articles={posts.map(({ post }) => post)} />

@@ -15,7 +15,13 @@ import ElevationGraph from "../components/ElevationGraph"
 export default class TrekPage extends React.Component {
   public render() {
     return (
-      <Layout>
+      <Layout
+        seo={{
+          path: "/trek",
+          description: "Trek Dashboard",
+          title: "Trek Dashboard",
+        }}
+      >
         <Container>
           <center>
             <h3>Trek Dashboard</h3>
