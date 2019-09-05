@@ -32,6 +32,7 @@ export default class TrekPage extends React.Component {
               This dashboard was happily hacked together by Colter and may have some bugs as he had a trek to go on.
             If left open, the dashboard should update itself with our approximate where-abouts every minute.  🤞that it works.
             </p>
+            <p>The vertical axis is Elevation in meters, the horizontal is distance in Km and the red lines are the approximate deliniation for each day.</p>
             <p>Enjoy 😊 and Namaste 🙏</p>
           </div>
         </Container>
