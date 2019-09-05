@@ -69,9 +69,9 @@ class CustomizedLabel extends React.PureComponent<any> {
 const ElevationGraph: React.SFC<ElevationGraphProps> = () => {
     let totalDistance = 0
     const [now, setNow] = useState(DateTime.local());
-    useInterval(()=>{
+    useInterval(() => {
         setNow(DateTime.local())
-    },1000*60);
+    }, 1000 * 60);
     const features = useKmlLayer<GTrekPointProps, Point, TrekPointProps>(TREKING_LAYER, ({ properties, ...restFeat }) => {
         const { altitude, distance, start, end, dayStart, dayEnd, ...restProps } = properties
         const startDate = fromTicksString(start)
@@ -126,7 +126,7 @@ const ElevationGraph: React.SFC<ElevationGraphProps> = () => {
     // const data = [{ name: 'Page A', uv: 400, pv: 2400, amt: 2400 }, { name: 'Page B', uv: 600, pv: 3000, amt: 5600 }];
     const chartProps = {
         data,
-        margin: { top: 5, right: 20, bottom: 30, left: 0 }
+        margin: { top: 5, right: 20, bottom: 30, left: 12 }
     }
     return (
         <div>
@@ -142,7 +142,7 @@ const ElevationGraph: React.SFC<ElevationGraphProps> = () => {
                         ticks={destinations.map(({ distance }) => distance)}>
                         <Label value="Distance (Km)" offset={-10} position="insideBottom" />
                     </XAxis>
-                    <YAxis />
+                    <YAxis unit="m"/>
                     <CartesianGrid strokeDasharray="3 3" />
                     {destinations.map(({ distance, dayStart }) => (
                         <ReferenceLine
