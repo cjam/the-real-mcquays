@@ -93,8 +93,9 @@ const ElevationGraph: React.SFC<ElevationGraphProps> = () => {
     const data = features.map(({ properties: { styleUrl, styleHash, ...restProps } }) => (restProps))
     const destinations = data.filter(({ dayStart, dayEnd }) => dayStart !== dayEnd);
 
-    const currentDay = Math.floor(now.startOf('day').diff(trekStart.startOf('day'), 'days').days) + 1
-    const amountDayDone = Math.max(0.0, Math.min(1.0, (now.hour - dayStartHour) / (dayEndHour - dayStartHour)));
+    const nepalNow = now.setZone('UTC+5:45')
+    const currentDay = Math.floor(nepalNow.startOf('day').diff(trekStart.startOf('day'), 'days').days) + 1
+    const amountDayDone = Math.max(0.0, Math.min(1.0, (nepalNow.hour - dayStartHour) / (dayEndHour - dayStartHour)));
 
     const todaysPoints = data.filter(({ dayStart, dayEnd }) => dayStart === currentDay || dayEnd === currentDay)
     const todaysDistance = todaysPoints.length > 0 ? todaysPoints[todaysPoints.length - 1].distance - todaysPoints[0].distance : 0;
