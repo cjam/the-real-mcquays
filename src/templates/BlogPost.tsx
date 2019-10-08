@@ -2,6 +2,7 @@ import React from "react"
 import { graphql } from "gatsby"
 import { get } from "lodash"
 import Img, { FluidObject, FixedObject } from "gatsby-image"
+import {MDXRenderer} from "gatsby-plugin-mdx";
 // import heroStyles from "../components/Hero.module.css"
 import Hero from "../components/Hero"
 import "./BlogPost.scss"
@@ -107,10 +108,12 @@ class BlogPostTemplate extends React.Component<BlogPostTemplateProps> {
             }}
           />
           <section className="body"
-            dangerouslySetInnerHTML={{
-              "__html": body
-            }}
-          />
+          // dangerouslySetInnerHTML={{
+          //   "__html": body
+          // }}
+          >
+            <MDXRenderer scope={this.props.__mdxScope}>{post.body.MDX}</MDXRenderer>
+          </section>
           <footer>
             <CategoryList categories={post.category} />
             {post.tags && <TagList tags={post.tags} />}
@@ -159,6 +162,9 @@ export const pageQuery = graphql`
         MD:childMarkdownRemark {
           html
           timeToRead
+        }
+        MDX:childMdx{
+          body
         }
       }
       description {
