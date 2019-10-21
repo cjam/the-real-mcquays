@@ -1,0 +1,48 @@
+.travel-diary{
+    // display:flex;
+    // flex-direction: row;
+    // height:75vh;
+    // >*{
+    //     flex:1;
+    // }
+    display:grid;
+    grid-template-areas: 
+    "map day-info"
+    "map content";
+    grid-template-columns: 0.5fr 0.5fr;
+    grid-template-rows: auto 1fr;
+    max-height: 100%;
+}
+
+.travel-diary-map{
+    grid-area: map;
+}
+
+.travel-diary-day-info{
+    grid-area: day-info;
+}
+
+.travel-diary-content{
+    grid-area: content;
+    overflow-y: scroll;
+}
+
+.travel-diary-day{
+    position:sticky;
+    top:0;
+    visibility: hidden;
+    opacity: 0;
+
+    >h2{
+        position:sticky;
+        top:0px;
+        text-align: center;
+    }
+
+    transition:visibility 0s, opacity 1s ease-in-out;
+}
+
+.travel-diary-day.isActive{
+    visibility:visible;
+    opacity: 1;
+}

@@ -1,12 +1,12 @@
-import React from "react"
-import { Marker, MarkerProps, InfoWindow, InfoWindowProps } from "react-google-maps"
-import { KmlLayerComponent } from "./Layer"
-import { Feature, Point } from "geojson"
-import useKmlLayer from "../useKmlLayer";
-import { DateTime } from "luxon";
-import { fromTicksString, dateDisplay } from "../../../utils/datetime";
-import { get } from "ts-get";
-import { pinSymbol, checkmarkSymbol } from "../symbols";
+import { Feature, Point } from 'geojson';
+import { DateTime } from 'luxon';
+import React from 'react';
+import { InfoWindow, InfoWindowProps, Marker, MarkerProps } from 'react-google-maps';
+import { get } from 'ts-get';
+import { dateDisplay, fromTicksString } from '../../../utils/datetime';
+import { checkmarkSymbol, pinSymbol } from '../symbols';
+import useKmlLayer from '../useKmlLayer';
+import { KmlLayerComponent } from './Layer';
 
 // The properties exposed by google maps
 interface GDestinationProps {
@@ -22,15 +22,15 @@ export interface DestinationProps {
     description: string;
     isDone: boolean;
     isActive: boolean;
-    startDate: DateTime
-    endDate: DateTime
-    now: DateTime
+    startDate: DateTime;
+    endDate: DateTime;
+    now: DateTime;
 }
 
 export type DestinationFeature = Feature<Point, DestinationProps>;
 
 export interface DestinationMarkerProps {
-    feature: DestinationFeature
+    feature: DestinationFeature;
 }
 
 export const DestinationMarker: React.SFC<DestinationMarkerProps & MarkerProps> = ({
@@ -39,19 +39,19 @@ export const DestinationMarker: React.SFC<DestinationMarkerProps & MarkerProps> 
     label,
     ...restProps
 }) => {
-    const [lng, lat] = feature.geometry.coordinates
-    const isDone = get(feature, it => feature.properties.isDone, false)
-    const isActive = get(feature, it => feature.properties.isActive, false)
+    const [lng, lat] = feature.geometry.coordinates;
+    const isDone = get(feature, it => feature.properties.isDone, false);
+    const isActive = get(feature, it => feature.properties.isActive, false);
 
-    const fillColor = isActive ? { fillColor: "orange" } : {};
+    const fillColor = isActive ? { fillColor: 'orange' } : {};
 
     return (
         <Marker
             position={{ lat, lng }}
             label={{
                 text: label,
-                color: isDone ? "#000" : "#FFF",
-                fontWeight: isDone ? "500" : undefined,
+                color: isDone ? '#000' : '#FFF',
+                fontWeight: isDone ? '500' : undefined,
             }}
             icon={isDone ?
                 checkmarkSymbol :
@@ -64,26 +64,26 @@ export const DestinationMarker: React.SFC<DestinationMarkerProps & MarkerProps> 
         >
             {children}
         </Marker>
-    )
-}
+    );
+};
 
 const dateFormat = {
-    month: "long",
-    day: "numeric",
-}
+    month: 'long',
+    day: 'numeric',
+};
 export const DestinationInfoWindow: React.SFC<DestinationMarkerProps & InfoWindowProps> = ({ feature: { properties: { name, isDone, isActive, startDate, endDate, now } }, ...restProps }) => {
-    const daysUntil = startDate.diff(now, 'days').days
-    const daysRemaining = endDate.diff(now, 'days').days
+    const daysUntil = startDate.diff(now, 'days').days;
+    const daysRemaining = endDate.diff(now, 'days').days;
 
-    let message = "";
+    let message = '';
 
     if (!isDone) {
-        message = daysUntil >= 1 ? `Arrive in ${Math.floor(daysUntil)} day${daysUntil < 2 ? "" : "s"}!` : "Arriving today!"
+        message = daysUntil >= 1 ? `Arrive in ${Math.floor(daysUntil)} day${daysUntil < 2 ? '' : 's'}!` : 'Arriving today!';
     }
 
     if (isActive) {
         message = daysRemaining >= 2 ? `Here for ${Math.floor(daysRemaining)} more days.` :
-            daysRemaining >= 1 ? "Last day here." : "Leaving today."
+            daysRemaining >= 1 ? 'Last day here.' : 'Leaving today.';
     }
 
     return (
@@ -93,11 +93,11 @@ export const DestinationInfoWindow: React.SFC<DestinationMarkerProps & InfoWindo
                 {/* {!isDone && daysUntil > 0 && (<h5>In {daysUntil} days!</h5>)}
                 {isActive && (<h5>Here for {daysRemaining} more days</h5>)} */}
                 <h5>{message}</h5>
-                {startDate.toLocaleString(dateFormat)} - {endDate.toLocaleString(dateFormat)} <i>({Math.ceil(endDate.diff(startDate, "days").days)} Days)</i>
+                {startDate.toLocaleString(dateFormat)} - {endDate.toLocaleString(dateFormat)} <i>({Math.ceil(endDate.diff(startDate, 'days').days)} Days)</i>
             </div>
         </InfoWindow>
-    )
-}
+    );
+};
 
 export const DestinationLayer: KmlLayerComponent<DestinationFeature> = ({ 
     url, 
@@ -108,10 +108,10 @@ export const DestinationLayer: KmlLayerComponent<DestinationFeature> = ({
     zIndexActive,
     now = DateTime.local()
 }) => {
-    const features = useKmlLayer<GDestinationProps, Point, DestinationProps>(url, ({ properties, ...restFeat }) => {
-        const { done, start, end, ...restProps } = properties
-        const startDate = fromTicksString(start)
-        const endDate = fromTicksString(end)
+    const features = useKmlLayer<DestinationProps, Point>(url, ({ properties, ...restFeat }) => {
+        const { done, start, end, ...restProps } = properties;
+        const startDate = fromTicksString(start);
+        const endDate = fromTicksString(end);
 
         return ({
             ...restFeat,
@@ -123,8 +123,8 @@ export const DestinationLayer: KmlLayerComponent<DestinationFeature> = ({
                 startDate,
                 endDate
             }
-        })
-    })
+        });
+    });
     return (
         <>
             {features.map((feature, index) => {
@@ -144,8 +144,8 @@ export const DestinationLayer: KmlLayerComponent<DestinationFeature> = ({
                             />
                         )}
                     </DestinationMarker>
-                )
+                );
             })}
         </>
-    )
-}
+    );
+};

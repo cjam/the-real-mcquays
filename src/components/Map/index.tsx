@@ -1,49 +1,54 @@
-import React, { useEffect, useState } from "react";
-import { withGoogleMap, withScriptjs, GoogleMap, Marker, InfoWindow, Polyline } from "react-google-maps"
-import toGeoJson from "@mapbox/togeojson"
-// import mapStyles from "./TravelMapStyle"
-import mapStyles from "./StandardMapStyle"
-// import useKmlLayer from "./useKmlLayer"
-import { DestinationFeature, DestinationInfoWindow, DestinationMarker, DestinationProps, DestinationLayer } from "./LayerDestination"
-import { TravelFeature, TravelInfoWindow, TravelLine, TravelProps, TravelLayer } from "./LayerTravel"
-import { FeatureCollection, Geometry, Feature, Point, LineString } from "geojson";
-import { useStaticQuery, graphql } from "gatsby";
-// import { PostFeature, PostMarker, PostInfoWindow, PostsLayer } from "./LayerPosts";
-// import "./index.scss"
-// import { LocationLayer } from "./LayerLocation";
-import luxon, {DateTime} from "luxon"
-
+import React, { } from 'react';
+import { GoogleMap, withGoogleMap, withScriptjs } from 'react-google-maps';
+import mapStyles from './StandardMapStyle';
 
 const GOOGLE_API_KEY = process.env.GATSBY_GOOGLE_MAPS_API_KEY;
-const EpicAdventureKML = "https://www.google.com/maps/d/kml?forcekml=1&mid=1HFfcjZfpjFxjGKBBA8OCaxkJUuCoKcwW";
 
-const DESTINATIONS_LAYER = `${EpicAdventureKML}&lid=3KEUBKwaoqc`
-const TRAVELS_LAYER = `${EpicAdventureKML}&lid=84tdCZfqPe8`
-const CURRENT_LOCATION_LAYER = `${EpicAdventureKML}&lid=fu26VA5Vmds`
-
-
-export interface MapProps {
-
+export interface LatLng {
+  lat: number;
+  lng: number;
 }
 
-const GMap = withScriptjs(withGoogleMap<MapProps>(({children}) => {
+export interface MapProps {
+  zoomControl?: boolean;
+  scaleControl?: boolean;
+  defaultZoom?: number;
+  center?: LatLng;
+  defaultCenter?: LatLng;
+  gestureHandling?: 'auto' | 'none' | 'greedy' | 'cooperative';
+  mapTypeId?: 'roadmap' | 'hybrid' | 'satellite' | 'terrain';
+  mapRef?: React.Ref<GoogleMap>;
+}
 
+const GMap = withScriptjs(withGoogleMap<MapProps>(({
+  children,
+  zoomControl = true,
+  scaleControl = true,
+  defaultZoom = 3,
+  gestureHandling = 'auto',
+  mapTypeId = 'roadmap',
+  defaultCenter = { lat: 28.3949, lng: 84.1240 },
+  mapRef
+}) => {
   return (
     <GoogleMap
-      defaultZoom={3}
-      defaultCenter={{ lat: 51.78029, lng: 6 }}
+      defaultZoom={defaultZoom}
+      defaultCenter={defaultCenter}
       defaultOptions={{
         styles: mapStyles,
         disableDefaultUI: true,
-        zoomControl: true,
-        scaleControl: true
+        zoomControl,
+        scaleControl,
+        gestureHandling,
+        mapTypeId
       }}
+      ref={mapRef}
     >
       {children}
     </GoogleMap>
-  )
+  );
 }
-))
+));
 
 // const LayerInfo = () => {
 //   const features = useKmlLayer<DestinationProps, Point>(DESTINATIONS_LAYER)
@@ -72,17 +77,18 @@ const GMap = withScriptjs(withGoogleMap<MapProps>(({children}) => {
 // }
 
 
-const Map: React.SFC<MapProps> = (props) => (
+const Map = React.forwardRef<GoogleMap, MapProps>((props, ref) => (
   <>
     {/* <LayerInfo /> */}
     <GMap
       googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&v=3.exp&libraries=geometry,drawing`}
-      loadingElement={<div className="mapLoading" style={{ height: `100%` }} />}
-      containerElement={<div className="mapContainer" />}
-      mapElement={<div className="mapElement" />}
+      loadingElement={<div className='mapLoading' style={{ height: `100%` }} />}
+      containerElement={<div className='mapContainer' />}
+      mapElement={<div className='mapElement' />}
+      mapRef={ref}
       {...props}
     />
   </>
-)
+));
 
 export default Map;

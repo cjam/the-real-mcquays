@@ -19,3 +19,8 @@
     padding-top: 0;  
   }
 }
+
+.container.constrained{
+  /* 200px is the height of the header + footer */
+  height:calc(100vh - 200px);
+}
