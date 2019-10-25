@@ -33,7 +33,7 @@ const TravelDiary: React.SFC<TravelDiaryProps> = ({ children = [], dayStart = 7,
     const days = (Array.isArray(children) ? children : [children]);
 
     // Get the paths information from the google map service
-    const paths = useKmlLayer<NepalTrekGeoJsonProps, LineString, NepalTrekPathProps>(NEPAL_TREK_PATH_LAYER, (f, fIndex) => {
+    const paths = (useKmlLayer<NepalTrekGeoJsonProps, LineString, NepalTrekPathProps>(NEPAL_TREK_PATH_LAYER, (f, fIndex) => {
         const { properties, geometry, ...rest } = f;
         return ({
             id: fIndex,
@@ -43,13 +43,16 @@ const TravelDiary: React.SFC<TravelDiaryProps> = ({ children = [], dayStart = 7,
                 day: parseInt(properties.day, 10)
             }
         });
-    }) as Array<{ id: number, path: LatLng[], properties: NepalTrekPathProps }>;
+    }) as Array<{ id: number, path: LatLng[], properties: NepalTrekPathProps }>)
+        .sort(({ properties: { day: daya } }, { properties: { day: dayb } }) => daya - dayb);
+
 
     const [now, setNow] = useState({
         day: 1,
         percent: 0
     });
     const currentDay = days[now.day - 1].props;
+    const currentLine = paths ? paths[now.day - 1] : undefined;
 
     const linesPerDay = 24;
 
@@ -80,21 +83,26 @@ const TravelDiary: React.SFC<TravelDiaryProps> = ({ children = [], dayStart = 7,
     }, [contentEl.current]);
 
     let currentPoint: LatLng | undefined;
-    if (paths && paths.length > 0) {
-        const currentPath = paths[now.day - 1].path;
-        currentPoint = currentPath[Math.max(0, Math.floor(currentPath.length * now.percent) - 1)];
+    if (currentLine) {
+        const currentPath = currentLine.path;
+        const currentPointIndex = Math.floor(currentPath.length * now.percent) - 1;
+        currentPoint = currentPath[Math.max(0, currentPointIndex)];
     }
+
+    const currentlyDriving = currentLine && currentLine.properties.description === 'drive';
 
     if (mapRef.current && currentPoint) {
         mapRef.current.panTo(currentPoint);
     }
+
     return (
         <div className='travel-diary'>
             <section className='travel-diary-map' style={{
                 background: 'green'
             }}>
                 <Map
-                    defaultZoom={9}
+                    defaultZoom={12}
+                    zoom={currentlyDriving ? 9 : 13}
                     zoomControl={true}
                     gestureHandling='none'
                     mapTypeId='terrain'
@@ -102,25 +110,25 @@ const TravelDiary: React.SFC<TravelDiaryProps> = ({ children = [], dayStart = 7,
                 >
                     <>
                         {Array.isArray(paths) && paths.map(({ id, path, properties: { description, day = -1 } }) => {
-                            console.log(now.percent);
                             const isCurrent = day === now.day;
                             const isDrive = description === 'drive';
                             const strokeColor = isCurrent ? "yellow" : (
                                 isDrive ? 'red' : 'purple'
                             );
-                            const icon = isDrive ? jeepIcon : hikerIcon;
-                            const icons = [];
-                            if (isCurrent) {
-                                icons.push({
-                                    icon:{
-                                        ...icon,
-                                        strokeWeight:0,
-                                        fillColor:'red'
-                                    },
-                                    offset: `${now.percent*100}%`,
-                                    fixedRotation: true
-                                });
-                            }
+                            // const icon = isDrive ? jeepIcon : hikerIcon;
+                            // const icons = [];
+                            // if (isCurrent) {
+                            //     icons.push({
+                            //         icon: {
+                            //             ...icon,
+                            //             strokeWeight: 0,
+                            //             fillColor: 'red'
+                            //         },
+                            //         offset: `${now.percent * 100}%`,
+                            //         fixedRotation: true,
+                            //         optimized:false,
+                            //     });
+                            // }
                             return (
                                 <Polyline
                                     key={id}
@@ -129,16 +137,20 @@ const TravelDiary: React.SFC<TravelDiaryProps> = ({ children = [], dayStart = 7,
                                         strokeColor,
                                         strokeWeight: 4,
                                         strokeOpacity: 0.9,
-                                        fillColor:strokeColor,
-                                        fillOpacity:0.6,
-                                        icons
+                                        fillColor: strokeColor,
+                                        fillOpacity: 0.6,
+                                        // icons
                                     }}
                                 />
                             );
                         })}
-                        {/* <Marker
+                        <Marker
                             position={currentPoint}
-                        /> */}
+                            icon={currentlyDriving ? jeepIcon : hikerIcon}
+                            options={{
+                                optimized: false
+                            }}
+                        />
                     </>
                 </Map>
 
