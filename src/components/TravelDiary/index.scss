@@ -8,10 +8,13 @@
     display:grid;
     grid-template-areas: 
     "map day-info"
-    "map content";
+    "map content"
+    "map controls";
     grid-template-columns: 0.5fr 0.5fr;
-    grid-template-rows: auto 1fr;
-    max-height: 100%;
+    grid-template-rows: auto 1fr auto;
+    row-gap: 10px;
+    column-gap: 5px;
+    height: 100%;
 }
 
 .travel-diary-map{
@@ -22,16 +25,22 @@
     grid-area: day-info;
 }
 
+.travel-diary-controls{
+    grid-area: controls;
+}
+
 .travel-diary-content{
     grid-area: content;
-    overflow-y: scroll;
+    overflow-y: hidden;
 }
 
 .travel-diary-day{
-    position:sticky;
-    top:0;
+    position: relative;
+    // position:sticky;
+    // top:0;
     visibility: hidden;
     opacity: 0;
+    // margin-bottom:px;
 
     >h2{
         position:sticky;

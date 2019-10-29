@@ -1,0 +1,13 @@
+.controls{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding:5px;
+    // border:1px solid grey;
+
+    button{
+        border-radius: 5px;
+        height:40px;
+        width:20%;
+    }
+}

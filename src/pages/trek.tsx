@@ -9,6 +9,7 @@ import Container from '../components/Container';
 import ElevationGraph from '../components/ElevationGraph';
 import Hero from '../components/Hero';
 import TravelDiary, { TravelDay } from '../components/TravelDiary';
+import { days } from '../content/nepal-trek';
 import Layout from '../layouts';
 import './index.scss';
 
@@ -34,36 +35,7 @@ export default class TrekPage extends React.Component {
           </center> */}
           {/* <ElevationGraph /> */}
           <TravelDiary>
-            <TravelDay number={1}>
-              <section className="holly">
-                Holly Text
-              </section>
-              <section className="colter">
-                Colter Text
-              </section>
-            </TravelDay>
-            <TravelDay number={2}>
-              <div style={{ height: 850, background: "lightgray" }}>
-                Some stuff
-                </div>
-            </TravelDay>
-            <TravelDay number={3}>
-              <div style={{ height: 150, background: "lightgray" }}>
-                Some stuff
-              </div>
-              <div style={{ height: 250, background: "pink" }}>
-                More stuff
-              </div>
-              <div style={{ height: 50, background: "lightgreen" }}>
-                Some stuff
-              </div>
-              <div style={{ height: 450, background: "lightgray" }}>
-                More stuff
-              </div>
-            </TravelDay>
-            {/* <TravelDay number={3}/>
-            <TravelDay number={4}/>
-            <TravelDay number={5}/> */}
+            {days}
           </TravelDiary>
           {/* <div className='subtle'>
             <p>
