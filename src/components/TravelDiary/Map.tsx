@@ -41,14 +41,16 @@ const DiaryMap: React.SFC<DiaryMapProps> = ({ currentDay = 1, percentDayComplete
 
     const previousDay = usePrevious(currentDay);
 
-    const currentLine = paths ? paths[currentDay - 1] : undefined;
+    const currentLine = paths ? paths[Math.max(0, currentDay - 1)] : undefined;
     const currentlyDriving = currentLine && currentLine.properties.description === 'drive';
 
     let currentPoint: LatLng | undefined;
 
     if (currentLine) {
         const currentPath = currentLine.path;
-        const currentPointIndex = previousDay !== currentDay ? 0 : Math.floor(currentPath.length * percentDayComplete) - 1;
+        const currentPointIndex = currentDay === 0 ? 0 
+            : previousDay !== currentDay ? 0 
+            : Math.floor(currentPath.length * percentDayComplete) - 1;
         currentPoint = currentPath[Math.max(0, currentPointIndex)];
     }
 
