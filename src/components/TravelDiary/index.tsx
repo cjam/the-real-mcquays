@@ -61,9 +61,9 @@ const TravelDiary: React.SFC<TravelDiaryProps> = ({ children = [], dayStart = 7,
             </section>
             <section className='travel-diary-content'>
                 <DayDisplay
-                // days={days}
-                // onNowChanged={setNow}
-                // currentDay={dayNum}
+                    // days={days}
+                    // onNowChanged={setNow}
+                    // currentDay={dayNum}
                 />
             </section>
         </div>

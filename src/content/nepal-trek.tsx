@@ -4,6 +4,7 @@ import TravelDay from '../components/TravelDiary/TravelDay';
 
 export const days = [
     <TravelDay
+        key={1}
         number={1}
         start={{ name: "Ghorepani", elevation: 2000 }}
         end={{ name: "Somewhere", elevation: 3000 }}
@@ -48,14 +49,16 @@ export const days = [
     Exercitation do mollit qui magna tempor aute non dolor irure minim labore ex do nostrud. Pariatur sunt sunt occaecat irure. Incididunt dolor nisi mollit id deserunt tempor esse pariatur. Laborum anim laboris reprehenderit velit ea aliquip nisi qui mollit. Nisi ullamco eu irure minim duis eu exercitation minim laboris nisi consequat culpa consequat. Et in ullamco ipsum aliqua ex eu. Ea veniam do excepteur id deserunt pariatur.
         </section>
     </TravelDay>,
-                <TravelDay number={2}>
+                <TravelDay 
+                key={2}
+                number={2}>
                 <div style={{ height: 850, background: "lightgray" }}>
                   Qui incididunt do fugiat officia duis sint incididunt pariatur exercitation ut duis proident irure velit. Labore exercitation ea commodo eu. Enim minim mollit laboris dolor voluptate. Eiusmod id adipisicing duis aute Lorem ut quis. Sint in consectetur aliquip amet non elit sit proident laborum occaecat anim aute. Adipisicing elit id irure dolor esse qui qui id dolore.
   
   Ut aute tempor commodo amet. Duis sint excepteur ut officia amet elit minim. Voluptate sint est laboris et eu duis consequat proident sint laborum exercitation voluptate ea. Ad ad anim quis minim excepteur velit. Consectetur est nisi nisi fugiat amet. Culpa incididunt deserunt mollit esse ut elit ad.
                   </div>
             </TravelDay>,
-            <TravelDay number={3}>
+            <TravelDay key={3} number={3}>
             <div style={{ height: 150, background: "lightgray" }}>
               Some stuff
             </div>

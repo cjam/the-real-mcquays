@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 // Hook 
 export function useAnimation(
@@ -22,10 +22,10 @@ export function useAnimation(
 // https://github.com/streamich/ts-easing/blob/master/src/index.ts
 // Hardcode here or pull in a dependency
 const easing = {
-    linear: n => n,
-    elastic: n =>
+    linear: (n: number) => n,
+    elastic: (n: number) =>
         n * (33 * n * n * n * n - 106 * n * n * n + 126 * n * n - 67 * n + 15),
-    inExpo: n => Math.pow(2, 10 * (n - 1))
+    inExpo: (n: number) => Math.pow(2, 10 * (n - 1))
 };
 
 
