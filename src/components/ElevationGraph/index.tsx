@@ -110,7 +110,6 @@ const ElevationGraph: React.SFC<ElevationGraphProps> = () => {
             const lastPointIndex = todaysPoints.findIndex(({ distance }) => distance > currentDistance);
             const closePoints = [todaysPoints[lastPointIndex - 1], todaysPoints[lastPointIndex]]
 
-            // console.log(closePoints.map(({ name }) => name));
             const slope = (closePoints[1].altitude - closePoints[0].altitude) / (closePoints[1].distance - closePoints[0].distance);
             const altitude = closePoints[0].altitude + slope * (currentDistance - closePoints[0].distance)
             currentPoint = {

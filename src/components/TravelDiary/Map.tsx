@@ -73,9 +73,8 @@ const DiaryMap: React.SFC<DiaryMapProps> = ({ currentDay = 1, percentDayComplete
                 {Array.isArray(paths) && paths.map(({ id, path, properties: { description, day = -1 } }) => {
                     const isCurrent = day === currentDay;
                     const isDrive = description === 'drive';
-                    const strokeColor = isCurrent ? 'yellow' : (
-                        isDrive ? 'red' : 'purple'
-                    );
+                    const strokeColor = isCurrent ? 'yellow': '#1547b3';
+
                     return (
                         <Polyline
                             key={id}

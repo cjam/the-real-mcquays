@@ -12,7 +12,8 @@
         border-color:$color-accent-light;
         border-radius: 5px;
         height:40px;
-        width:20%;
+        max-width: 150px;
+        width:40%;
         cursor: pointer;
 
         &:hover{

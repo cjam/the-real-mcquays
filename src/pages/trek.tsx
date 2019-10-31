@@ -12,7 +12,11 @@ import TravelDiary, { TravelDay } from '../components/TravelDiary';
 import { days } from '../content/nepal-trek';
 import Layout from '../layouts';
 import './index.scss';
+import { callbackify } from 'util';
+import { DateTime } from 'luxon';
+import './trek.scss';
 
+const trekStartDate = DateTime.fromISO('2019-09-05T08:00:00+05:45');
 
 export default class TrekPage extends React.Component {
   public render() {
@@ -24,17 +28,13 @@ export default class TrekPage extends React.Component {
           title: 'Trek Dashboard',
         }}
       >
-        <Container style={{
-          display: 'flex',
-          flexDirection: 'column'
-        }}
-          contstrain={true}
-        >
+        <Container className='trekContainer' contstrain={true} >
           {/* <center>
             <h3>Trek Dashboard</h3>
           </center> */}
           {/* <ElevationGraph /> */}
-          <TravelDiary>
+          <TravelDiary 
+            trekStartDate={trekStartDate}>
             {days}
           </TravelDiary>
           {/* <div className='subtle'>

@@ -1,19 +1,26 @@
+import classNames from 'classnames';
 import React from 'react';
-import { TravelDayProps } from './TravelDay';
 import './DayInfo.scss';
+import { TravelDayProps } from './TravelDay';
+import stairsUpSvg from '../../assets/stairs-up.svg';
+import stairsDownSvg from '../../assets/stairs-down.svg';
+import arrowRightSvg from '../../assets/arrow-right.svg';
+import { faFileExcel } from '@fortawesome/free-solid-svg-icons';
+import { DateTime } from 'luxon';
 
 interface DayInfoProps {
     day: TravelDayProps;
+    trekStartDate: DateTime;
 }
-
 
 const DataDisplay: React.SFC<{
     label: React.ReactNode,
     value: number | string,
-    title?: string
-}> = ({ label, value, title }) => {
+    title?: string,
+    className?: string;
+}> = ({ label, value, title, className }) => {
     return (
-        <div className="dataDisplay" title={title}>
+        <div className={classNames('dataDisplay', className)} title={title}>
             {label && <span>{label}</span>}
             <span>{value}</span>
         </div>
@@ -21,9 +28,9 @@ const DataDisplay: React.SFC<{
 };
 
 const DayInfo: React.SFC<DayInfoProps> = ({
+    trekStartDate,
     day: {
         number = 1,
-        difficulty = 'Easy',
         distance = 0,
         stairFlights = {
             up: 0,
@@ -41,29 +48,29 @@ const DayInfo: React.SFC<DayInfoProps> = ({
 }) => {
     return (
         <div className='dayInfo'>
-            <div className="title">
-                <h2>Day {number}</h2>
-                <DataDisplay
-                    label={null}
-                    value={`${start.name} (${start.elevation} m) ➡️ ${end.name} (${end.elevation} m)`}
-                />
+            <h2 className='title'>Day {number}</h2>
+            <span className='date'>{trekStartDate.plus({ day: number }).toFormat('DDD')}</span>
+            <div className='start'>
+                <div className='placeName'>{start.name}</div>
+                <div className='elevation' >{start.elevation} m</div>
             </div>
-            <div className='stats'>
-                <DataDisplay
-                    label={null}
-                    value={difficulty}
-                    title={`${difficulty} day`}
-                />
-                <DataDisplay
-                    label={'Distance'}
-                    value={`${distance} Km`}
-                    title={`${distance} Km`}
-                />
-                <DataDisplay
-                    label={'Stairs (flights)'}
-                    value={`${stairFlights.up} ⬆️ ${stairFlights.down} ⬆️`}
-                    title={`${stairFlights.up} flights up, ${stairFlights.down} flights down`}
-                />
+            <div className='end'>
+                <div className='placeName'>{end.name}</div>
+                <div className='elevation'>{end.elevation} m</div>
+            </div>
+            <div className='distance'>
+                <div><img src={arrowRightSvg} style={{ verticalAlign: 'middle', width: '90%' }} /></div>
+                <div>{distance} km</div>
+            </div>
+            <div className='stairs'>
+                <div>
+                    <img src={stairsUpSvg} />
+                    <div>{stairFlights.up}</div>
+                </div>
+                <div>
+                    <img src={stairsDownSvg} />
+                    <div>{stairFlights.down}</div>
+                </div>
             </div>
         </div>
     );

@@ -8,6 +8,7 @@ import './index.scss';
 import DiaryMap from './Map';
 import _TravelDay, { TravelDayProps, TravelDays } from './TravelDay';
 import Welcome from './Welcome';
+import { DateTime } from 'luxon';
 
 export const TravelDay = _TravelDay;
 
@@ -21,11 +22,10 @@ type NepalTrekGeoJsonProps = { [key in keyof (NepalTrekPathProps)]: string };
 
 interface TravelDiaryProps {
     children?: TravelDays;
-    dayStart?: number;
-    dayEnd?: number;
+    trekStartDate:DateTime;
 }
 
-const TravelDiary: React.SFC<TravelDiaryProps> = ({ children = [], dayStart = 7, dayEnd = 14 }) => {
+const TravelDiary: React.SFC<TravelDiaryProps> = ({ children = [], trekStartDate }) => {
     const contentRef = useRef<HTMLElement>();
     const days = (Array.isArray(children) ? children : [children]);
     const [dayNum, setDayNum] = useState(0);
@@ -34,16 +34,14 @@ const TravelDiary: React.SFC<TravelDiaryProps> = ({ children = [], dayStart = 7,
     const currentDayProps = currentDay ? currentDay.props : undefined;
     const [fadeOut, setFadeOut] = useState(false);
 
-    console.log("PERCENT",percentDayComplete);
-
     function setDay(newDay: number) {
         const constrainedDay = Math.max(0, Math.min(days.length, newDay));
         // Make sure the new day is within range
         if (constrainedDay !== dayNum) {
             setFadeOut(true);
             setTimeout(() => {
-                if(contentRef.current){
-                    contentRef.current.scrollTo({top:0});
+                if (contentRef.current) {
+                    contentRef.current.scrollTo({ top: 0 });
                 }
                 setDayNum(constrainedDay);
                 setFadeOut(false);
@@ -66,8 +64,10 @@ const TravelDiary: React.SFC<TravelDiaryProps> = ({ children = [], dayStart = 7,
                     currentDay={dayNum}
                     percentDayComplete={percentDayComplete} />
             </section>
-            <section className={classNames('travel-diary-day-info', { fadeOut })}>
-                {currentDayProps && <DayInfo day={currentDayProps} />}
+            <section className={classNames('travel-diary-day-info')}>
+                {currentDayProps ? 
+                    <DayInfo day={currentDayProps} trekStartDate={trekStartDate}/> : 
+                    <h2 style={{textAlign:'center',padding:0,margin:0,lineHeight:"60px"}}>Welcome!</h2>}
             </section>
             <section className='travel-diary-controls'>
                 <DiaryControls

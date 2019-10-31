@@ -1,19 +1,75 @@
-.dayInfo {
-    .title{
-        h2{
-            margin:0;
-            padding:0;
-        }
+@import "../../vars.scss";
 
-        display:flex;
-        flex-direction: row;
-        justify-content: space-between;;
-        margin:5px 0px;
+.dayInfo {
+    display: grid;
+    grid-template-areas:
+        "day start distance end stairs"
+        "date start distance end stairs"
+    ;
+    grid-template-rows: auto;
+    grid-template-columns: auto 1fr 0.6fr 1fr 0.6fr;
+    row-gap: 2px;
+    column-gap: 2px;
+    padding: 10px;
+
+    @media screen and (max-width:$break-medium-small) {
+        grid-template-areas: 
+        "day day stairs"
+        "date date stairs"
+        "start distance end";
+        grid-template-columns: auto auto auto;
     }
-    
-    .stats {
+
+    h2.title {
+        margin: 0;
+        padding: 0;
+        grid-area: day;
+    }
+
+    .date {
+        grid-area: date;
+        font-size: 0.8em;
+        color: $color-subtle;
+    }
+
+    .start {
+        grid-area: start;
+        text-align: right;
+        margin-right: 2px;
+    }
+
+    .end {
+        grid-area: end;
+        margin-left: 2px;
+    }
+
+    .placeName{
+        font-weight: 400;
+        text-align: center;
+    }
+
+    .elevation{
+        font-size:0.9em;
+        text-align: center;
+    }
+
+    .distance {
+        grid-area: distance;
+        text-align: center;
+    }
+
+    .stairs {
+        grid-area: stairs;
+        text-align: right;
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        align-items: center;
+        justify-content: space-around;
+
+        &>div {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
     }
 }
