@@ -39,8 +39,6 @@ const DiaryMap: React.SFC<DiaryMapProps> = ({ currentDay = 1, percentDayComplete
     }) as Array<{ id: number, path: LatLng[], properties: NepalTrekPathProps }>)
         .sort(({ properties: propA }, { properties: propB }) => propA.day - propB.day);
 
-    const previousDay = usePrevious(currentDay);
-
     const currentLine = paths ? paths[Math.max(0, currentDay - 1)] : undefined;
     const currentlyDriving = currentLine && currentLine.properties.description === 'drive';
 
@@ -48,27 +46,21 @@ const DiaryMap: React.SFC<DiaryMapProps> = ({ currentDay = 1, percentDayComplete
 
     if (currentLine) {
         const currentPath = currentLine.path;
-        const currentPointIndex = currentDay === 0 ? 0 
-            : previousDay !== currentDay ? 0 
-            : Math.floor(currentPath.length * percentDayComplete) - 1;
+        const currentPointIndex = currentDay === 0 ? 0 : Math.floor(currentPath.length * percentDayComplete) - 1;
         currentPoint = currentPath[Math.max(0, currentPointIndex)];
     }
 
-    const pathBounds = useMemo(() => {
+    useMemo(() => {
         if (currentLine && currentLine.path) {
             const {
                 bottomRight: { lng: east, lat: south },
                 topLeft: { lng: west, lat: north }
             } = getBoundingBox(currentLine.path, 0);
-            return { east, west, north, south };
-        } else {
-            return { east: 0, west: 0, north: 0, south: 0 };
+            if (mapRef.current) {
+                mapRef.current.fitBounds({ east, west, north, south });
+            }
         }
     }, [currentLine]);
-
-    if (mapRef.current) {
-        mapRef.current.fitBounds(pathBounds);
-    }
 
 
     return (

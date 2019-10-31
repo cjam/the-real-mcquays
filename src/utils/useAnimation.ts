@@ -47,7 +47,7 @@ function useIntervalTimer(interval = 500, duration = 1000, delay = 0, deps: any[
                 // Set a timeout to stop things when duration time elapses
                 timerStop = setTimeout(() => {
                     clearInterval(intervalId);
-                    setTime(Date.now() - start);
+                    onFrame();
                 }, duration);
 
                 // Start the loop
@@ -55,6 +55,7 @@ function useIntervalTimer(interval = 500, duration = 1000, delay = 0, deps: any[
                 intervalId = setInterval(onFrame, interval);
             }
 
+            setTime(0);
             // Start after specified delay (defaults to 0)
             const timerDelay = setTimeout(onStart, delay);
 
@@ -104,6 +105,7 @@ function useAnimationTimer(duration = 1000, delay = 0, deps: any[] = []) {
                 loop();
             }
 
+            setTime(0);
             // Start after specified delay (defaults to 0)
             const timerDelay = setTimeout(onStart, delay);
 

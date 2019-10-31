@@ -1,15 +1,15 @@
-.travel-diary{
+.travel-diary {
     // display:flex;
     // flex-direction: row;
     // height:75vh;
     // >*{
     //     flex:1;
     // }
-    display:grid;
-    grid-template-areas: 
-    "map day-info"
-    "map content"
-    "map controls";
+    display: grid;
+    grid-template-areas:
+        "map day-info"
+        "map content"
+        "map controls";
     grid-template-columns: 0.5fr 0.5fr;
     grid-template-rows: auto 1fr auto;
     row-gap: 10px;
@@ -17,41 +17,37 @@
     height: 100%;
 }
 
-.travel-diary-map{
+.travel-diary-map {
     grid-area: map;
 }
 
-.travel-diary-day-info{
+.travel-diary-day-info {
     grid-area: day-info;
+    opacity:1;
+
+    &.fadeOut {
+        opacity:0;
+    }
+    transition:opacity 0.3s ease-in-out;
 }
 
-.travel-diary-controls{
+.travel-diary-controls {
     grid-area: controls;
 }
 
-.travel-diary-content{
+.travel-diary-content {
     grid-area: content;
-    overflow-y: hidden;
-}
+    overflow-y: auto;
+    opacity:1;
 
-.travel-diary-day{
-    position: relative;
-    // position:sticky;
-    // top:0;
-    visibility: hidden;
-    opacity: 0;
-    // margin-bottom:px;
 
-    >h2{
-        position:sticky;
-        top:0px;
-        text-align: center;
+    &.fadeOut {
+        opacity:0;
     }
-
-    transition:visibility 0s, opacity 1s ease-in-out;
+    transition:opacity 0.3s ease-in-out;
 }
 
-.travel-diary-day.isActive{
-    visibility:visible;
-    opacity: 1;
-}
+// .travel-diary-day {
+//     opacity: 1;
+//     transition: opacity 0.3s ease-in-out;
+// }

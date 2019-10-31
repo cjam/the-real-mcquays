@@ -23,19 +23,11 @@ export interface TravelDayProps {
 
 export type TravelDays = React.ReactElement<TravelDayProps> | Array<React.ReactElement<TravelDayProps>>;
 
-const TravelDay: React.SFC<TravelDayProps> = ({ number, children, isActive = false, percentDone = 0 }) => {
-    const dayRef = useRef<HTMLDivElement>(null);
-    console.log(dayRef);
+const TravelDay: React.SFC<TravelDayProps> = ({children}) => {
     return (
         <div
-            ref={dayRef}
-            className={classNames('travel-diary-day', { isActive })}
-            style={{
-                top: `-${percentDone*100}%`
-            }}
+            className={classNames('travel-diary-day')}
         >
-            <h2>{percentDone}</h2>
-            {/* <h2>Day {number}</h2> */}
             {children}
         </div>
     );

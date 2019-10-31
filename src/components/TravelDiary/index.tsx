@@ -26,14 +26,29 @@ interface TravelDiaryProps {
 }
 
 const TravelDiary: React.SFC<TravelDiaryProps> = ({ children = [], dayStart = 7, dayEnd = 14 }) => {
+    const contentRef = useRef<HTMLElement>();
     const days = (Array.isArray(children) ? children : [children]);
     const [dayNum, setDayNum] = useState(0);
-    const percentDayComplete = useAnimation('linear', 10000, 1000, [dayNum], 200);
-    const currentDay = dayNum > 0 ? days[dayNum - 1].props : undefined;
+    const percentDayComplete = useAnimation('linear', 10000, 1500, [dayNum], 200);
+    const currentDay = dayNum > 0 ? days[dayNum - 1] : undefined;
+    const currentDayProps = currentDay ? currentDay.props : undefined;
+    const [fadeOut, setFadeOut] = useState(false);
+
+    console.log("PERCENT",percentDayComplete);
 
     function setDay(newDay: number) {
+        const constrainedDay = Math.max(0, Math.min(days.length, newDay));
         // Make sure the new day is within range
-        setDayNum(Math.max(0, Math.min(days.length, newDay)));
+        if (constrainedDay !== dayNum) {
+            setFadeOut(true);
+            setTimeout(() => {
+                if(contentRef.current){
+                    contentRef.current.scrollTo({top:0});
+                }
+                setDayNum(constrainedDay);
+                setFadeOut(false);
+            }, 400);
+        }
     }
 
     function nextDay() {
@@ -51,8 +66,8 @@ const TravelDiary: React.SFC<TravelDiaryProps> = ({ children = [], dayStart = 7,
                     currentDay={dayNum}
                     percentDayComplete={percentDayComplete} />
             </section>
-            <section className='travel-diary-day-info'>
-                {currentDay && <DayInfo day={currentDay} />}
+            <section className={classNames('travel-diary-day-info', { fadeOut })}>
+                {currentDayProps && <DayInfo day={currentDayProps} />}
             </section>
             <section className='travel-diary-controls'>
                 <DiaryControls
@@ -60,17 +75,8 @@ const TravelDiary: React.SFC<TravelDiaryProps> = ({ children = [], dayStart = 7,
                     onPrevious={previousDay}
                 />
             </section>
-            <section className='travel-diary-content'>
-                { currentDay ? (
-                    <DayDisplay
-                    // days={days}
-                    // onNowChanged={setNow}
-                    // currentDay={dayNum}
-                    />
-                )
-                : (
-                    <Welcome/>
-                )}
+            <section ref={contentRef} className={classNames('travel-diary-content', { fadeOut })}>
+                {currentDay ? <DayDisplay day={currentDay} /> : <Welcome />}
             </section>
         </div>
     );
