@@ -13,6 +13,8 @@ type GBoundsLiteral = { south: number, north: number, east: number, west: number
 interface DiaryMapProps {
     currentDay?: number;
     percentDayComplete?: number;
+    pathColor?: string;
+    currentPathColor?: string;
 }
 
 interface NepalTrekPathProps {
@@ -22,7 +24,12 @@ interface NepalTrekPathProps {
 
 type NepalTrekGeoJsonProps = { [key in keyof (NepalTrekPathProps)]: string };
 
-const DiaryMap: React.SFC<DiaryMapProps> = ({ currentDay = 1, percentDayComplete = 0 }) => {
+const DiaryMap: React.SFC<DiaryMapProps> = ({
+    currentDay = 1,
+    percentDayComplete = 0,
+    currentPathColor = 'yellow',
+    pathColor = 'black'
+}) => {
     const mapRef = useRef<GoogleMap>(null);
 
     // Get the paths information from the google map service
@@ -72,8 +79,7 @@ const DiaryMap: React.SFC<DiaryMapProps> = ({ currentDay = 1, percentDayComplete
             <>
                 {Array.isArray(paths) && paths.map(({ id, path, properties: { description, day = -1 } }) => {
                     const isCurrent = day === currentDay;
-                    const isDrive = description === 'drive';
-                    const strokeColor = isCurrent ? 'yellow': '#1547b3';
+                    const strokeColor = isCurrent ? currentPathColor : pathColor;
 
                     return (
                         <Polyline

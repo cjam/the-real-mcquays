@@ -125,9 +125,9 @@ export const days = [
       </section>
 
       <section className="colter">
-          Shorter day today. Decided against another 8 hour day, as there will be ample opportunity in the coming days. Started with a good climb to Timang. Then meandered along the road through Koto and finally to Chame. 
+          <p>Shorter day today. Decided against another 8 hour day, as there will be ample opportunity in the coming days. Started with a good climb to Timang. Then meandered along the road through Koto and finally to Chame.</p> 
 
-          Learned that Canada’s highest mountain is only a peak in Nepal. Canada only has 1 peak. The rest of the “mountains” are only considered hills, by Nepalese standards. Continue to be proud of my Holly. Her fitness is doing great.
+          <p>Learned that Canada’s highest mountain is only a peak in Nepal. Canada only has 1 peak. The rest of the “mountains” are only considered hills, by Nepalese standards. Continue to be proud of my Holly. Her fitness is doing great.</p>
       </section>
   </TravelDay>, 
 
@@ -517,4 +517,4 @@ export const days = [
           <p>We bid farewell to Bibek and headed out for a delicious dinner, after which, a large lightning storm started. The rain was relentless. We sat in the dark, watched Harry Potter, and ate snacks.</p>
       </section>
   </TravelDay>
-]
+];

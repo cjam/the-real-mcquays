@@ -56,13 +56,17 @@ const TravelDiary: React.SFC<TravelDiaryProps> = ({ children = [], trekStartDate
     function previousDay() {
         setDay(dayNum - 1);
     }
-
+// #B0CDFA
     return (
         <div className='travel-diary'>
             <section className='travel-diary-map'>
                 <DiaryMap
                     currentDay={dayNum}
-                    percentDayComplete={percentDayComplete} />
+                    percentDayComplete={percentDayComplete} 
+                    pathColor='#042417'
+                    currentPathColor='#db5881'
+                    // currentPathColor='#7daffa'
+                    />
             </section>
             <section className={classNames('travel-diary-day-info')}>
                 {currentDayProps ? 

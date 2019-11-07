@@ -67,13 +67,27 @@
     transition:opacity 0.3s ease-in-out;
 
     section.colter{
-        border-left:5px solid rgba(216, 129, 16, 0.822);
+        border-left:5px solid #386352;
         padding-left:5px;
+
+        &::before{
+            content:"Colter";
+            font-weight: 500;
+            font-style: italic;
+            color:#777;
+        }
     }
 
     section.holly{
-        border-left:5px solid rgba(18, 153, 177, 0.781);
+        border-left:5px solid #9bbfa2;
         padding-left:5px;
+
+        &::before{
+            content:"Holly";
+            font-weight: 500;
+            font-style: italic;
+            color:#777;
+        }
     }
 }
 

@@ -63,11 +63,11 @@ const DayInfo: React.SFC<DayInfoProps> = ({
                 <div>{distance} km</div>
             </div>
             <div className='stairs'>
-                <div>
+                <div title={`${stairFlights.up} flights up`}>
                     <img src={stairsUpSvg} />
                     <div>{stairFlights.up}</div>
                 </div>
-                <div>
+                <div title={`${stairFlights.down} flights down`}>
                     <img src={stairsDownSvg} />
                     <div>{stairFlights.down}</div>
                 </div>
