@@ -4,9 +4,10 @@ export interface LayerProps<T> {
     selectedFeature: any
     onClick?: (feature: T) => void
     onClose?: (feature: T) => void
-    zIndexStart?:number
-    zIndexActive?:number
-    now?:DateTime
+    zIndexStart?: number
+    zIndexActive?: number
+    now?: DateTime
+    onLayerLoad?: (features: T[]) => void;
 }
 
 export type KmlLayerComponent<T> = React.FunctionComponent<LayerProps<T> & { url: string }>

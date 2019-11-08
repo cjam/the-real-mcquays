@@ -106,7 +106,8 @@ export const DestinationLayer: KmlLayerComponent<DestinationFeature> = ({
     onClose, 
     zIndexStart = 0, 
     zIndexActive,
-    now = DateTime.local()
+    now = DateTime.local(),
+    onLayerLoad
 }) => {
     const features = useKmlLayer<DestinationProps, Point>(url, ({ properties, ...restFeat }) => {
         const { done, start, end, ...restProps } = properties;
@@ -125,6 +126,10 @@ export const DestinationLayer: KmlLayerComponent<DestinationFeature> = ({
             }
         });
     });
+
+    if(features && features.length > 0 && onLayerLoad){
+        onLayerLoad(features);
+    }
     return (
         <>
             {features.map((feature, index) => {

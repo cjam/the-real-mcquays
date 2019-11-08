@@ -117,7 +117,8 @@ export const TravelLayer: KmlLayerComponent<TravelFeature> = ({
     onClose,
     zIndexStart = 0,
     zIndexActive,
-    now = DateTime.local()
+    now = DateTime.local(),
+    onLayerLoad
 }) => {
     const features = useKmlLayer<GTravelProps, LineString, TravelProps>(url, ({ properties, ...restFeat }) => {
         const { done, start, end, ...restProps } = properties;
@@ -133,6 +134,9 @@ export const TravelLayer: KmlLayerComponent<TravelFeature> = ({
             }
         });
     });
+    if(features && features.length > 0 && onLayerLoad){
+        onLayerLoad(features);
+    }
     return (
         <>
             {features.map((feature, index) => {
