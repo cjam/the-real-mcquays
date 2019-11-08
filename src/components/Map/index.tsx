@@ -1,4 +1,4 @@
-import React, { } from 'react';
+import React, { useCallback } from 'react';
 import { GoogleMap, withGoogleMap, withScriptjs } from 'react-google-maps';
 import mapStyles from './StandardMapStyle';
 
@@ -18,6 +18,7 @@ export interface MapProps {
   gestureHandling?: 'auto' | 'none' | 'greedy' | 'cooperative';
   mapTypeId?: 'roadmap' | 'hybrid' | 'satellite' | 'terrain';
   mapRef?: React.Ref<GoogleMap>;
+  onMapLoad?: (map:GoogleMap) => void;
 }
 
 const GMap = withScriptjs(withGoogleMap<MapProps>(({
@@ -50,45 +51,30 @@ const GMap = withScriptjs(withGoogleMap<MapProps>(({
 }
 ));
 
-// const LayerInfo = () => {
-//   const features = useKmlLayer<DestinationProps, Point>(DESTINATIONS_LAYER)
-//   return (
-//     <table>
-//       <thead>
-//         <tr>
-//           <td>Index</td>
-//           <td>Name</td>
-//           <td>Start</td>
-//           <td>End</td>
-//         </tr>
-//       </thead>
-//       <tbody>
-//         {features.map((f, i) => (
-//           <tr>
-//             <td>{i}</td>
-//             <td>{f.properties.name}</td>
-//             <td>{DateTime.fromMillis(parseInt(f.properties.start)/1000).toISO()}</td>
-//             <td>{DateTime.fromMillis(parseInt(f.properties.end)/1000).toISO()}</td>
-//           </tr>
-//         ))}
-//       </tbody>
-//     </table>
-//   )
-// }
 
-
-const Map = React.forwardRef<GoogleMap, MapProps>((props, ref) => (
-  <>
-    {/* <LayerInfo /> */}
-    <GMap
-      googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&v=3.exp&libraries=geometry,drawing`}
-      loadingElement={<div className='mapLoading' style={{ height: `100%` }} />}
-      containerElement={<div className='mapContainer' />}
-      mapElement={<div className='mapElement' />}
-      mapRef={ref}
-      {...props}
-    />
+const Map = React.forwardRef<GoogleMap, MapProps>(({ onMapLoad, ...rest }, ref) => {
+  const mapLoaded = useCallback((m:GoogleMap)=>{
+    if(m && onMapLoad){
+      onMapLoad(m);
+    }
+    if (typeof(ref) === 'function'){
+      ref(m);
+    }else if(ref){
+      ref.current = m;
+    }
+  },[]);
+  return (
+    <>
+      <GMap
+        googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&v=3.exp&libraries=geometry,drawing`}
+        loadingElement={<div className='mapLoading' style={{ height: `100%` }} />}
+        containerElement={<div className='mapContainer' />}
+        mapElement={<div className='mapElement' />}
+        mapRef={mapLoaded}
+      {...rest}
+      />
   </>
-));
+  );
+});
 
 export default Map;

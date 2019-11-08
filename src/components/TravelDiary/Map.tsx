@@ -7,6 +7,8 @@ import { hikerIcon, jeepIcon } from '../Map/symbols';
 import useKmlLayer from '../Map/useKmlLayer';
 import { getBoundingBox } from 'geolocation-utils';
 import { usePrevious } from '../../utils/usePrevious';
+import ElevationGraph from './ElevationGraph';
+import './Map.scss';
 
 type GBoundsLiteral = { south: number, north: number, east: number, west: number }
 
@@ -15,14 +17,21 @@ interface DiaryMapProps {
     percentDayComplete?: number;
     pathColor?: string;
     currentPathColor?: string;
+    onMapLoad?: () => void;
 }
 
-interface NepalTrekPathProps {
+export interface NepalTrekPathProps {
     day: number;
     description: 'drive' | 'hike';
 }
 
 type NepalTrekGeoJsonProps = { [key in keyof (NepalTrekPathProps)]: string };
+
+export interface NepalTrekPathDisplayProps { 
+    id: number;
+    path: LatLng[]; 
+    properties: NepalTrekPathProps;
+}
 
 const DiaryMap: React.SFC<DiaryMapProps> = ({
     currentDay = 1,
@@ -43,7 +52,7 @@ const DiaryMap: React.SFC<DiaryMapProps> = ({
                 day: parseInt(properties.day, 10)
             }
         });
-    }) as Array<{ id: number, path: LatLng[], properties: NepalTrekPathProps }>)
+    }) as NepalTrekPathDisplayProps[])
         .sort(({ properties: propA }, { properties: propB }) => propA.day - propB.day);
 
     const currentLine = paths ? paths[Math.max(0, currentDay - 1)] : undefined;
@@ -71,37 +80,40 @@ const DiaryMap: React.SFC<DiaryMapProps> = ({
 
 
     return (
-        <Map
-            defaultZoom={12}
-            mapTypeId='terrain'
-            ref={mapRef}
-        >
-            <>
-                {Array.isArray(paths) && paths.map(({ id, path, properties: { description, day = -1 } }) => {
-                    const isCurrent = day === currentDay;
-                    const strokeColor = isCurrent ? currentPathColor : pathColor;
+        <div className='map-elevation-container'>
+            <Map
+                defaultZoom={12}
+                mapTypeId='terrain'
+                ref={mapRef}
+            >
+                <>
+                    {Array.isArray(paths) && paths.map(({ id, path, properties: { description, day = -1 } }) => {
+                        const isCurrent = day === currentDay;
+                        const strokeColor = isCurrent ? currentPathColor : pathColor;
 
-                    return (
-                        <Polyline
-                            key={id}
-                            path={path}
-                            options={{
-                                strokeColor,
-                                strokeWeight: 4,
-                                strokeOpacity: 0.9,
-                            }}
-                        />
-                    );
-                })}
-                <Marker
-                    position={currentPoint}
-                    icon={currentlyDriving ? jeepIcon : hikerIcon}
-                    options={{
-                        optimized: false,
-                    }}
-                />
-            </>
-        </Map>
+                        return (
+                            <Polyline
+                                key={id}
+                                path={path}
+                                options={{
+                                    strokeColor,
+                                    strokeWeight: 4,
+                                    strokeOpacity: 0.9,
+                                }}
+                            />
+                        );
+                    })}
+                    <Marker
+                        position={currentPoint}
+                        icon={currentlyDriving ? jeepIcon : hikerIcon}
+                        options={{
+                            optimized: false,
+                        }}
+                    />
+                </>
+            </Map>
+            {mapRef && <ElevationGraph className='elevation-graph' paths={paths}/>}
+        </div>
     );
 };
 

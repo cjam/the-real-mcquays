@@ -59,6 +59,7 @@
     "remark": "^10.0.1",
     "remark-html": "^9.0.1",
     "rxjs": "^6.5.3",
+    "simplify-js": "^1.2.3",
     "ts-get": "^1.0.5",
     "typeface-great-vibes": "^0.0.72",
     "typeface-libre-baskerville": "^0.0.72",
