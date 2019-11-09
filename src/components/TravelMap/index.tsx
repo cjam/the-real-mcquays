@@ -54,11 +54,11 @@ const TravelMap: React.SFC<TravelMapProps> = () => {
     
   // };
   const zIndexActive = 10000;
-
   return (
     <Map 
       ref={mapRef}
-      defaultZoom={4}>
+      defaultZoom={5}
+      >
       <TravelLayer
         selectedFeature={selectedFeature}
         url={TRAVELS_LAYER}

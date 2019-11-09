@@ -27,7 +27,7 @@ const GMap = withScriptjs(withGoogleMap<MapProps>(({
   defaultZoom = 3,
   gestureHandling = 'auto',
   mapTypeId = 'roadmap',
-  defaultCenter = { lat: 28.3949, lng: 84.1240 },
+  defaultCenter = { lat: 48.4284, lng: 123.3656 },
   mapRef
 }) => {
   return (
