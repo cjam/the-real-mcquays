@@ -46,14 +46,17 @@ const DiaryMap: React.SFC<DiaryMapProps> = ({
     }) as Array<{ id: number, path: LatLng[], properties: NepalTrekPathProps }>)
         .sort(({ properties: propA }, { properties: propB }) => propA.day - propB.day);
 
-    const currentLine = paths ? paths[Math.max(0, currentDay - 1)] : undefined;
+    const dayPaths = paths.filter(({properties:{day}})=>day===currentDay);
+    const currentLineIndex = dayPaths.length ===1 ? 0 : Math.round(percentDayComplete*(dayPaths.length-1));
+    const currentLine = dayPaths[currentLineIndex];
+    const currenLinePercent = percentDayComplete*dayPaths.length - currentLineIndex;
     const currentlyDriving = currentLine && currentLine.properties.description === 'drive';
 
     let currentPoint: LatLng | undefined;
 
     if (currentLine) {
         const currentPath = currentLine.path;
-        const currentPointIndex = currentDay === 0 ? 0 : Math.floor(currentPath.length * percentDayComplete) - 1;
+        const currentPointIndex = currentDay === 0 ? 0 : Math.floor(currentPath.length * currenLinePercent) - 1;
         currentPoint = currentPath[Math.max(0, currentPointIndex)];
     }
 
