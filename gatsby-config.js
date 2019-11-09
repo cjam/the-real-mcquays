@@ -47,6 +47,10 @@ module.exports = {
       options: contentfulConfig
     },
     {
+      resolve: `gatsby-plugin-create-client-paths`,
+      options: { prefixes: [`/trek/*`] },
+    },
+    {
       resolve: 'gatsby-plugin-google-gtag',
       options: {
         trackingIds: [

@@ -4,13 +4,13 @@ import styles from './DiaryControls.module.scss';
 interface DiaryControlsProps {
     onPrevious?: () => void;
     onNext?: () => void;
-    dayPercentComplete?: number;
 }
+
 
 const DiaryControls: React.SFC<DiaryControlsProps> = ({
     onPrevious,
     onNext,
-    dayPercentComplete = 0
+    children
 }) => {
 
     function handlePrevious() {
@@ -28,7 +28,7 @@ const DiaryControls: React.SFC<DiaryControlsProps> = ({
     return (
         <div className={styles.controls} >
             <button onClick={handlePrevious}>Previous</button>
-            {/* <input style={{flex:1}} type='range' /> */}
+            {children}
             <button onClick={handleNext}>Next</button>
         </div>
     );

@@ -14,7 +14,7 @@ const Welcome : React.SFC<WelcomeProps> = ({}) => {
             </section>
             <section className='colter'>
                 <p>Colter's journal entries will appear this color next to them.</p>
-            </section>
+            </section>        
         </div>
     );
 };
