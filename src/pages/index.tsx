@@ -11,11 +11,17 @@ import AuthorCard from "../components/AuthorCard";
 import Container from "../components/Container";
 import TravelMap from "../components/TravelMap";
 import ElevationGraph from "../components/ElevationGraph"
+import TravelDiary, { TravelDay } from "../components/TravelDiary"
 
 // Please note that you can use https://github.com/dotansimha/graphql-code-generator
 // to generate all types from graphQL schema
 interface IndexPageProps {
   data: {
+    site: {
+      siteMetadata: {
+        indexHeroLink?: string;
+      }
+    }
     homePageHero: GatsbyImageProps & { description: string }
     sortedPosts: {
       edges: Array<{
@@ -34,6 +40,11 @@ interface IndexPageProps {
 export default class IndexPage extends React.Component<IndexPageProps, {}> {
   public render() {
     const { data: {
+      site: {
+        siteMetadata: {
+          indexHeroLink
+        } = {}
+      } = {},
       homePageHero,
       sortedPosts: {
         edges: posts = []
@@ -48,7 +59,7 @@ export default class IndexPage extends React.Component<IndexPageProps, {}> {
             <figcaption>
               {homePageHero.description}
             </figcaption>
-            <Link to={"/map"} className="phantom-full" />
+            {indexHeroLink && <Link to={indexHeroLink} className="phantom-full" />}
           </figure>
           <h2>Recent Posts</h2>
           <ArticlePreviewList articles={posts.map(({ post }) => post)} />
@@ -60,6 +71,11 @@ export default class IndexPage extends React.Component<IndexPageProps, {}> {
 
 export const query = graphql`
   query{
+    site {
+      siteMetadata {
+        indexHeroLink
+      }
+    }
     homePageHero:contentfulAsset(title:{eq:"Home Page Hero"}){
       fluid(maxHeight:500,maxWidth:2000,quality:70){
           ...GatsbyContentfulFluid_withWebp

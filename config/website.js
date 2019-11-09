@@ -22,12 +22,13 @@ module.exports = {
   skipNavId: 'reach-skip-nav', // ID for the "Skip to content" a11y feature
   itemsPerPage: 6,              // Use for pagination routines
 
+  indexHeroLink:'/trek',
   navigation: {
     links: [
       { to: '/', label: "Home", exactMatch: true },
       { to: '/blog', label: "Blog" },
       { to: '/map', label: "Map" },
-      {to: '/trek', label: "Trek"}
+      // {to: '/trek', label: "Trek"}
       // { to: '#', label: "Contact"},
     ]
   },

@@ -1,0 +1,11 @@
+@import "../vars.scss";
+
+.trekContainer.constrained{
+    display:flex;
+    flex-direction: column;
+    padding:0;
+
+    @media screen and (max-width:$break-medium-small) {
+        height:calc(100vh - 60px);
+    }
+}

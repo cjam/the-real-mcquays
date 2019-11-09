@@ -10,6 +10,7 @@ const pathPrefix = website.pathPrefix === '/' ? '' : website.pathPrefix
 module.exports = {
   pathPrefix: website.pathPrefix,
   siteMetadata: {
+    indexHeroLink:website.indexHeroLink,
     siteUrl: website.url + pathPrefix, // For gatsby-plugin-sitemap
     pathPrefix,
     title: website.title,
@@ -45,6 +46,10 @@ module.exports = {
     {
       resolve: 'gatsby-source-contentful',
       options: contentfulConfig
+    },
+    {
+      resolve: `gatsby-plugin-create-client-paths`,
+      options: { prefixes: [`/trek/*`] },
     },
     {
       resolve: 'gatsby-plugin-google-gtag',

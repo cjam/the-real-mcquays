@@ -1,0 +1,96 @@
+@import "../../vars.scss";
+
+.travel-diary {
+    display: grid;
+    grid-template-areas:
+        "map day-info"
+        "map content"
+        "map controls";
+    grid-template-columns: 0.5fr 0.5fr;
+    grid-template-rows: auto 1fr auto;
+    row-gap: 3px;
+    overflow-x:hidden;
+    height: 100%;
+
+    @media screen and (max-width:$break-medium-small) {
+        grid-template-areas: 
+        "map"
+        "day-info"
+        "content"
+        "controls";
+        grid-template-columns: 1fr;
+        grid-template-rows: 0.5fr auto 0.5fr auto;
+        row-gap: 0px;
+    }
+}
+
+.travel-diary-map {
+    grid-area: map;
+
+    @media screen and (max-width:$break-medium-small) {
+        .mapContainer{
+            height:100%;
+        }
+    }
+}
+
+.travel-diary-day-info {
+    grid-area: day-info;
+    opacity:1;
+    box-shadow: 0px 0px 15px 4px #DDD;
+    border-bottom:1px solid #BBB;
+    background:#FBFBFB;
+
+    &.fadeOut {
+        opacity:0;
+    }
+    transition:opacity 0.3s ease-in-out;
+}
+
+.travel-diary-controls {
+    grid-area: controls;
+    box-shadow: 0px 0px 15px 4px #DDD;
+    border-top:1px solid #BBB;
+    background:#FBFBFB;
+}
+
+.travel-diary-content {
+    grid-area: content;
+    overflow-y: scroll;
+    opacity:1;
+    padding:2px 10px;
+
+
+    &.fadeOut {
+        opacity:0;
+    }
+    transition:opacity 0.3s ease-in-out;
+
+    section.colter{
+        border-left:5px solid #386352;
+        padding-left:5px;
+
+        &::before{
+            content:"Colter";
+            font-weight: 500;
+            font-style: italic;
+            color:#777;
+        }
+    }
+
+    section.holly{
+        border-left:5px solid #9bbfa2;
+        padding-left:5px;
+
+        &::before{
+            content:"Holly";
+            font-weight: 500;
+            font-style: italic;
+            color:#777;
+        }
+    }
+}
+
+
+
+

@@ -1,0 +1,26 @@
+@import "../../vars.scss";
+
+.controls{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding:5px;
+    // border:1px solid grey;
+
+    button{
+        background: $color-bg-light;
+        border-color:$color-accent-light;
+        border-radius: 5px;
+        height:40px;
+        max-width: 150px;
+        width:40%;
+        cursor: pointer;
+
+        &:hover{
+            box-shadow: $shadow;
+            border-color: $color-accent-light;
+            background: $color-bg-light;
+        }
+        transition: $transition;
+    }
+}

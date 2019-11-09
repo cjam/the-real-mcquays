@@ -1,11 +1,10 @@
-import React from "react"
-import { Marker, MarkerProps, InfoWindow, InfoWindowProps } from "react-google-maps"
-import { Link, graphql } from "gatsby";
-import Image, { FluidObject, FixedObject } from "gatsby-image";
-import "./PostFeature.scss"
-import { dateDisplay } from "../../../utils/datetime";
-import { FeatureLayerComponent } from "./Layer";
-import {postSymbol} from "../symbols"
+import { graphql, Link } from 'gatsby';
+import React from 'react';
+import { InfoWindow, InfoWindowProps, Marker, MarkerProps } from 'react-google-maps';
+import { dateDisplay } from '../../../utils/datetime';
+import { postSymbol } from '../symbols';
+import { FeatureLayerComponent } from './Layer';
+import './PostFeature.scss';
 
 
 
@@ -29,26 +28,26 @@ export const postFeatureFragment = graphql`
       }
       publishDate
     }
-`
+`;
 
 export interface PostFeature {
     location: {
         lat: number
         lng: number
-    }
-    title: string
-    slug: string
+    };
+    title: string;
+    slug: string;
     description: {
         text: {
             excerpt: string
         }
-    }
-    body:{
-        doc:{
-            timeToRead:number
+    };
+    body: {
+        doc: {
+            timeToRead: number
         }
-    }
-    publishDate:string
+    };
+    publishDate: string;
     // image: {
     //     fixed: FixedObject
     // }
@@ -56,7 +55,7 @@ export interface PostFeature {
 
 
 export interface PostMarkerProps {
-    feature: PostFeature
+    feature: PostFeature;
 }
 
 export const PostMarker: React.SFC<PostMarkerProps & MarkerProps> = ({
@@ -73,53 +72,53 @@ export const PostMarker: React.SFC<PostMarkerProps & MarkerProps> = ({
         >
             {children}
         </Marker>
-    )
-}
+    );
+};
 
 export const PostInfoWindow: React.SFC<PostMarkerProps & InfoWindowProps> = (
     {
-        feature: { title, slug, description = {}, body,publishDate }
+        feature: { title, slug, description = {}, body, publishDate }
         , ...restProps
     }
 ) => (
         <InfoWindow  {...restProps}>
-            <div className="post-feature-info-content">
-                <h3 className="title">{title}</h3>
-                <div className="published">{dateDisplay(publishDate)}</div>
-                <div className="time-to-read">Time To Read: <span>2 mins</span></div>
+            <div className='post-feature-info-content'>
+                <h3 className='title'>{title}</h3>
+                <div className='published'>{dateDisplay(publishDate)}</div>
+                <div className='time-to-read'>Time To Read: <span>2 mins</span></div>
                 {/* <figure>
                     <Image {...image} />
                 </figure> */}
-                <div className="excerpt">
+                <div className='excerpt'>
                     {description.text.excerpt}
                 </div>
-                
+
                 <Link to={`/blog/${slug}`}>Read More...</Link>
             </div>
         </InfoWindow>
-    )
+    );
 
-    export const PostsLayer: FeatureLayerComponent<PostFeature> = ({ features = [], selectedFeature, onClick, onClose, zIndexStart=0 }) => {
-        return (
-            <>
-                {features.map((feature, index) => {
-                    const isSelected = feature === selectedFeature;
-                    return (
-                        <PostMarker
-                            key={`post-${index}`}
-                            feature={feature}
-                            onClick={() => onClick && onClick(feature)}
-                            zIndex={zIndexStart+index}
-                        >
-                            {isSelected && (
-                                <PostInfoWindow
-                                    feature={feature}
-                                    onCloseClick={() => onClose && onClose(feature)}
-                                />
-                            )}
-                        </PostMarker>
-                    )
-                })}
-            </>
-        )
-    }
+export const PostsLayer: FeatureLayerComponent<PostFeature> = ({ features = [], selectedFeature, onClick, onClose, zIndexStart = 0 }) => {
+    return (
+        <>
+            {features.map((feature, index) => {
+                const isSelected = feature === selectedFeature;
+                return (
+                    <PostMarker
+                        key={`post-${index}`}
+                        feature={feature}
+                        onClick={() => onClick && onClick(feature)}
+                        zIndex={zIndexStart + index}
+                    >
+                        {isSelected && (
+                            <PostInfoWindow
+                                feature={feature}
+                                onCloseClick={() => onClose && onClose(feature)}
+                            />
+                        )}
+                    </PostMarker>
+                );
+            })}
+        </>
+    );
+};
