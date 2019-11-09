@@ -10,6 +10,7 @@ const pathPrefix = website.pathPrefix === '/' ? '' : website.pathPrefix
 module.exports = {
   pathPrefix: website.pathPrefix,
   siteMetadata: {
+    indexHeroLink:website.indexHeroLink,
     siteUrl: website.url + pathPrefix, // For gatsby-plugin-sitemap
     pathPrefix,
     title: website.title,
